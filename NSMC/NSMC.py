@@ -9,6 +9,9 @@ from tqdm import tqdm
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
+import os
+import pickle
+
 from tensorflow.keras.layers import Embedding, Dense, LSTM
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
@@ -24,10 +27,6 @@ train_data['document'].nunique(), train_data['label'].nunique()
 
 train_data.drop_duplicates(subset=['document'], inplace=True)
 
-train_data['label'].value_counts().plot(kind = 'bar')
-
-train_data.loc[train_data.document.isnull()]
-
 train_data = train_data.dropna(how = 'any') # Null 값이 존재하는 행 제거
 train_data['document'] = train_data['document'].str.replace("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]","")
 train_data['document'] = train_data['document'].str.replace('^ +', "") # white space 데이터를 empty value로 변경
@@ -35,11 +34,11 @@ train_data['document'].replace('', np.nan, inplace=True)
 train_data = train_data.dropna(how = 'any')
 
 test_data.drop_duplicates(subset = ['document'], inplace=True) # document 열에서 중복인 내용이 있다면 중복 제거
+test_data = test_data.dropna(how = 'any') # Null 값이 존재하는 행 제거
 test_data['document'] = test_data['document'].str.replace("[^ㄱ-ㅎㅏ-ㅣ가-힣 ]","") # 정규 표현식 수행
 test_data['document'] = test_data['document'].str.replace('^ +', "") # 공백은 empty 값으로 변경
 test_data['document'].replace('', np.nan, inplace=True) # 공백은 Null 값으로 변경
 test_data = test_data.dropna(how='any') # Null 값 제거
-print('전처리 후 테스트용 샘플의 개수 :',len(test_data))
 
 stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다']
 
@@ -115,6 +114,11 @@ below_threshold_len(max_len, X_train)
 X_train = pad_sequences(X_train, maxlen=max_len)
 X_test = pad_sequences(X_test, maxlen=max_len)
 
+tokenizer_name = 'ssafy_naver_review_tokenizer.pickle'
+save_path = os.path.join(os.getcwd(), tokenizer_name)
+with open(save_path, 'wb') as f:
+    pickle.dump(tokenizer, f, protocol=pickle.HIGHEST_PROTOCOL)
+
 embedding_dim = 100
 hidden_units = 128
 
@@ -131,6 +135,21 @@ history = model.fit(X_train, y_train, epochs=15, callbacks=[es, mc], batch_size=
 
 loaded_model = load_model('best_model.h5')
 print("\n 테스트 정확도: %.4f" % (loaded_model.evaluate(X_test, y_test)[1]))
+
+save_dir = os.getcwd()
+model_name = 'ssafy_naver_review_trained_model.h5'
+loaded_model_name = 'ssafy_naver_review_trained_loaded_model.h5'
+
+# Save model and weights
+model_path = os.path.join(save_dir, model_name)
+loaded_model_path = os.path.join(save_dir, loaded_model_name)
+
+model.save(model_path)
+loaded_model.save(loaded_model_path)
+print('Saved trained model at %s ' % model_path)
+print('Saved trained model at %s ' % loaded_model_path)
+
+
 
 def sentiment_predict(new_sentence):
   new_sentence = re.sub(r'[^ㄱ-ㅎㅏ-ㅣ가-힣 ]','', new_sentence)
