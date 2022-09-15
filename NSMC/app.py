@@ -51,7 +51,7 @@ def sentiment_predict(new_sentence):
   score = float(loaded_model.predict(pad_new)) # 예측
   if(score > 0.5):
     print("{:.2f}% 확률로 긍정 리뷰입니다.\n".format(score * 100))
-    return "{:.2f}% 확률로 긍정 리뷰입니다.\n".format(score * 100)
+    return "{:.2f}%".format(score * 100)
   else:
-    print("{:.2f}% 확률로 부정 리뷰입니다.\n".format((1 - score) * 100))
-    return "{:.2f}% 확률로 부정 리뷰입니다.\n".format((1 - score) * 100)
+    print("{:.2f} 확률로 부정 리뷰입니다.\n".format((1 - score) * 100))
+    return "{:.2f}".format((score) * 100)
