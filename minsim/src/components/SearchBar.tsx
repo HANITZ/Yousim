@@ -1,8 +1,14 @@
-import React from 'react'
+import { React, useState } from 'react';
 
 function SearchBar() {
+  const [inputText, setInputText] = useState("");
+  let inputHandler = (e: any) => {
+        setInputText(e.target.value)
+  }
+  
   return (
-    <div>SearchBar</div>
+    <h1>SearchBar</h1>
+      <input type="text" value={search} inputHandler={inputHandler} />
   )
 }
 
