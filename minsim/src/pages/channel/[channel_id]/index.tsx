@@ -1,8 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import SearchBar from 'src/components/SearchBar'
+import { useRouter } from 'next/router'
 
-const TrendPage: NextPage = () => {
+const ChannelDetailPage: NextPage = () => {
+  const router = useRouter()
+  const query = router.query
+  console.log(query)
+
   return (
     <div>
       <Head>
@@ -28,4 +33,4 @@ const TrendPage: NextPage = () => {
   )
 }
 
-export default TrendPage
+export default ChannelDetailPage

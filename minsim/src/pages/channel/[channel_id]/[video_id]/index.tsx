@@ -1,9 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import SearchBar from 'src/components/SearchBar'
+import { useRouter } from 'next/router'
 
-const Home: NextPage = () => {
+const VideoDetailPage: NextPage = () => {
+  const router = useRouter()
+  const query = router.query
+  console.log(query)
   return (
     <div>
       <Head>
@@ -29,4 +32,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default VideoDetailPage
