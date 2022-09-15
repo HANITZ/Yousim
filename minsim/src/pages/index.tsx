@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import SearchBar from 'src/components/SearchBar'
 
 const Home: NextPage = () => {
   return (
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
         }}>
         Throw error
         </button>
+        <SearchBar></SearchBar>
       </main>
     </div>
   )

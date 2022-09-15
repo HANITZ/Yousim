@@ -1,15 +1,24 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 function SearchBar() {
   const [inputText, setInputText] = useState("");
-  let inputHandler = (e: any) => {
-        setInputText(e.target.value)
+  const router = useRouter()
+  const routerPush = () => {router.push(`/search/${inputText}`)}
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      routerPush()
+    }
   }
-  
+
   return (
-    <h1>SearchBar</h1>
-      <input type="text" value={search} inputHandler={inputHandler} />
-  )
+    <div>
+      <input type="text" value={inputText} onChange={(e) => {
+        setInputText(e.target.value) 
+      }} onKeyDown={onKeyDown}/>
+      <button onClick={routerPush}>검색</button>
+    </div>
+)
 }
 
 export default SearchBar
