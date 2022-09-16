@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
+
+import DescribeTextStyle from 'styles/DescribeTextStyle'
 
 const Home: NextPage = () => {
   return (
@@ -26,6 +29,9 @@ const Home: NextPage = () => {
         }}>
         Throw error
         </button>
+        <DescribeTextStyle>
+          Hi
+        </DescribeTextStyle>
       </main>
     </div>
   )
