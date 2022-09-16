@@ -11,9 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -23,7 +21,7 @@ import java.util.Map;
 
 @Service("youtubeService")
 public class YoutubeServiceImpl implements YoutubeService {
-    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
+    public static final String KEY = "AIzaSyBk4-MbPaB_PLYPKgx6i1lhckgGFTR0xwU";
 
     private static IWordAnalysisRepository wordAnalysisService;
 
@@ -136,7 +134,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     public List<Video> getDetails(String channelId) throws Exception {
         String apiurl = "https://www.googleapis.com/youtube/v3/search";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&type=video&maxResults=2&videoEmbeddable=true&order=date";
+        apiurl += "&part=snippet&type=video&maxResults=5&videoEmbeddable=true&order=date";
         apiurl += "&channelId=" + channelId;
 
 
@@ -180,7 +178,7 @@ public class YoutubeServiceImpl implements YoutubeService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=3&order=relevance";
+        apiurl += "&part=snippet&maxResults=10&order=relevance";
         apiurl += "&videoId=" + videoId;
 
 
@@ -213,27 +211,27 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
 
-                apiurl = "http://43.200.1.125:5000/?data="+URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
+                apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
 
-                 url = new URL(apiurl);
-                 con = (HttpURLConnection) url.openConnection();
+                url = new URL(apiurl);
+                con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
 
-                 br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-                 response = new StringBuffer();
+                br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+                response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
                 br.close();
-  
+
 
                 Comment comment = Comment.builder()
                         .content((String) snippet2.get("textDisplay"))
                         .time((String) snippet2.get("publishedAt"))
                         .thumbnail((String) snippet2.get("authorProfileImageUrl"))
                         .name((String) snippet2.get("authorDisplayName"))
-                        .like(  ((Long) snippet2.get("likeCount")).intValue())
+                        .like(((Long) snippet2.get("likeCount")).intValue())
                         .minsim(response.toString())
                         .build();
 
@@ -294,7 +292,7 @@ public class YoutubeServiceImpl implements YoutubeService {
                         .video(Integer.parseInt((String) statistics.get("videoCount")))
                         .view(Long.parseLong((String) statistics.get("viewCount")))
                         .thumbnail((String) medium.get("url"))
-                        .banner((String) image.get("bannerExternalUrl"))
+//                        .banner((String) image.get("bannerExternalUrl"))
                         .build();
             }
         }
@@ -363,62 +361,77 @@ public class YoutubeServiceImpl implements YoutubeService {
 
     // 영상 ID로 댓글 가져오기
     public static void searchCommentsByVideoID(String videoID) throws Exception {
-        String isNext = "";
+        try {             // 1. 파일 객체 생성
+            File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
+            // 2. 파일 존재여부 체크 및 생성
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            //
+//             3. Buffer를 사용해서 File에 write할 수 있는 BufferedWriter 생성
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+//             4. 파일에 쓰기
 
-        do {
-            String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
-            apiurl += "?key=" + KEY;
-            apiurl += "&part=snippet&maxResults=50";
-            apiurl += "&videoId=" + videoID;
+
+            String isNext = "";
+
+            do {
+                String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
+                apiurl += "?key=" + KEY;
+                apiurl += "&part=snippet&maxResults=50";
+                apiurl += "&videoId=" + videoID;
 //            apiurl += "&pageToken=" + isNext;
 
-            URL url = new URL(apiurl);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
+                URL url = new URL(apiurl);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-            // 끝
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = br.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                br.close();
+                // 끝
 
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(response.toString());
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(response.toString());
 
-            JSONObject jsonMain = (JSONObject) obj;
+                JSONObject jsonMain = (JSONObject) obj;
 //            isNext = (String) jsonMain.get("nextPageToken");
-            System.out.println(isNext);
-            JSONArray jsonArr = (JSONArray) jsonMain.get("items");
+                System.out.println(isNext);
+                JSONArray jsonArr = (JSONArray) jsonMain.get("items");
 
 
+                Map<String, Integer> rMap = null;
+                if (jsonArr.size() > 0) {
+                    for (int i = 0; i < jsonArr.size(); i++) {
 
-            Map<String, Integer> rMap = null;
-            if (jsonArr.size() > 0) {
-                for (int i = 0; i < jsonArr.size(); i++) {
 
+                        JSONObject jsonObj = (JSONObject) jsonArr.get(i);
 
-                    JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+                        JSONObject snippet = (JSONObject) jsonObj.get("snippet");
+                        JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
+                        JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
+//                    System.out.println(snippet);
+//                        writer.write((String) snippet2.get("testDisplay"));
 
-                    JSONObject snippet = (JSONObject) jsonObj.get("snippet");
-                    JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
-                    JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
-                    System.out.println(snippet2.get("textDisplay"));
-
-                    rMap=wordAnalysisService.doWordAnalysis((String)snippet2.get("testDisplay"));
-                    System.out.println(rMap);
+//                    rMap=wordAnalysisService.doWordAnalysis((String)snippet2.get("testDisplay"));
+//                    System.out.println(rMap);
 //                    System.out.println("댓글 내용 : " + snippet2.get("textDisplay"));
 //                    System.out.println("작성 시간 : " + snippet2.get("publishedAt"));
 //                    System.out.println("좋아요 : " + snippet2.get("likeCount"));
 
+                    }
                 }
-            }
 
-        } while (isNext != "" && isNext != null);
-        // 시작
-
-
+            } while (isNext != "" && isNext != null);
+            // 시작
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

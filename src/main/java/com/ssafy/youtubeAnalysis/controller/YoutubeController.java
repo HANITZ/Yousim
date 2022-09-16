@@ -17,14 +17,11 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(value = "유튜브 API", tags = {"Youtube"})
 @RestController
@@ -112,6 +109,8 @@ public class YoutubeController {
 //        List<String> lines = Files.readAllLines(Paths.get("C:/Users/multicampus/Desktop/youtubedata.txt"));
 //
 //        System.out.println(lines);
+//        youtubeService.searchCommentsByVideoID()
+
         String line="";
         Map<String, Integer> rMap = null;
 
@@ -119,6 +118,7 @@ public class YoutubeController {
         File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             while ((line = br.readLine()) != null) {
+                System.out.println(line);
                 rMap = wordAnalysisService.doWordAnalysis(line);
             }
         } catch (IOException e) {
@@ -134,4 +134,34 @@ public class YoutubeController {
 
         return rMap;
     }
+
+    @GetMapping("/check/{검색어}")
+    public void String(@PathVariable String 검색어) throws Exception {
+       List<Channel> result = youtubeService.searchChannelId(검색어);
+        System.out.println("검색어에 대한 결과 채널들의 채널 아이디 추출");
+        System.out.println("result : "+ result);
+
+//        for(int i=0; i<result.size();i++){
+            String 채널아이디 = result.get(0).getId();
+
+            System.out.println("채널아이디출력 " +채널아이디 + " "+result.size());
+
+            List<Video> 채널상세정보리스트 = youtubeService.getDetails(채널아이디);
+        System.out.println("채널상세정보리스트출력한겁니다   "+채널상세정보리스트);
+            for(int i=0; i<채널상세정보리스트.size(); i++){
+                String 영상아이디 = 채널상세정보리스트.get(i).getId();
+                System.out.println("영상아이디정보 출력 "+영상아이디);
+                List<Comment> 영상별댓글리스트 = youtubeService.getComments(영상아이디);
+                for(int j=0; j<영상별댓글리스트.size(); j++){
+                    String 영상별댓글 = 영상별댓글리스트.get(j).getContent();
+                    System.out.println("영상별 댓글 : "+영상별댓글);
+                }
+
+            }
+/*
+* 여기쯤에 spark 로 RDD별 형태소분석 돌려서 결과물 출력하는 코드 넣으면 끝 maybe
+* */
+
+    }
+
 }
