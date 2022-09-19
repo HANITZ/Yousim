@@ -40,6 +40,7 @@ function NavBar() {
                 </NavLi>
                 <NavLi>
                     <h3>    
+                        <div onClick={routerpush}></div>
                         <Link href="/trend">Trend</Link>
                     </h3>
                 </NavLi>

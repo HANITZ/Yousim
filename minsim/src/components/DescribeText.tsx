@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import theme from '../../styles/theme';
 
 const DescribeTextStyle = styled.div`
+  margin: 128px 0px 64px 0px;
+  
   display: flex;
   flex-direction: column;
 `
@@ -13,8 +15,6 @@ const DescribeMainText = styled.h2`
 `
 const DescribeSubText = styled.h2`
   color: #fff;  
-  font-size: 37.9px;
-  line-height: 140%;
 `
 
 interface IDescribeText{

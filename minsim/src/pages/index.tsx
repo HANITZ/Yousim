@@ -1,11 +1,18 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { SloganContainer } from 'styles/IndexStyle'
-import SearchBar from 'src/components/SearchBar'
-import NavBar from 'src/components/NavBar'
+import Chart from '/public/images/chart.png'
 
+import NavBar from 'src/components/NavBar'
+import SearchBar from 'src/components/SearchBar'
 import DescribeText from 'src/components/DescribeText'
+
+import { SloganContainer } from 'styles/mainStyles/IndexStyle'
+import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
+import { LightSection } from 'styles/mainStyles/LightSectionStyle'
+import { IntroductionVideoContainer } from 'styles/mainStyles/IntroductionVideoStyle'
+import { Spinner } from 'styles/componentStyles/SpinnerStyle'
+import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 const Home: NextPage = () => {
   return (
@@ -18,12 +25,39 @@ const Home: NextPage = () => {
       <NavBar />
 
       <main>
-        <SloganContainer>
-          <h4>
-          서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
-          </h4>
-        </SloganContainer>
-        <SearchBar />
+        <section>
+          <SloganContainer>
+            <h4>
+              서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
+            </h4>
+          </SloganContainer>
+          <SearchBar />
+        </section>
+        <section>
+          <DescribeText 
+            mainText='채널 정보' 
+            subText1='채널을 검색해보세요.'
+            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
+          <IntroductionSearchBar />
+          <IntroductionVideoContainer />
+          <Spinner />
+        </section>
+        <section>
+          <DescribeText 
+            mainText='민심 확인' 
+            subText1='채널을 검색해보세요.'
+            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
+          <ImgFrameContainer>
+            <Image src={Chart} alt="배경 차트"/>
+          </ImgFrameContainer>
+        </section>
+        <section>
+          <DescribeText 
+            mainText='트렌드 서칭' 
+            subText1='채널을 검색해보세요.'
+            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
+          <IntroductionVideoContainer />
+        </section>
         {/* <button 
         
         onClick={() => {
@@ -31,10 +65,6 @@ const Home: NextPage = () => {
         }}>
         Throw error
       </button> */}
-        <DescribeText 
-          mainText='채널 정보' 
-          subText1='채널을 검색해보세요.'
-          subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
       </main>
     </>
   )
