@@ -33,6 +33,7 @@ function NavBar() {
                 <NavLi></NavLi>
                 <NavLi>
                     <Image src={Logo} alt="" width={100} height={50} onClick={routerpush}></Image>
+                    {/* <Image src={Logo} alt="" width={100} height={50} onClick={() => {router.push("/")}}></Image> */}
                 </NavLi>
                 <NavLi>
                     <Link href="/trend">Trend</Link> 
