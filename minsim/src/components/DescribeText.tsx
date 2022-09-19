@@ -8,8 +8,6 @@ const DescribeTextStyle = styled.div`
 
 const DescribeMainText = styled.h2`
   color: #FF5349;
-  font-size: 37.9px;
-  line-height: 140%;
   margin-bottom: 32px;
   
 `

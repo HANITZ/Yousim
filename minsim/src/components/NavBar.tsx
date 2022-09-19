@@ -6,8 +6,10 @@ import { useRouter } from 'next/router';
 import styled from "@emotion/styled";
 
 const NavStyle = styled.nav`
-    /* position : fixed;
-    z-index : 1; */
+    position : fixed;
+    top: 0px;
+    left: 0px;
+    padding: 0 64px 0 64px;
     width : 100%;
 `
 const NavUl = styled.ul`
@@ -27,6 +29,7 @@ const NavLi = styled.li`
 function NavBar() {
     const router = useRouter()
     const routerpush = () => {router.push("/")}
+    
     return (
         <NavStyle>
             <NavUl>
@@ -36,7 +39,9 @@ function NavBar() {
                     {/* <Image src={Logo} alt="" width={100} height={50} onClick={() => {router.push("/")}}></Image> */}
                 </NavLi>
                 <NavLi>
-                    <Link href="/trend">Trend</Link> 
+                    <h3>    
+                        <Link href="/trend">Trend</Link>
+                    </h3>
                 </NavLi>
             </NavUl>
         </NavStyle>

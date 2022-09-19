@@ -16,7 +16,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar />
-      <SearchBar />
 
       <main>
         <SloganContainer>
@@ -24,13 +23,14 @@ const Home: NextPage = () => {
           서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
           </h4>
         </SloganContainer>
+        <SearchBar />
         {/* <button 
         
         onClick={() => {
           throw new Error('Sentry Frontend Error')
         }}>
         Throw error
-        </button> */}
+      </button> */}
         <DescribeText 
           mainText='채널 정보' 
           subText1='채널을 검색해보세요.'
