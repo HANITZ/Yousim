@@ -13,23 +13,38 @@ const NavDiv = styled.div`
   justify-content: center;
 `
 
-const SearchInput = styled.input`
+const Label = styled.label`
   position: relative;
-  
-  background-color: #fff;
-  border: 0px;
-  border-radius: 25px;
-  min-height: 48px;
-  min-width: 1080px;
 
-  :hover {
-    border: 2px solid #FF5349;
+  input {
+    position: relative;
+    background-color: #fff;
+    border-radius: 25px;
+    min-height: 48px;
+    min-width: 1080px;
+
+    :hover {
+      border: 4px solid #FF5349;
+    }
+
+    :focus {
+      border: 4px solid #FF5349;
+      outline: none;
+    }
   }
 
-  :focus {
-    outline: 2px solid #FF5349;
+  button {
+    padding: 0;
+    border: none;
+    background-color: #fff;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
   }
-`
+`;
 
 function SearchBar() :JSX.Element {
   const [inputText, setInputText] = useState("");
@@ -43,13 +58,14 @@ function SearchBar() :JSX.Element {
 
   return (
     <NavDiv>
-      <label htmlFor="search" />
-      <SearchInput type="search" id="search" name="search" placeholder='채널을 검색해보세요.' value={inputText} onChange={(e) => {
-        setInputText(e.target.value) 
-      }} onKeyDown={onKeyDown}/>
-      <button onClick={routerPush}>
-        <Image src={search_black} alt="검색" width={32} height={32} />
-      </button>
+      <Label htmlFor="search" >
+        <input type="search" id="search" name="search" value={inputText} onChange={(e) => {
+          setInputText(e.target.value) 
+        }} onKeyDown={onKeyDown}/>
+        <button onClick={routerPush}>
+          <Image src={search_black} alt="검색" width={32} height={32} />
+        </button>
+      </Label>
     </NavDiv>
 )
 }
