@@ -18,6 +18,7 @@ const DescribeSubText = styled.h2`
   font-size: 37.9px;
   line-height: 140%;
 `
+
 interface IDescribeText{
   mainText: string,
   subText1: string
