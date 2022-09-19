@@ -29,7 +29,10 @@ const Home: NextPage = () => {
         }}>
         Throw error
         </button>
-        {/* <DescribeText mainText='asd' subText='asd'/> */}
+        <DescribeText 
+          mainText='채널 정보' 
+          subText1='채널을 검색해보세요.'
+          subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
       </main>
     </div>
   )

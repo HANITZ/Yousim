@@ -1,10 +1,10 @@
 import '../../styles/globals.css'
 import type { AppProps } from 'next/app'
 
-import { css, Global } from '@emotion/react';
+import { Global, css } from '@emotion/react';
 import { ThemeProvider } from '@emotion/react';
 import theme from 'styles/theme';
-import reset from 'styled-reset'
+import globalStyle from 'styles/GlobalStyle';
 
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <Global
           styles={css`
-            ${reset}
+            ${globalStyle};
         `}
         />
         <Component {...pageProps} />
