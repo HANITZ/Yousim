@@ -2,9 +2,12 @@ import '../../styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import { css, Global } from '@emotion/react';
+import { ThemeProvider } from '@emotion/react';
+import theme from 'styles/theme';
+import reset from 'styled-reset'
+
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
-import reset from 'styled-reset'
 
 
 Sentry.init({
@@ -15,14 +18,14 @@ Sentry.init({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-      <>
+      <ThemeProvider theme={theme}>
         <Global
           styles={css`
             ${reset}
         `}
-      />
+        />
         <Component {...pageProps} />
-      </>
+      </ThemeProvider>
     )
 }
 

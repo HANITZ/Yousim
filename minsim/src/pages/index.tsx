@@ -5,7 +5,7 @@ import Image from 'next/image'
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 
-import DescribeTextStyle from 'styles/DescribeTextStyle'
+import DescribeText from 'src/components/DescribeText'
 
 const Home: NextPage = () => {
   return (
@@ -29,9 +29,7 @@ const Home: NextPage = () => {
         }}>
         Throw error
         </button>
-        <DescribeTextStyle>
-          Hi
-        </DescribeTextStyle>
+        {/* <DescribeText mainText='asd' subText='asd'/> */}
       </main>
     </div>
   )
