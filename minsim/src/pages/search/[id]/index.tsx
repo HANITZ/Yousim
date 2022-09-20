@@ -3,6 +3,7 @@ import Head from 'next/head'
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 import { SloganContainer } from 'styles/SearchStyle'
+<<<<<<< HEAD:minsim/src/pages/search.tsx
 import styled from '@emotion/styled'
 import SearchList from 'src/components/SearchList'
 
@@ -13,6 +14,13 @@ const ChannelSearchStyle = styled.div`
   `
 
 const SearchPage: NextPage = () => {
+=======
+import { useRouter } from 'next/router'
+
+const SearchPage: NextPage = () => {
+  const router = useRouter()
+  console.log(router.query);
+>>>>>>> 9103eb37536a7bde37b4118d47a8724aa05f7fef:minsim/src/pages/search/[id]/index.tsx
   
   return (
     <>
@@ -22,9 +30,9 @@ const SearchPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+
       <NavBar />
       <SearchBar />
-
       <main>
         <SloganContainer>
           <SearchList />

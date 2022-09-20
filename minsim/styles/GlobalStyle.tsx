@@ -23,6 +23,13 @@ const globalStyle = css`
     margin-block-start: 0;
     margin-block-end: 0;
   }
+  p {
+    font-size: 16x;
+    line-height: 160%;
+    font-weight: 400;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
 `
 
 export default globalStyle;

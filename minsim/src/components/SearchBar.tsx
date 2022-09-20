@@ -10,7 +10,12 @@ import { NavDiv, Label } from 'styles/componentStyles/SearchBarStyle';
 function SearchBar() :JSX.Element {
   const [inputText, setInputText] = useState("");
   const router = useRouter()
-  const routerPush = () => {router.push(`/search/${inputText}`)}
+  const routerPush = () => {
+    router.push({
+      pathname: "/search/[id]",
+      query: {id: 'channelId'},
+    })
+  }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       routerPush()
