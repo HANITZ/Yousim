@@ -3,8 +3,17 @@ import Head from 'next/head'
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 import { SloganContainer } from 'styles/SearchStyle'
+import styled from '@emotion/styled'
+import SearchList from 'src/components/SearchList'
+
+
+const ChannelSearchStyle = styled.div`
+   display: flex;
+   flex-direction : column;
+  `
 
 const SearchPage: NextPage = () => {
+  
   return (
     <>
       <Head>
@@ -18,16 +27,7 @@ const SearchPage: NextPage = () => {
 
       <main>
         <SloganContainer>
-          <h1>
-            hello minsim
-          </h1>
-          <button 
-          
-          onClick={() => {
-            throw new Error('Sentry Frontend Error')
-          }}>
-          Throw error
-          </button>
+          <SearchList />
         </SloganContainer>
       </main>
     </>
