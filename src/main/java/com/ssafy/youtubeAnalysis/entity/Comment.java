@@ -12,6 +12,6 @@ public class Comment {
     String time;
     String thumbnail;
     String name;
-    int like;
     String minsim;
+    int like;
 }
