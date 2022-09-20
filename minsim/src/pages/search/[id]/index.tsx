@@ -3,8 +3,12 @@ import Head from 'next/head'
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 import { SloganContainer } from 'styles/SearchStyle'
+import { useRouter } from 'next/router'
 
 const SearchPage: NextPage = () => {
+  const router = useRouter()
+  console.log(router.query);
+  
   return (
     <>
       <Head>
@@ -13,9 +17,9 @@ const SearchPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+
       <NavBar />
       <SearchBar />
-
       <main>
         <SloganContainer>
           <h1>
