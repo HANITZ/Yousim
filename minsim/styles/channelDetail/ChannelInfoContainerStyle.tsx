@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 
 export const ChannelInfoContainer = styled.div`
-  width: 1312px;
+  width: 100%;
+  max-width: 1312px;
   height: 192px;
   background-color: #31313C;
   border-radius: 0 0 10px 10px;
   padding: 32px 112px 32px 112px;
+  margin-bottom: 16px;
 `
+
 export const ChannelInfoContainerInnerWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -18,7 +21,6 @@ export const ChannelInfoContainerInnerWrapper = styled.div`
 `
 
 export const ChannelInfoImgTextWrapper = styled.div`
-  min-width: 100%;
 
   display: flex;
   flex-direction: row;

@@ -10,7 +10,10 @@ import Banner from 'styles/channelDetail/BannerStyle'
 import ChannelInfo from 'src/components/ChannelInfo'
 import { ChannelInfoContainer, ChannelInfoContainerInnerWrapper, ChannelInfoImgTextWrapper } from 'styles/channelDetail/ChannelInfoContainerStyle'
 import TitleImg from '/public/images/titleImg.jpg'
-import TitleImage from 'styles/channelDetail/ChannelTitleImg'
+import Tags from 'src/components/Tags'
+import ChannelMinsimText from 'src/components/ChannelMinsimText'
+import VideoListTitle from 'styles/channelDetail/VideoListSectionTitleStyle'
+import {VideoListContainer, VideoListContainerInnerWrapper} from 'styles/channelDetail/VideoListContainerStyle'
 
 
 const ChannelDetailPage: NextPage = () => {
@@ -29,20 +32,40 @@ const ChannelDetailPage: NextPage = () => {
       <main>
         <NavBar />
         <SearchBar />
-        1
-        <Banner 
-          src={`https://img.freepik.com/free-vector/gradient-halftone-music-festival-twitch-banner_23-2149040677.jpg?w=2000&t=st=1663641345~exp=1663641945~hmac=1e7808783ded0ae6c5984305debf78323498575e2508137377925644e7cbb761`}
-          alt='배너'
-        />
-        <ChannelInfoContainer>
-          <ChannelInfoContainerInnerWrapper>
-            <ChannelInfoImgTextWrapper>
-              <Image src={TitleImg}  alt='채널 대표 이미지' width={'128px'} height={'128px'} objectFit='cover' style={{borderRadius: '50%'}} />
-              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
-            </ChannelInfoImgTextWrapper>
+        <section>
+          <Banner 
+            src={`https://img.freepik.com/free-vector/gradient-halftone-music-festival-twitch-banner_23-2149040677.jpg?w=2000&t=st=1663641345~exp=1663641945~hmac=1e7808783ded0ae6c5984305debf78323498575e2508137377925644e7cbb761`}
+            alt='배너'
+          />
+          <ChannelInfoContainer>
+            <ChannelInfoContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image src={TitleImg}  alt='채널 대표 이미지' width={'128px'} height={'128px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+              </ChannelInfoImgTextWrapper>
+              <Tags />
+            </ChannelInfoContainerInnerWrapper>
+          </ChannelInfoContainer>
+          <ChannelMinsimText title='채널 민심' mainText='95%  떡상' ></ChannelMinsimText>
+          <ChannelMinsimText title='가장 많이 언급된 키워드' mainText='특화는 이게 맞아' ></ChannelMinsimText>
+        </section>
+        <section>
+          <VideoListTitle>
+            채널 영상
+          </VideoListTitle>
 
-          </ChannelInfoContainerInnerWrapper>
-        </ChannelInfoContainer>
+          <VideoListContainer>
+            <VideoListContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image src={TitleImg} alt='채널 대표 이미지' width={'256px'} height={'128px'} objectFit='cover' objectPosition='top'/>
+                <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+              </ChannelInfoImgTextWrapper>
+              <Tags />
+            </VideoListContainerInnerWrapper>
+          </VideoListContainer>
+
+        </section>
+
       </main>
     </div>
   );

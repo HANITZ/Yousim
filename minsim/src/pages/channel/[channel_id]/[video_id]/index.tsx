@@ -1,12 +1,27 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import SearchBar from 'src/components/SearchBar'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
+
+import TitleImg from '/public/images/titleImg.jpg'
+
+import SearchBar from 'src/components/SearchBar'
+import NavBar from 'src/components/NavBar'
+import Tags from 'src/components/Tags'
+import ChannelInfo from 'src/components/ChannelInfo'
+import VideoInfo from 'src/components/VideoInfo'
+
+import VideoFrame from 'styles/videoDetail/VideoFrameStyle'
+import { ChannelInfoContainer, ChannelInfoContainerInnerWrapper, ChannelInfoImgTextWrapper } from 'styles/channelDetail/ChannelInfoContainerStyle'
+import { VideoMinsimContainer } from 'styles/videoDetail/VideoMinsimStyle'
+import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
+
 
 const VideoDetailPage: NextPage = () => {
   const router = useRouter()
   const query = router.query
   console.log(query)
+  
   return (
     <div>
       <Head>
@@ -16,17 +31,31 @@ const VideoDetailPage: NextPage = () => {
       </Head>
 
       <main>
-        <h1>
-          hello minsim
-        </h1>
-        <button 
-        
-        onClick={() => {
-          throw new Error('Sentry Frontend Error')
-        }}>
-        Throw error
-        </button>
-        <SearchBar></SearchBar>
+        <NavBar />
+        <SearchBar />
+        <VideoFrame src='https://player.vimeo.com/external/319226256.sd.mp4?s=15bd6bd5af266703564dcee166b1ae076659193a&profile_id=164&oauth2_token_id=57447761' title=''/>
+        <ChannelInfoContainer>
+            <ChannelInfoContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <VideoInfo title='노래' sub1='아이유' sub2='조회수 127만명  |  1일 전' ></VideoInfo>
+              </ChannelInfoImgTextWrapper>
+              <Tags />
+            </ChannelInfoContainerInnerWrapper>
+          </ChannelInfoContainer>
+
+          <VideoMinsimContainer>
+          </VideoMinsimContainer>
+
+          <VideoListContainer>
+            <h4>Best 댓글</h4>
+            <VideoListContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+              </ChannelInfoImgTextWrapper>
+              <Tags />
+            </VideoListContainerInnerWrapper>
+          </VideoListContainer>
       </main>
     </div>
   )
