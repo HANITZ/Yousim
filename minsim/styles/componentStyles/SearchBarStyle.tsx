@@ -4,11 +4,17 @@ export const NavDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 768px) {
+    width: 75rem;
+  }
 `
 
 export const Label = styled.label`
   position: relative;
-
+    @media screen and (max-width: 768px) {
+    width: 75rem;
+  }
+  
   input {
     position: relative;
     background-color: #fff;
