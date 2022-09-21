@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChannelInfoTextWrapper, ChannelnfoWrapper } from 'styles/componentStyles/ChannelInfoStyle';
+import { ChannelnfoWrapper, VideoInfoTextWrapper } from 'styles/componentStyles/ChannelInfoStyle';
 
 
 interface IChannelData{
@@ -9,18 +9,18 @@ interface IChannelData{
   // tags: [],
 }
 
-const ChannelInfo = ({title, sub1, sub2}: IChannelData) => {
+const VideoInfo = ({title, sub1, sub2}: IChannelData) => {
   return (
     <>
-      <ChannelInfoTextWrapper>
+      <VideoInfoTextWrapper>
         <h3>{title}</h3>
         <ChannelnfoWrapper>
           <p>{sub1}</p><br/>
           <p>{sub2}</p>
         </ChannelnfoWrapper>
-      </ChannelInfoTextWrapper>
+      </VideoInfoTextWrapper>
     </> 
   );
 };
 
-export default ChannelInfo;
+export default VideoInfo;
