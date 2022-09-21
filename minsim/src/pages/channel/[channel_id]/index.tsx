@@ -8,7 +8,10 @@ import NavBar from 'src/components/NavBar'
 import Banner from 'styles/channelDetail/BannerStyle'
 
 import ChannelInfo from 'src/components/ChannelInfo'
-import { ChannelInfoContainer } from 'styles/channelDetail/ChannelInfoContainerStyle'
+import { ChannelInfoContainer, ChannelInfoContainerInnerWrapper, ChannelInfoImgTextWrapper } from 'styles/channelDetail/ChannelInfoContainerStyle'
+import TitleImg from '/public/images/titleImg.jpg'
+import TitleImage from 'styles/channelDetail/ChannelTitleImg'
+
 
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter()
@@ -32,7 +35,13 @@ const ChannelDetailPage: NextPage = () => {
           alt='배너'
         />
         <ChannelInfoContainer>
-          <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+          <ChannelInfoContainerInnerWrapper>
+            <ChannelInfoImgTextWrapper>
+              <Image src={TitleImg}  alt='채널 대표 이미지' width={'128px'} height={'128px'} objectFit='cover' style={{borderRadius: '50%'}} />
+              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+            </ChannelInfoImgTextWrapper>
+
+          </ChannelInfoContainerInnerWrapper>
         </ChannelInfoContainer>
       </main>
     </div>
