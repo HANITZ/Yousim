@@ -3,10 +3,12 @@ package com.ssafy.youtubeAnalysis.controller;
 import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
 import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
 import com.ssafy.youtubeAnalysis.service.YousimService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Api(value = "유심 API", tags = {"Yousim"})
+@Tag(name = "Yousim", description = "YousimAPI")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/Yousim")
@@ -23,13 +25,13 @@ public class YousimController {
     @Autowired
     YousimService yousimService;
 
-    @GetMapping("/channel-status")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "갱신 가능"),
-            @ApiResponse(code = 202, message = "갱신 불가"),
-
+    @Operation(summary = "채널 갱신 상태 확인", description = "갱신 가능 여부 확인하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "갱신 가능"),
+            @ApiResponse(responseCode = "202", description = "갱신 중 or 갱신 불가 + 시간")
     })
-    public ResponseEntity checkStatusChannel(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @GetMapping("/channel-status")
+    public ResponseEntity checkStatusChannel(String id) throws Exception {
         String result = yousimService.checkStatusC(id);
 
         if (result.equals("갱신 가능")) return ResponseEntity.status(200).body(result);
@@ -38,13 +40,14 @@ public class YousimController {
         }
     }
 
-    @GetMapping("/video-status")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "갱신 가능"),
-            @ApiResponse(code = 202, message = "갱신 불가"),
-
+    @Operation(summary = "영상 갱신 상태 확인", description = "갱신 가능 여부 확인하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "갱신 가능"),
+            @ApiResponse(responseCode = "202", description = "갱신 중 or 갱신 불가 + 시간")
     })
-    public ResponseEntity checkStatusVideo(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @GetMapping("/video-status")
+    public ResponseEntity checkStatusVideo(String id) throws Exception {
+
         String result = yousimService.checkStatusV(id);
 
         if (result.equals("갱신 가능")) return ResponseEntity.status(200).body(result);
@@ -53,14 +56,13 @@ public class YousimController {
         }
     }
 
-
-    @GetMapping("/channel")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 202, message = "갱신중"),
-
+    @Operation(summary = "채널 민심 확인", description = "채널 민심 확인하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = ChannelMinsim.class))),
+            @ApiResponse(responseCode = "202", description = "갱신 중")
     })
-    public ResponseEntity channelMS(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @GetMapping("/channel")
+    public ResponseEntity channelMS(String id) throws Exception {
         Optional<ChannelMinsim> optional = yousimService.getChannelMS(id);
 
         String status = yousimService.checkStatusC(id);
@@ -74,13 +76,13 @@ public class YousimController {
         }
     }
 
-    @GetMapping("/video")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 202, message = "갱신중"),
-
+    @Operation(summary = "영상 민심 확인", description = "영상 민심 확인하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = VideoMinsim.class))),
+            @ApiResponse(responseCode = "202", description = "갱신 중")
     })
-    public ResponseEntity VideoMS(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @GetMapping("/video")
+    public ResponseEntity VideoMS(String id) throws Exception {
         Optional<VideoMinsim> optional = yousimService.getVideoMS(id);
 
         String status = yousimService.checkStatusC(id);
@@ -94,13 +96,13 @@ public class YousimController {
         }
     }
 
-    @PostMapping("/channel-refresh")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 202, message = "갱신중"),
-
+    @Operation(summary = "채널 민심 갱신", description = "채널 민심 갱신하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = ChannelMinsim.class))),
+            @ApiResponse(responseCode = "202", description = "갱신 중")
     })
-    public ResponseEntity refreshCMS(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @PostMapping("/channel-refresh")
+    public ResponseEntity refreshCMS(String id) throws Exception {
 
         String status = yousimService.checkStatusC(id);
         if (status.equals("갱신 중")) return ResponseEntity.status(202).body("갱신 중");
@@ -110,13 +112,13 @@ public class YousimController {
         return ResponseEntity.status(200).body(optional);
     }
 
-    @PostMapping("/video-refresh")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 202, message = "갱신중"),
-
+    @Operation(summary = "영상 민심 갱신", description = "영상 민심 갱신하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = VideoMinsim.class))),
+            @ApiResponse(responseCode = "202", description = "갱신 중")
     })
-    public ResponseEntity refreshVMS(@RequestParam @ApiParam(value = "ID", required = true) String id) throws Exception {
+    @PostMapping("/video-refresh")
+    public ResponseEntity refreshVMS(String id) throws Exception {
 
         String status = yousimService.checkStatusV(id);
         if (status.equals("갱신 중")) return ResponseEntity.status(202).body("갱신 중");
@@ -125,6 +127,4 @@ public class YousimController {
         Optional<VideoMinsim> optional = yousimService.getVideoMS(id);
         return ResponseEntity.status(200).body(optional);
     }
-
-
 }

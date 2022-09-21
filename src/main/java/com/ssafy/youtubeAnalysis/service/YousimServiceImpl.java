@@ -132,7 +132,7 @@ public class YousimServiceImpl implements YousimService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=50";
+        apiurl += "&part=snippet&maxResults=10";
         apiurl += "&videoId=" + id;
 
 
@@ -187,7 +187,7 @@ public class YousimServiceImpl implements YousimService {
 
         apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=50&order=relevance";
+        apiurl += "&part=snippet&maxResults=10&order=relevance";
         apiurl += "&videoId=" + id;
 
 
@@ -315,6 +315,7 @@ public class YousimServiceImpl implements YousimService {
 
     @Override
     public String checkStatusV(String id) throws Exception {
+        System.out.println(id);
         Optional<Status> result = statusRepository.findById(id);
 
         if (!result.isPresent()) {
