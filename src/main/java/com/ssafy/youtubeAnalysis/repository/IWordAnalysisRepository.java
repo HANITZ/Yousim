@@ -1,5 +1,6 @@
 package com.ssafy.youtubeAnalysis.repository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public interface IWordAnalysisRepository {
     Map<String, Integer> doWordCount(List<String> pList) throws Exception;
 
     //분석할 문장의 자연어 처리 및 빈도수 분석 수행
-    Map<String, Integer> doWordAnalysis(String text) throws Exception;
+    List<String> doWordAnalysis(String text) throws Exception ;
 
 
 }

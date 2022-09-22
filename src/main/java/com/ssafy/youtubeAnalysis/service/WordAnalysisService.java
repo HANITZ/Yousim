@@ -118,7 +118,7 @@ public class WordAnalysisService implements IWordAnalysisRepository {
     }
 
     @Override
-    public Map<String, Integer> doWordAnalysis(String text) throws Exception {
+    public List<String> doWordAnalysis(String text) throws Exception  {
 
 
         //문장의 명사를 추출하기 위한 형태소 분석 실행
@@ -129,13 +129,13 @@ public class WordAnalysisService implements IWordAnalysisRepository {
         }
 
         //추출된 명사 모음(리스트)의 명사 단어별 빈도수 계산
-        Map<String, Integer> rMap = this.doWordCount(rList);
+//        Map<String, Integer> rMap = this.doWordCount(rList);
+//
+//        if(rMap == null) {
+//            rMap = new HashMap<String, Integer>();
+//        }
 
-        if(rMap == null) {
-            rMap = new HashMap<String, Integer>();
-        }
-
-        return rMap;
+        return rList;
     }
 
 }

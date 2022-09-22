@@ -31,6 +31,7 @@ import java.util.*;
 
 @Tag(name = "Youtube", description = "YoutubeAPI")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/v1/youtube")
 public class YoutubeController {
 
@@ -96,7 +97,7 @@ public class YoutubeController {
 
     @GetMapping(value = "/word/analysis")
     @ResponseBody
-    public Map<String, Integer> analysis() throws Exception {
+    public List<String> analysis() throws Exception {
 
         log.info(this.getClass().getName() + ".inputForm !");
 
@@ -106,7 +107,7 @@ public class YoutubeController {
 //        youtubeService.searchCommentsByVideoID()
 
         String line = "";
-        Map<String, Integer> rMap = null;
+        List<String> rMap = null;
 
 
         File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
@@ -122,7 +123,7 @@ public class YoutubeController {
 //        Map<String, Integer> rMap = wordAnalysisService.doWordAnalysis(text);
 //
         if (rMap == null) {
-            rMap = new HashMap<String, Integer>();
+            rMap = new LinkedList<String>();
         }
 
 
