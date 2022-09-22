@@ -5,8 +5,14 @@ const Tags = () => {
   return (
     <>
       <ChannelTagWrapper>
+        {/* {tags.map} */}
         <Tag>
-          {/* {tags.map} */}
+          <p>asd</p>
+        </Tag>
+        <Tag>
+          <p>asd</p>
+        </Tag>
+        <Tag>
           <p>asd</p>
         </Tag>
       </ChannelTagWrapper>

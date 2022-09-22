@@ -8,7 +8,12 @@ export const IntroductionNavBarContainer = styled.div`
 
 export const IntroductionSearchBarContainer = styled.div`
   position: relative;
-
+    @media screen and (max-width: 768px) {
+      width: 75rem;
+      margin-top: 200px;
+      margin-left: auto;
+      padding: 0 auto;
+  }
   div {
     position: relative;
     background-color: #fff;

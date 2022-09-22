@@ -9,7 +9,7 @@ interface Props {
     alt?: string
     radius?: string
     margin?: string
-    
+    objectFit: string
 }
 
 const TitleImage = ({
@@ -19,12 +19,12 @@ const TitleImage = ({
     alt = '채널 대표 이미지',
     radius = '50%',
     margin = '10px',
-    
+    objectFit = 'cover',
     
 }: Props) => {
     return (
         <ImgWrapper margin={margin} radius={radius}>
-            <ImageTag width={width} height={height} src={src} alt={alt}/>
+            <ImageTag width={width} height={height} src={src} alt={alt} object-fit={objectFit} />
         </ImgWrapper>
     )
 }
