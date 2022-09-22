@@ -10,11 +10,38 @@ import DescribeText from 'src/components/DescribeText'
 import { SloganContainer } from 'styles/mainStyles/IndexStyle'
 import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
 import { LightSection } from 'styles/mainStyles/LightSectionStyle'
-import { IntroductionVideoContainer } from 'styles/mainStyles/IntroductionVideoStyle'
+import { IntroductionVideoContainer, IntroductionDivAnimation1, IntroductionDivAnimation2 } from 'styles/mainStyles/IntroductionVideoStyle'
 import { Spinner } from 'styles/componentStyles/SpinnerStyle'
 import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useEffect } from 'react'
+
 const Home: NextPage = () => {
+  // gsap.registerPlugin(ScrollTrigger);
+  // gsap.to("#IntroductionDivAnimation2", {
+  //   scrollTrigger: {
+  //     trigger: '#IntroductionDivAnimation2',
+  //     markers: true,
+  //     start: "top top",
+  //     end: "top 800px",
+  //     scrub: 1,
+  //   }
+  // });
+  // let el = gsap.timeline();
+  useEffect(() => {
+    console.log(gsap)
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to("#IntroductionDivAnimation1", {
+      x: -300, duration: 3
+      });
+    gsap.to("#IntroductionDivAnimation2", {
+      x: 300, duration: 3
+      }
+    );
+
+  }, [])
   return (
     <>
       <Head>
@@ -39,7 +66,11 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <IntroductionSearchBar />
-          <IntroductionVideoContainer />
+          <IntroductionVideoContainer>
+            <IntroductionDivAnimation1 id='IntroductionDivAnimation1'/>
+            {/* <IntroductionVideo /> */}
+            <IntroductionDivAnimation2 id='IntroductionDivAnimation2'/>
+          </IntroductionVideoContainer>
           <Spinner />
         </section>
         <section>
