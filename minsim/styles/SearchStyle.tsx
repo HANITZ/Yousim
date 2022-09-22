@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import theme from './theme';
 
-export const SloganContainer = styled.h2`
+export const SloganContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

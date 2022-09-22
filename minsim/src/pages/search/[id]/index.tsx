@@ -8,7 +8,9 @@ import { useRouter } from 'next/router'
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
-  console.log(router.query);
+  const searchName = router.query.id?.toString()
+
+  
   
   return (
     <>
@@ -23,7 +25,7 @@ const SearchPage: NextPage = () => {
       <SearchBar />
       <main>
         <SloganContainer>
-          <SearchList />
+          <SearchList name={searchName} />
         </SloganContainer>
       </main>
     </>

@@ -1,12 +1,17 @@
 import { jsx } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import apisearchList from "src/pages/api/apisearchList";
 import SearchItem from './SearchItem'
 
 const SearchListStyle = styled.div`
   display: flex;
   flex-direction: column;
 `
-
+const UlName = styled.ul`
+  text-align : center;
+`
 
 interface ISearchList{
   key: number,
@@ -17,9 +22,21 @@ interface ISearchList{
   video: number,
   thumbnail: string,
 }
+interface Iprops{
+  name?: string
+}
 
+function SearchList(props:Iprops) {
+  const router =useRouter()
+  const [searchList, setSearchList]= useState([])
 
-function SearchList() {
+  useEffect(()=> {
+    console.log(props.name)
+    apisearchList(props.name)
+    .then()
+
+  }, [])
+  
   const searchData = [{
     id: 1,
     name: '아이유',
@@ -46,7 +63,7 @@ function SearchList() {
   }
 
   return (
-  <ul>
+  <UlName>
     {
        searchData.map(({id, name, description, subscriber, video, thumbnail}) => {
         return (
@@ -54,7 +71,7 @@ function SearchList() {
         )
       })
     }
-  </ul>
+  </UlName>
 )}
 
  export default SearchList;

@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-const UlName = styled.li`
-  text-align : center;
-`
+
 const LiDescription = styled.li`
   color : black;
 `
@@ -28,16 +26,16 @@ interface ISearchItem{
 }
 
 
-const SearchItem = ({key, id, name, description, subscriber, video, thumbnail} : ISearchItem) => {
+const SearchItem = ({ id, name, description, subscriber, video, thumbnail} : ISearchItem) => {
   
   return (
     <>
-        <UlName>{name}
+          {name}
           <LiDescription>{description}</LiDescription>
           <LiSubscriber>{subscriber}</LiSubscriber>
           <LiVideo>{video}</LiVideo>
           <LiThumbnail>{thumbnail}</LiThumbnail>
-        </UlName>
+
     </>
     )
   }
