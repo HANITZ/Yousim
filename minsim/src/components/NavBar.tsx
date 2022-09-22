@@ -33,9 +33,12 @@ function NavBar() {
     return (
         <NavStyle>
             <NavUl>
-                <NavLi></NavLi>
                 <NavLi>
-                    <Image src={Logo} alt="" width={100} height={50} onClick={routerpush}></Image>
+                    <h3>Trend</h3>
+                </NavLi>
+                <NavLi>
+                    <h2>유심</h2>
+                    {/* <Image src={Logo} alt="" width={100} height={50} onClick={routerpush}></Image> */}
                     {/* <Image src={Logo} alt="" width={100} height={50} onClick={() => {router.push("/")}}></Image> */}
                 </NavLi>
                 <NavLi>

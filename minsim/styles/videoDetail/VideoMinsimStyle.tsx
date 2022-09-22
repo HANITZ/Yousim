@@ -7,5 +7,6 @@ export const VideoMinsimContainer = styled.div`
   background-color: #31313C;
   border-radius: 10px;
   padding: 32px 112px 32px 112px;
-  margin-bottom: 16px;
+
+  margin: 0 auto 16px auto; 
 `

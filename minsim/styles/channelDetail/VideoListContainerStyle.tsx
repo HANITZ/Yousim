@@ -7,7 +7,8 @@ export const VideoListContainer = styled.div`
   background-color: #31313C;
   border-radius: 10px;
   padding: 32px 112px 32px 112px;
-  margin-bottom: 32px;
+
+  margin: 0 auto 32px auto;
 `
 
 export const VideoListContainerInnerWrapper = styled.div`

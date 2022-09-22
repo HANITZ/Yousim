@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const DescribeTextStyle = styled.div`
-  margin: 128px 0px 64px 0px;
+  margin: 128px 0px 64px 64px;
   display: flex;
   flex-direction: column;
   
