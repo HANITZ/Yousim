@@ -8,13 +8,14 @@ import TitleImg from '/public/images/titleImg.jpg'
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 import Tags from 'src/components/Tags'
-import ChannelInfo from 'src/components/ChannelInfo'
 import VideoInfo from 'src/components/VideoInfo'
 
 import VideoFrame from 'styles/videoDetail/VideoFrameStyle'
 import { ChannelInfoContainer, ChannelInfoContainerInnerWrapper, ChannelInfoImgTextWrapper } from 'styles/channelDetail/ChannelInfoContainerStyle'
-import { VideoMinsimContainer } from 'styles/videoDetail/VideoMinsimStyle'
+import { BadMinsim, GoodMinsim, MinsimTextWrapper, VideoMinsim, VideoMinsimContainer } from 'styles/videoDetail/VideoMinsimStyle'
 import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
+import { Rank1Tag, Rank2Tag, Rank3Tag } from 'styles/videoDetail/RankTagStyle'
+import CommentInfo from 'src/components/CommentInfo'
 
 
 const VideoDetailPage: NextPage = () => {
@@ -44,6 +45,13 @@ const VideoDetailPage: NextPage = () => {
           </ChannelInfoContainer>
 
           <VideoMinsimContainer>
+            <MinsimTextWrapper>
+              {/* text에 값 넣기 */}
+              <GoodMinsim>떡상 60%</GoodMinsim>
+              <BadMinsim>떡락 40%</BadMinsim>
+            </MinsimTextWrapper>
+            {/* value에 값 넣기 */}
+            <VideoMinsim max={100} value={60} />  
           </VideoMinsimContainer>
 
           <VideoListContainer>
@@ -51,9 +59,23 @@ const VideoDetailPage: NextPage = () => {
             <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
               </ChannelInfoImgTextWrapper>
-              <Tags />
+              <Rank1Tag />
+            </VideoListContainerInnerWrapper>
+            <VideoListContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
+              </ChannelInfoImgTextWrapper>
+              <Rank2Tag />
+            </VideoListContainerInnerWrapper>
+            <VideoListContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
+              </ChannelInfoImgTextWrapper>
+              <Rank3Tag />
             </VideoListContainerInnerWrapper>
           </VideoListContainer>
       </main>

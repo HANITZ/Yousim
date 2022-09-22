@@ -19,4 +19,6 @@ export const VideoListContainerInnerWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  margin: 45px 0 45px 0;
 `

@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import media, { getBreakPoints } from 'css-in-js-media'
+getBreakPoints();
 
 export const IntroductionNavBarContainer = styled.div`
   display: flex;
@@ -8,18 +10,22 @@ export const IntroductionNavBarContainer = styled.div`
 
 export const IntroductionSearchBarContainer = styled.div`
   position: relative;
-    @media screen and (max-width: 768px) {
-      width: 75rem;
-      margin-top: 200px;
-      margin-left: auto;
-      padding: 0 auto;
-  }
+
   div {
     position: relative;
     background-color: #fff;
     border-radius: 25px;
     min-height: 48px;
-    min-width: 1080px;
+    
+    ${media(">desktop")} {
+      min-width: 1080px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      min-width: 768px;
+    }
+    ${media("<=tablet", ">phone")} {
+      min-width: 360px;
+    }
   }
 
   button {

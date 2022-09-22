@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import media, { getBreakPoints } from 'css-in-js-media'
+getBreakPoints();
 
 export const NavDiv = styled.div`
   position: fixed;
@@ -9,8 +11,8 @@ export const NavDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
-`
+
+`;
 
 export const Label = styled.label`
   position: relative;
@@ -19,8 +21,19 @@ export const Label = styled.label`
     position: relative;
     background-color: #fff;
     border-radius: 25px;
+    
+    width: 100%;
     min-height: 48px;
-    min-width: 1080px;
+
+    ${media(">desktop")} {
+      min-width: 1080px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      min-width: 768px;
+    }
+    ${media("<=tablet", ">phone")} {
+      min-width: 360px;
+    }
 
     :hover {
       border: 4px solid #FF5349;
