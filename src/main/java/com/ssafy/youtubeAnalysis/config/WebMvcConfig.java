@@ -13,8 +13,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedOrigins("http://localhost:3000")
-                .allowedOrigins("https://j7c203.p.ssafy.io/")
+                .allowedOrigins("http://localhost:3000", "https://localhost:3000")
+                .allowedOrigins("http://j7c203.p.ssafy.io/", "https://j7c203.p.ssafy.io/")
                 .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
                 .exposedHeaders("X-AUTH-TOKEN")
                 .exposedHeaders("RefreshToken");
