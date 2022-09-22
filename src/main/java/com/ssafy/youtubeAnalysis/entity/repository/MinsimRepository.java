@@ -1,4 +1,4 @@
-package com.ssafy.youtubeAnalysis.repository;
+package com.ssafy.youtubeAnalysis.entity.repository;
 
 import com.ssafy.youtubeAnalysis.entity.Minsim;
 import org.springframework.data.mongodb.repository.MongoRepository;

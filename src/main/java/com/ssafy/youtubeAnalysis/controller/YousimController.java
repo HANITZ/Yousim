@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Tag(name = "Yousim", description = "YousimAPI")
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/Yousim")
 public class YousimController {
@@ -139,8 +139,8 @@ public class YousimController {
     public ResponseEntity test() throws Exception {
 
         List<String> rList = wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼");
-
-        rList = Arrays.asList("가 나 다 라 라");
+        String str = "가 나 다 라 라";
+        rList = Arrays.asList(wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼").toString());
 
         for (String temp:rList) {
             System.out.println(temp);

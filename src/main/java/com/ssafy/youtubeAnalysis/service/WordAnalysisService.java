@@ -1,7 +1,7 @@
 package com.ssafy.youtubeAnalysis.service;
 
 import com.ssafy.youtubeAnalysis.CmmUtil;
-import com.ssafy.youtubeAnalysis.repository.IWordAnalysisRepository;
+import com.ssafy.youtubeAnalysis.entity.repository.IWordAnalysisRepository;
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;

@@ -1,11 +1,10 @@
 package com.ssafy.youtubeAnalysis.controller;
 
 import com.ssafy.youtubeAnalysis.entity.Channel;
-import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
 import com.ssafy.youtubeAnalysis.entity.Comment;
 import com.ssafy.youtubeAnalysis.entity.Video;
-import com.ssafy.youtubeAnalysis.repository.IWordAnalysisRepository;
-import com.ssafy.youtubeAnalysis.repository.YoutubeService;
+import com.ssafy.youtubeAnalysis.entity.repository.IWordAnalysisRepository;
+import com.ssafy.youtubeAnalysis.entity.repository.YoutubeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,11 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -31,7 +25,7 @@ import java.util.*;
 
 @Tag(name = "Youtube", description = "YoutubeAPI")
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin("*")
 @RequestMapping("/api/v1/youtube")
 public class YoutubeController {
 
