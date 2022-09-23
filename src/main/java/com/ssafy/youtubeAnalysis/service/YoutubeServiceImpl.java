@@ -282,18 +282,32 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject image = (JSONObject) brandingSettings.get("image");
                 JSONObject thumbnails = (JSONObject) snippet.get("thumbnails");
                 JSONObject medium = (JSONObject) thumbnails.get("medium");
+                
+                if (image == null)
+                    channel = Channel.builder()
+                            .id((String) jsonObj.get("id"))
+                            .name((String) snippet.get("title"))
+                            .description((String) snippet.get("description"))
+                            .time((String) snippet.get("publishedAt"))
+                            .subscriber(Integer.parseInt((String) statistics.get("subscriberCount")))
+                            .video(Integer.parseInt((String) statistics.get("videoCount")))
+                            .view(Long.parseLong((String) statistics.get("viewCount")))
+                            .thumbnail((String) medium.get("url"))
 
-                channel = Channel.builder()
-                        .id((String) jsonObj.get("id"))
-                        .name((String) snippet.get("title"))
-                        .description((String) snippet.get("description"))
-                        .time((String) snippet.get("publishedAt"))
-                        .subscriber(Integer.parseInt((String) statistics.get("subscriberCount")))
-                        .video(Integer.parseInt((String) statistics.get("videoCount")))
-                        .view(Long.parseLong((String) statistics.get("viewCount")))
-                        .thumbnail((String) medium.get("url"))
-//                        .banner((String) image.get("bannerExternalUrl"))
-                        .build();
+                            .build();
+                else
+                    channel = Channel.builder()
+                            .id((String) jsonObj.get("id"))
+                            .name((String) snippet.get("title"))
+                            .description((String) snippet.get("description"))
+                            .time((String) snippet.get("publishedAt"))
+                            .subscriber(Integer.parseInt((String) statistics.get("subscriberCount")))
+                            .video(Integer.parseInt((String) statistics.get("videoCount")))
+                            .view(Long.parseLong((String) statistics.get("viewCount")))
+                            .thumbnail((String) medium.get("url"))
+                            .banner((String) image.get("bannerExternalUrl"))
+                            .build();
+
             }
         }
         return channel;
