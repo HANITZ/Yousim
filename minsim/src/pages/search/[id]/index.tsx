@@ -5,11 +5,11 @@ import NavBar from 'src/components/NavBar'
 import { SloganContainer } from 'styles/SearchStyle'
 import SearchList from 'src/components/SearchList'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
   const searchName = router.query.id?.toString()
-
   
   
   return (

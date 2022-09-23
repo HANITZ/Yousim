@@ -33,7 +33,9 @@ function SearchList(props:Iprops) {
   useEffect(()=> {
     console.log(props.name)
     apisearchList(props.name)
-    .then()
+    .then((data)=>{
+      setSearchList(data)
+    })
 
   }, [])
   
@@ -65,7 +67,7 @@ function SearchList(props:Iprops) {
   return (
   <UlName>
     {
-       searchData.map(({id, name, description, subscriber, video, thumbnail}) => {
+        searchData.map(({id, name, description, subscriber, video, thumbnail}) => {
         return (
           <SearchItem key={id} id={id} name={name} description={description} subscriber={subscriber} video={video} thumbnail={thumbnail}/>
         )
@@ -74,5 +76,5 @@ function SearchList(props:Iprops) {
   </UlName>
 )}
 
- export default SearchList;
+export default SearchList;
 
