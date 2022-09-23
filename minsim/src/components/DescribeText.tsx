@@ -4,29 +4,16 @@ const DescribeTextStyle = styled.div`
   margin: 128px 0px 64px 64px;
   display: flex;
   flex-direction: column;
-  
-  @media screen and (max-width: 768px) {
-    width: 100rem;
-    padding: auto;
-    margin: auto;
-  }
 `
 
 const DescribeMainText = styled.h2`
+  display: inline-block;
   color: #FF5349;
   margin-bottom: 32px;
-  @media screen and (max-width: 768px) {
-    width: 100rem;
-    margin: 0 auto;
-  }
-  
 `
 const DescribeSubText = styled.h2`
+  display: inline-block;
   color: #fff; 
-  @media screen and (max-width: 768px) {
-    width: 100rem;
-    margin: 0 auto;
-  }
 `
 
 interface IDescribeText{

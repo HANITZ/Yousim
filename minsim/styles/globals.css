@@ -14,6 +14,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+progress {
+  -webkit-appearance: none;
+}
+
+::-webkit-progress-bar {
+  border-radius: 4px;
+  background-color: #FF5349;
+}
+
+::-webkit-progress-value {
+  border-radius: 4px 0px 0px 4px;
+  background-color: #309DFF;
+}
+
 /* 
 @media (prefers-color-scheme: dark) {
   html {

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import media from 'css-in-js-media'
 import { setBreakPoints } from 'css-in-js-media';
 // import reset from 'styled-reset'
@@ -10,45 +11,80 @@ const globalStyle = css`
     font-family: 'Pretendard';
   }
   h1 {
-    font-size: 50.5px;
-    line-height: 140%;
-    margin-block-start: 0;
-    margin-block-end: 0;
-  }
-  h2 {
-    /* font-size: 37.9px; */
     line-height: 140%;
     margin-block-start: 0;
     margin-block-end: 0;
 
     ${media(">desktop")} {
-    font-size: 37.9px;
+      font-size: 50.5px;
     }
     ${media("<=desktop", ">tablet")} {
-      font-size: 20px;
+      font-size: 43.8px;
     }
     ${media("<=tablet", ">phone")} {
-      font-size: 10px;
+      font-size: 37.5px;
+    }
+  }
+  h2 {
+    line-height: 140%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    ${media(">desktop")} {
+      font-size: 37.9px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      font-size: 32.9px;
+    }
+    ${media("<=tablet", ">phone")} {
+      font-size: 28.2px;
     }
   }
   h3 {
-    font-size: 28.4px;
     line-height: 140%;
     margin-block-start: 0;
     margin-block-end: 0;
+
+    ${media(">desktop")} {
+      font-size: 28.4px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      font-size: 24.7px;
+    }
+    ${media("<=tablet", ">phone")} {
+      font-size: 21.2px;
+    }
   }
   h4 {
-    font-size: 21.3px;
     line-height: 140%;
     margin-block-start: 0;
     margin-block-end: 0;
+
+    ${media(">desktop")} {
+      font-size: 21.3px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      font-size: 18.6px;
+    }
+    ${media("<=tablet", ">phone")} {
+      font-size: 15.9px;
+    }
   }
   p {
-    font-size: 16x;
     line-height: 160%;
     font-weight: 400;
     margin-block-start: 0;
     margin-block-end: 0;
+
+    ${media(">desktop")} {
+      font-size: 16px;
+    }
+    ${media("<=desktop", ">tablet")} {
+      font-size: 15px;
+    }
+    ${media("<=tablet", ">phone")} {
+      font-size: 12px;
+    }
   }
 `
 
