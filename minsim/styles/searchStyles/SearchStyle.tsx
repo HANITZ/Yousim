@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import theme from './theme';
+import theme from '../theme';
 
 export const SloganContainer = styled.h2`
   display: flex;
@@ -14,4 +14,14 @@ export const SloganContainer = styled.h2`
     margin: 0 auto;
   }
   
+`
+
+export const SearchInfoImgTextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  p, h3 {
+    display:inline-block;
+  }
 `
