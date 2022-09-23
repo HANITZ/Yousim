@@ -1,10 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+
+import { SearchInfoImgTextWrapper, SloganContainer } from 'styles/searchStyles/SearchStyle'
+
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
-import { SloganContainer } from 'styles/SearchStyle'
+import ChannelInfo from 'src/components/ChannelInfo'
 import SearchList from 'src/components/SearchList'
-import { useRouter } from 'next/router'
+import TitleImg from '/public/images/titleImg.jpg'
+import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
+
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
@@ -25,6 +32,21 @@ const SearchPage: NextPage = () => {
         <SloganContainer>
           <SearchList />
         </SloganContainer>
+        <VideoListContainer>
+        {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
+          <VideoListContainerInnerWrapper>
+            <SearchInfoImgTextWrapper>
+              <Image src={TitleImg}  alt='채널 대표 이미지' width={'188px'} height={'188px'} objectFit='cover' style={{borderRadius: '50%'}} />
+              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+            </SearchInfoImgTextWrapper>
+          </VideoListContainerInnerWrapper>
+          <VideoListContainerInnerWrapper>
+            <SearchInfoImgTextWrapper>
+              <Image src={TitleImg}  alt='채널 대표 이미지' width={'188px'} height={'188px'} objectFit='cover' style={{borderRadius: '50%'}} />
+              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
+            </SearchInfoImgTextWrapper>
+          </VideoListContainerInnerWrapper>
+        </VideoListContainer>
       </main>
     </>
   )

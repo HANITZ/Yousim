@@ -24,7 +24,7 @@ export const ChannelInfoImgTextWrapper = styled.div`
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   
   p, h3 {
     display:inline-block;
