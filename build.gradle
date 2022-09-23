@@ -46,6 +46,13 @@ dependencies {
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core
 	implementation group: 'org.apache.spark', name: 'spark-core_2.13', version: '3.3.0'
 
+	// https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-core
+	implementation group: 'org.springframework.batch', name: 'spring-batch-core', version: '4.3.6'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-quartz
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-quartz', version: '2.7.0'
+
+
+
 // https://mvnrepository.com/artifact/com.github.shin285/KOMORAN
 //	implementation files('libs/KOMORAN-3.3.4.jar')
 

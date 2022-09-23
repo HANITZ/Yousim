@@ -1,11 +1,13 @@
 package com.ssafy.youtubeAnalysis.service;
 
+import com.ssafy.youtubeAnalysis.entity.ChannelList;
 import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
 import com.ssafy.youtubeAnalysis.entity.Status;
 import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
-import com.ssafy.youtubeAnalysis.entity.repository.ChannelMSRepository;
-import com.ssafy.youtubeAnalysis.entity.repository.StatusRepository;
-import com.ssafy.youtubeAnalysis.entity.repository.VideoMSRepository;
+import com.ssafy.youtubeAnalysis.repository.ChannelListRepository;
+import com.ssafy.youtubeAnalysis.repository.ChannelMSRepository;
+import com.ssafy.youtubeAnalysis.repository.StatusRepository;
+import com.ssafy.youtubeAnalysis.repository.VideoMSRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,10 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service("yousimService")
 public class YousimServiceImpl implements YousimService {
@@ -32,6 +31,9 @@ public class YousimServiceImpl implements YousimService {
 
     @Autowired
     StatusRepository statusRepository;
+
+    @Autowired
+    ChannelListRepository channelListRepository;
 
     public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
@@ -348,5 +350,11 @@ public class YousimServiceImpl implements YousimService {
                 return "갱신 가능";
             }
         }
+    }
+
+    @Override
+    public List<ChannelList> getChannelList() throws Exception {
+        List<ChannelList> channelLists = channelListRepository.findAll();
+        return channelLists;
     }
 }

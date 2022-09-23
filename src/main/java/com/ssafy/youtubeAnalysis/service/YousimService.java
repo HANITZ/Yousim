@@ -1,8 +1,10 @@
 package com.ssafy.youtubeAnalysis.service;
 
+import com.ssafy.youtubeAnalysis.entity.ChannelList;
 import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
 import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface YousimService {
@@ -18,5 +20,7 @@ public interface YousimService {
     String checkStatusC(String id) throws Exception;
 
     String checkStatusV(String id) throws Exception;
+
+    List<ChannelList> getChannelList() throws Exception;
 
 }

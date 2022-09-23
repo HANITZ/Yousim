@@ -1,4 +1,4 @@
-package com.ssafy.youtubeAnalysis.entity.repository;
+package com.ssafy.youtubeAnalysis.repository;
 
 import java.io.Serializable;
 import java.util.List;

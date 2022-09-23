@@ -3,8 +3,8 @@ package com.ssafy.youtubeAnalysis.controller;
 import com.ssafy.youtubeAnalysis.entity.Channel;
 import com.ssafy.youtubeAnalysis.entity.Comment;
 import com.ssafy.youtubeAnalysis.entity.Video;
-import com.ssafy.youtubeAnalysis.entity.repository.IWordAnalysisRepository;
-import com.ssafy.youtubeAnalysis.entity.repository.YoutubeService;
+import com.ssafy.youtubeAnalysis.repository.IWordAnalysisRepository;
+import com.ssafy.youtubeAnalysis.repository.YoutubeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -100,25 +100,25 @@ public class YoutubeController {
 //        System.out.println(lines);
 //        youtubeService.searchCommentsByVideoID()
 
-        String line = "";
+        String line = "맛있는 김치찌개 맛있는 된장찌개";
         List<String> rMap = null;
+        System.out.println(line);
+        rMap = wordAnalysisService.doWordAnalysis(line);
 
-
-        File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                rMap = wordAnalysisService.doWordAnalysis(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        Map<String, Integer> rMap = wordAnalysisService.doWordAnalysis(text);
+//        File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
+//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+//            while ((line = br.readLine()) != null) {
 //
-        if (rMap == null) {
-            rMap = new LinkedList<String>();
-        }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+////        Map<String, Integer> rMap = wordAnalysisService.doWordAnalysis(text);
+////
+//        if (rMap == null) {
+//
+//        }
 
 
         return rMap;

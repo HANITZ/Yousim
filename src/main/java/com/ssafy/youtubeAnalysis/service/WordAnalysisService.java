@@ -1,7 +1,7 @@
 package com.ssafy.youtubeAnalysis.service;
 
 import com.ssafy.youtubeAnalysis.CmmUtil;
-import com.ssafy.youtubeAnalysis.entity.repository.IWordAnalysisRepository;
+import com.ssafy.youtubeAnalysis.repository.IWordAnalysisRepository;
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
@@ -129,7 +129,7 @@ public class WordAnalysisService implements IWordAnalysisRepository {
         }
 
         //추출된 명사 모음(리스트)의 명사 단어별 빈도수 계산
-//        Map<String, Integer> rMap = this.doWordCount(rList);
+        this.doWordCount(rList);
 //
 //        if(rMap == null) {
 //            rMap = new HashMap<String, Integer>();
