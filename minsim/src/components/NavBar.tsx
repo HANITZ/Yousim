@@ -4,6 +4,7 @@ import Image from "next/image";
 import Logo from "/public/images/yousimlogo.png";
 import { useRouter } from "next/router";
 import { NavLi, NavLiHidden, NavStyle, NavUl } from "styles/componentStyles/NavBarStyle";
+import SearchBar from "./SearchBar";
 
 function NavBar() {
   const router = useRouter();
@@ -29,6 +30,7 @@ function NavBar() {
           </h3>
         </NavLi>
       </NavUl>
+      <SearchBar/>
     </NavStyle>
   );
 }

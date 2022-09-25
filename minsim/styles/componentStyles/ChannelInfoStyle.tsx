@@ -14,7 +14,7 @@ export const ChannelInfoTextWrapper = styled.div`
     margin-left: 32px;
   }
   ${media("<=tablet", ">phone")} {
-    margin-left: 16px;
+    margin-top: 16px;
   }
 `
 
@@ -30,7 +30,28 @@ export const ChannelTagWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+`
+
+export const VideoTagWrapper = styled.div`
+  height: 128px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  ${media("<=desktop", ">tablet")} {
+    height: 128px;
+    margin-left: 32px;
+    flex-direction: column;
+  }
+  ${media("<=tablet", ">phone")} {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    flex-direction: row;
+  }
 `
 

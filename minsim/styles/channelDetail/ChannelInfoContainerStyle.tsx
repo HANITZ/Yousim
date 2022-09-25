@@ -19,6 +19,7 @@ export const ChannelInfoContainer = styled.div`
     margin-right: 32px;
   }
   ${media("<=tablet", ">phone")} {
+    height: 260px;
     padding: 32px 16px 32px 16px;
     margin-left: 16px;
     margin-right: 16px;
@@ -44,4 +45,22 @@ export const ChannelInfoImgTextWrapper = styled.div`
   p, h3 {
     display:inline-block;
   }
+  ${media("<=tablet", ">phone")} {
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+`
+
+export const ImgDiv = styled.div`
+  position: relative;
+
+  width: 128px;
+  height: 128px;
+
+  ${media("<=tablet", ">phone")} {
+    width: 64px;
+    height: 64px;
+  }
+
 `
