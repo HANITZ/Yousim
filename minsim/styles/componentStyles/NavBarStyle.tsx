@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import media, { getBreakPoints } from 'css-in-js-media'
-getBreakPoints();
 
 export const NavStyle = styled.nav`
     position : fixed;
@@ -19,6 +17,12 @@ export const NavUl = styled.ul`
 `
 
 export const NavLi = styled.li`
-     display : inline-block;
-     text-transform : uppercase;
+    display : inline-block;
+    text-transform : uppercase;
 ` 
+
+export const NavLiHidden = styled.li`
+    display : inline-block;
+    text-transform : uppercase;
+    visibility: hidden;
+`

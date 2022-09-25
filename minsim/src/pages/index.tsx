@@ -66,11 +66,11 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <IntroductionSearchBar />
-          <IntroductionVideoContainer>
+          {/* <IntroductionVideoContainer>
             <IntroductionDivAnimation1 id='IntroductionDivAnimation1'/>
-            {/* <IntroductionVideo /> */}
+            <IntroductionVideo />
             <IntroductionDivAnimation2 id='IntroductionDivAnimation2'/>
-          </IntroductionVideoContainer>
+          </IntroductionVideoContainer> */}
           <Spinner />
         </section>
         <section>

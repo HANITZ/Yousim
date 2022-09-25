@@ -40,12 +40,19 @@ const ChannelDetailPage: NextPage = () => {
           <ChannelInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <Image src={TitleImg}  alt='채널 대표 이미지' width={'128px'} height={'128px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                <Image src={TitleImg}  alt='채널 대표 이미지' 
+                sizes="
+                  (max-width: 768px) 64px,
+                  (max-width: 1440px) 128px,
+                  32px
+                  " 
+                objectFit='cover' style={{borderRadius: '50%'}} />
                 <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />
             </ChannelInfoContainerInnerWrapper>
           </ChannelInfoContainer>
+          
           <ChannelMinsimText title='채널 민심' mainText='95%  떡상' ></ChannelMinsimText>
           <ChannelMinsimText title='가장 많이 언급된 키워드' mainText='특화는 이게 맞아' ></ChannelMinsimText>
         </section>
