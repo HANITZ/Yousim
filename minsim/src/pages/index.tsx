@@ -16,7 +16,8 @@ import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useEffect } from 'react'
+import { CustomEase } from 'gsap/all'
+import { useRef, useEffect } from 'react'
 
 const Home: NextPage = () => {
   // gsap.registerPlugin(ScrollTrigger);
@@ -30,17 +31,46 @@ const Home: NextPage = () => {
   //   }
   // });
   // let el = gsap.timeline();
+  const DivAnimationRef1 = useRef(null)
+  const DivAnimationRef2 = useRef(null)
   useEffect(() => {
-    console.log(gsap)
+    const el1 = DivAnimationRef1.current;
+    const el2 = DivAnimationRef2.current;
+    CustomEase.create("hof", "M0,0 C0,0 0.037,0.011 0.038,0.01 0.038,0.016 0.057,0.129 0.058,0.138 0.061,0.128 0.09,0.051 0.095,0.036 0.097,0.047 0.119,0.017 0.135,0.078 0.175,0.191 0.2,0.102 0.206,0.116 0.206,0.107 0.243,0.25 0.245,0.198 0.257,0.185 0.277,0.309 0.285,0.302 0.291,0.31 0.308,0.188 0.32,0.202 0.321,0.245 0.376,0.276 0.378,0.31 0.392,0.238 0.426,0.298 0.476,0.316 0.479,0.374 0.532,0.272 0.538,0.354 0.553,0.387 0.588,0.542 0.592,0.55 0.596,0.529 0.632,0.58 0.635,0.57 0.636,0.581 0.655,0.67 0.665,0.754 0.666,0.756 0.669,0.69 0.67,0.69 0.671,0.669 0.727,0.607 0.728,0.59 0.73,0.592 0.761,0.654 0.77,0.666 0.819,0.808 0.793,0.782 0.8,0.8 0.8,0.785 0.849,0.699 0.85,0.688 0.851,0.696 0.899,0.881 0.905,0.901 0.907,0.896 0.954,0.869 0.958,0.862 0.965,0.88 1,1 1,1 ");
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to("#IntroductionDivAnimation1", {
-      x: -300, duration: 3
+    gsap.to(el1, {
+      scrollTrigger: {
+        trigger: "#SloganContainer",
+        markers: true,
+        start: "top top",
+        end: "+=1000",
+        scrub: true,
+        pin: true,
+      },
+      x: -300, duration: 4
       });
-    gsap.to("#IntroductionDivAnimation2", {
-      x: 300, duration: 3
-      }
-    );
+    gsap.to(el2, {
+      scrollTrigger: {
+        trigger: "#SloganContainer",
+        markers: true,
+        start: "top top",
+        end: "+=1000",
+        scrub: true,
+        pin: true,
+      },
+      x: 300, duration: 4
+      });
+      gsap.to("#iamge", {duration: 1, y: -100, ease: "hop"});
 
+    // gsap.to("#IntroductionDivAnimation1", {
+    //   x: -300, duration: 3
+    //   });
+    // gsap.to("#IntroductionDivAnimation2", {
+    //   x: 300, duration: 3
+    //   }
+    // );
+  
+    
   }, [])
   return (
     <>
@@ -54,23 +84,23 @@ const Home: NextPage = () => {
         <NavBar />
         <SearchBar />
         <section>
-          <SloganContainer>
+          <SloganContainer id='SloganContainer'>
             <h4>
               서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
             </h4>
           </SloganContainer>
         </section>
         <section>
-          <DescribeText 
+          <DescribeText
             mainText='채널 정보' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <IntroductionSearchBar />
-          {/* <IntroductionVideoContainer>
-            <IntroductionDivAnimation1 id='IntroductionDivAnimation1'/>
-            <IntroductionVideo />
-            <IntroductionDivAnimation2 id='IntroductionDivAnimation2'/>
-          </IntroductionVideoContainer> */}
+          <IntroductionSearchBar/>
+          <IntroductionVideoContainer>
+            <IntroductionDivAnimation1 id='IntroductionDivAnimation1' ref={DivAnimationRef1}/>
+            {/* <IntroductionVideo /> */}
+            <IntroductionDivAnimation2 id='IntroductionDivAnimation2' ref={DivAnimationRef2}/>
+          </IntroductionVideoContainer>
           <Spinner />
         </section>
         <section>
@@ -79,7 +109,7 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer>
-            <Image src={Chart} alt="배경 차트"/>
+            <Image id="iamge" src={Chart} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
         <section>
