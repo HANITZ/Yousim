@@ -1,5 +1,6 @@
 package com.ssafy.youtubeAnalysis.service;
 
+import com.google.gson.JsonObject;
 import com.ssafy.youtubeAnalysis.entity.ChannelList;
 import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
 import com.ssafy.youtubeAnalysis.entity.Status;
@@ -8,11 +9,16 @@ import com.ssafy.youtubeAnalysis.repository.ChannelListRepository;
 import com.ssafy.youtubeAnalysis.repository.ChannelMSRepository;
 import com.ssafy.youtubeAnalysis.repository.StatusRepository;
 import com.ssafy.youtubeAnalysis.repository.VideoMSRepository;
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.Tuple2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -34,6 +40,9 @@ public class YousimServiceImpl implements YousimService {
 
     @Autowired
     ChannelListRepository channelListRepository;
+
+    @Autowired
+    WordAnalysisService wordAnalysisService;
 
     public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
@@ -78,7 +87,6 @@ public class YousimServiceImpl implements YousimService {
 
         JSONObject jsonMain = (JSONObject) obj;
         JSONArray jsonArr = (JSONArray) jsonMain.get("items");
-
 
         String result;
         float sum = 0;
@@ -158,6 +166,7 @@ public class YousimServiceImpl implements YousimService {
 
         JSONArray jsonArr1 = (JSONArray) jsonMain.get("items");
         float sum = 0;
+        List<String> comments = new ArrayList<>();
 
         if (jsonArr1.size() > 0) {
             for (int i = 0; i < jsonArr1.size(); i++) {
@@ -166,7 +175,7 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
-
+                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
@@ -221,6 +230,7 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
+                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
@@ -243,15 +253,26 @@ public class YousimServiceImpl implements YousimService {
             }
         }
 
-        JSONObject temp = new JSONObject();
+        SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
+                .setMaster("local");
+        JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
+//        JavaRDD rdd =
+//                sparkContext.parallelize(comments);
+//        Tuple2<String, Integer> mytuple =
+//                new Tuple2<String, Integer>("top", 100000);
 
-        temp.put("침착맨", 8);
-        temp.put("주호민", 6);
+        JavaPairRDD<String, Integer> keyword = sparkContext.parallelize(comments)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+
+        JSONObject keywords = new JSONObject();
+        keyword.take(1000).forEach(tuple -> keywords.put(tuple._1,tuple._2));
+
 
         VideoMinsim VM = VideoMinsim.builder()
                 ._id(id)
                 .MS(sum / (jsonArr1.size() + jsonArr2.size()))
-                .keywords(temp).build();
+                .keywords(keywords).build();
 
         ST = Status.builder()
                 ._id(id)
