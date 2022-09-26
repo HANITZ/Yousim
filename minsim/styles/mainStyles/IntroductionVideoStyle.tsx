@@ -19,6 +19,7 @@ export const IntroductionVideoContainer = styled.div`
   }
   ${media("<=tablet", ">phone")} {
     min-width: 360px;
+    width: 400px;
   }
 
   // 위로 이동하며 로딩띄우고 양 옆 열리기, height 수정
@@ -39,6 +40,12 @@ export const IntroductionDivAnimation1 = styled.div`
   min-height: 412px;
   margin: 0 auto 0 0;
   background-color: #1C1C1F;
+  flex-direction:row;
+  ${media("<=tablet", ">phone")} {
+    flex-direction: row-reverse;
+    width: 50px;
+    margin: 0 0 0 0;
+  }
 `
 export const IntroductionDivAnimation2 = styled.div`
   width: 250px;
@@ -46,4 +53,10 @@ export const IntroductionDivAnimation2 = styled.div`
   min-height: 412px;
   margin: 0 0 0 auto;
   background-color: #1C1C1F;
+  flex-direction: row-reverse;
+  ${media("<=tablet", ">phone")} {
+    flex-direction: row;
+    width: 50px;
+    margin: 0 0 0 0;
+  }
 `

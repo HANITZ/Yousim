@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     gsap.to(el1, {
       scrollTrigger: {
         trigger: "#SloganContainer",
-        markers: true,
+        // markers: true, 화면에 marker를 띄워 animation 위치 확인가능
         start: "top top",
         end: "+=800",
         scrub: true,
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     gsap.to(el2, {
       scrollTrigger: {
         trigger: "#SloganContainer",
-        markers: true,
+        // markers: true, 화면에 marker를 띄워 animation 위치 확인가능
         start: "top top",
         end: "+=800",
         scrub: true,
