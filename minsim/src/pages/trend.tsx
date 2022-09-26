@@ -1,6 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import SearchBar from 'src/components/SearchBar'
+import DescribeText from 'src/components/DescribeText'
+import NavBar from 'src/components/NavBar'
+import SimpleWordCloud from 'src/components/WordCloud'
+import { TrendSectionStyle } from 'styles/trend/SectionStyle'
+import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 
 const TrendPage: NextPage = () => {
   return (
@@ -12,17 +16,16 @@ const TrendPage: NextPage = () => {
       </Head>
 
       <main>
-        <h1>
-          hello minsim
-        </h1>
-        <button 
-        
-        onClick={() => {
-          throw new Error('Sentry Frontend Error')
-        }}>
-        Throw error
-        </button>
-        <SearchBar></SearchBar>
+        <NavBar />
+        <TrendSectionStyle>
+          <DescribeText
+              mainText='채널 정보' 
+              subText1='채널을 검색해보세요.'
+              subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
+        </TrendSectionStyle>
+        <WordCloudContainer>
+          <SimpleWordCloud />
+        </WordCloudContainer>
       </main>
     </div>
   )
