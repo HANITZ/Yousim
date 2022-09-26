@@ -16,7 +16,12 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
+
 function MyApp({ Component, pageProps }: AppProps) {
+  if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+    import('../mocks');
+  }
+  
   return (
       <ThemeProvider theme={theme}>
         <Global
