@@ -6,7 +6,6 @@ import Chart from '/public/images/chart.png'
 import NavBar from 'src/components/NavBar'
 import SearchBar from 'src/components/SearchBar'
 import DescribeText from 'src/components/DescribeText'
-import { ChangeNavStyle } from 'styles/componentStyles/NavBarStyle'
 
 import { SloganContainer } from 'styles/mainStyles/IndexStyle'
 import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
@@ -17,7 +16,6 @@ import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { CustomEase } from 'gsap/all'
 import { useRef, useEffect } from 'react'
 
 export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -36,9 +34,9 @@ const Home: NextPage = () => {
         trigger: "#SloganContainer",
         markers: true,
         start: "top top",
-        end: "+=1000",
+        end: "+=800",
         scrub: true,
-        pin: true,
+        // pin: true,
       },
       x: -300, duration: 4
       });
@@ -47,9 +45,9 @@ const Home: NextPage = () => {
         trigger: "#SloganContainer",
         markers: true,
         start: "top top",
-        end: "+=1000",
+        end: "+=800",
         scrub: true,
-        pin: true,
+        // pin: true,
       },
       x: 300, duration: 4
       });

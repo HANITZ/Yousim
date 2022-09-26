@@ -9,6 +9,7 @@ export const IntroductionVideoContainer = styled.div`
   min-height: 412px;
   margin: 192px auto 0 auto;
   background-color: #000;
+  height: 800px;
 
   ${media(">desktop")} {
     min-width: 1080px;
@@ -34,12 +35,14 @@ export const IntroductionVideoContainer = styled.div`
 
 export const IntroductionDivAnimation1 = styled.div`
   width: 250px;
+  height: 800px;
   min-height: 412px;
   margin: 0 auto 0 0;
   background-color: #1C1C1F;
 `
 export const IntroductionDivAnimation2 = styled.div`
   width: 250px;
+  height: 800px;
   min-height: 412px;
   margin: 0 0 0 auto;
   background-color: #1C1C1F;

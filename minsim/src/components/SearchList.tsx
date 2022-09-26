@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 import SearchChannelItem from "./SearchChannelItem";
 
 const SearchListStyle = styled.div`
@@ -23,15 +22,11 @@ interface ISearchItem {
 }
 
 interface Iprops {
-    datas: ISearchItem[]
-  
+  datas: ISearchItem[];
 }
 
 
-function SearchList({datas}: Iprops) {
-  const router = useRouter();
-
-
+function SearchList({ datas }: Iprops) {
   return (
     <UlName>
       {datas.map((data, index) => {
@@ -42,7 +37,6 @@ function SearchList({datas}: Iprops) {
 }
 
 export default SearchList;
-
 
 
 

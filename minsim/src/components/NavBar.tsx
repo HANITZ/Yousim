@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "/public/images/yousimlogo.png";
@@ -6,7 +6,56 @@ import { useRouter } from "next/router";
 import { NavLi, NavLiHidden, NavStyle, NavUl } from "styles/componentStyles/NavBarStyle";
 import SearchBar from "./SearchBar";
 
-function NavBar() {
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { gsap } from 'gsap/dist/gsap';
+
+function NavBar() :JSX.Element {
+  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const showAnim = gsap.from('#NavStyle', { 
+      yPercent: -100,
+      paused: true,
+      duration: 0.2
+    }).progress(1);
+    
+    ScrollTrigger.create({
+      start: "top top",
+      end: 99999,
+      onUpdate: (self) => {
+        self.direction === -1 ? showAnim.play() : showAnim.reverse()
+      }
+    });
+  })
+
+  // const showAnim = gsap.from('#NavStyle', { 
+  //   yPercent: -100,
+  //   paused: true,
+  //   duration: 0.2
+  // }).progress(1);
+  
+  // ScrollTrigger.create({
+  //   start: "top top",
+  //   end: 99999,
+  //   onUpdate: (self) => {
+  //     self.direction === -1 ? showAnim.play() : showAnim.reverse()
+  //   }
+  // });
+
+
+   
+  // useEffect(() => {
+  //   gsap.to('#navdiv', {
+  //     scrollTrigger: {
+  //       trigger: "#SeachBar",
+  //       markers: true,
+  //       start: "top top",
+  //       end: "+=1000",
+  //       scrub: true,
+  //       pin: true,
+  //     },
+  //     y: -800, duration: 4
+  //     });
+  //   })
   const router = useRouter();
   const routerpush = () => {
     router.push("/");
