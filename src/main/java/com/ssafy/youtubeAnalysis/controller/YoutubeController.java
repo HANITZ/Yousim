@@ -77,9 +77,9 @@ public class YoutubeController {
     })
     @PostMapping("/detail")
     public ResponseEntity<List<Video>> details(
-           String channelId) throws Exception {
+           String channelId, String nextToken) throws Exception {
 
-        List<Video> result = youtubeService.getDetails(channelId);
+        List<Video> result = youtubeService.getDetails(channelId, nextToken);
 
         return ResponseEntity.status(200).body(result);
     }
@@ -135,7 +135,7 @@ public class YoutubeController {
 
         System.out.println("채널아이디출력 " + 채널아이디 + " " + result.size());
 
-        List<Video> 채널상세정보리스트 = youtubeService.getDetails(채널아이디);
+        List<Video> 채널상세정보리스트 = youtubeService.getDetails(채널아이디,"");
         System.out.println("채널상세정보리스트출력한겁니다   " + 채널상세정보리스트);
         for (int i = 0; i < 채널상세정보리스트.size(); i++) {
             String 영상아이디 = 채널상세정보리스트.get(i).getId();

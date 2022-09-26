@@ -15,6 +15,7 @@ public class Video {
     String description;
     String time;
     String duration;
+    String nextToken;
 
     int view;
     int like;

@@ -13,7 +13,7 @@ public interface YoutubeService {
 
     List<Channel> searchChannelId(String title) throws Exception;
 
-    List<Video> getDetails(String channelId) throws Exception;
+    List<Video> getDetails(String channelId, String nextToken) throws Exception;
 
     List<Comment> getComments(String videoId) throws Exception;
 }

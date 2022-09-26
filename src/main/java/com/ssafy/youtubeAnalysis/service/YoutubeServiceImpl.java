@@ -131,11 +131,12 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     @Override
-    public List<Video> getDetails(String channelId) throws Exception {
+    public List<Video> getDetails(String channelId, String nextToken) throws Exception {
         String apiurl = "https://www.googleapis.com/youtube/v3/search";
         apiurl += "?key=" + KEY;
         apiurl += "&part=snippet&type=video&maxResults=5&videoEmbeddable=true&order=date";
         apiurl += "&channelId=" + channelId;
+        apiurl += "&pageToken=" + nextToken;
 
 
         URL url = new URL(apiurl);
@@ -161,10 +162,14 @@ public class YoutubeServiceImpl implements YoutubeService {
         List<Video> result = new ArrayList<>();
         if (jsonArr.size() > 0) {
             for (int i = 0; i < jsonArr.size(); i++) {
+
+                String token = (String) jsonMain.get("nextPageToken");
+                System.out.println(token);
                 JSONObject jsonObj = (JSONObject) jsonArr.get(i);
 
                 JSONObject id = (JSONObject) jsonObj.get("id");
                 result.add(searchVideoDetailByVideoID((String) id.get("videoId")));
+                result.get(i).setNextToken(token);
                 searchCommentsByVideoID((String) id.get("videoId"));
             }
         }
@@ -282,7 +287,7 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject image = (JSONObject) brandingSettings.get("image");
                 JSONObject thumbnails = (JSONObject) snippet.get("thumbnails");
                 JSONObject medium = (JSONObject) thumbnails.get("medium");
-                
+
                 if (image == null)
                     channel = Channel.builder()
                             .id((String) jsonObj.get("id"))
