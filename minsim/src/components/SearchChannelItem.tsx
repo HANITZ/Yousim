@@ -30,8 +30,8 @@ interface ISearchItem {
     view: number;
 }
 
-const SearchChannelItem = ( props: ISearchItem) => {
-  console.log(props)
+const SearchChannelItem = ( data: ISearchItem) => {
+
   return (
     <>
 

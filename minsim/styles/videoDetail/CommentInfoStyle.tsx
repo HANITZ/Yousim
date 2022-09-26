@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import media, { getBreakPoints } from 'css-in-js-media'
+getBreakPoints();
 
 export const MainInfoWrapper = styled.div``
 
@@ -34,4 +36,42 @@ export const CommentLiked = styled.div`
   margin-top: 8px;
   display: flex;
   align-items: center;
+`
+
+export const VideoInfoContainer = styled.div`
+  height: 192px;
+  background-color: #31313C;
+  border-radius: 0 0 10px 10px;
+  padding: 32px 112px 32px 112px;
+  margin: 0px 64px 16px 64px;
+
+  ${media(">desktop")} {
+    padding: 32px 112px 32px 112px;
+    margin: 0px 64px 16px 64px;
+  }
+  ${media("<=desktop", ">tablet")} {
+    padding: 32px 64px 32px 64px;
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+  ${media("<=tablet", ">phone")} {
+    padding: 32px 16px 32px 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+`
+
+export const VideoInfoImgTextWrapper = styled.div`
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  
+  p, h3 {
+    display:inline-block;
+  }
+  ${media("<=tablet", ">phone")} {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 `

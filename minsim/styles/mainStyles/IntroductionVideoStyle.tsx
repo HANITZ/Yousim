@@ -35,16 +35,12 @@ export const IntroductionVideoContainer = styled.div`
 export const IntroductionDivAnimation1 = styled.div`
   width: 250px;
   min-height: 412px;
-  /* margin: 192px auto 0 auto; */
   margin: 0 auto 0 0;
   background-color: #1C1C1F;
-  /* z-index:1; */
 `
 export const IntroductionDivAnimation2 = styled.div`
   width: 250px;
   min-height: 412px;
-  /* margin: 192px auto 0 auto; */
   margin: 0 0 0 auto;
   background-color: #1C1C1F;
-  z-index: 1;
 `
