@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
 
 export const NavStyle = styled.nav`
     z-index: 9999;
@@ -10,10 +10,12 @@ export const NavStyle = styled.nav`
     width : 100%;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #A6A6A6;
+    transition: ease 0.4s;
+    &--scrolled {
+    padding: 64px;
+  }
 `
-export const ChangeNavStyle = styled.nav`
-    height: 32px;
-`
+
 export const NavUl = styled.ul`
     display : flex;
     list-style : none;
