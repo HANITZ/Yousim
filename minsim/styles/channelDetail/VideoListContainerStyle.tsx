@@ -38,6 +38,10 @@ export const VideoListContainerInnerWrapper = styled.div`
   ${media("<=tablet", ">phone")} {
     flex-direction: column;
   }
+
+  :hover{
+    cursor: pointer;
+  }
 `
 
 export const VideoDetailContainerInnerWrapper = styled.div`

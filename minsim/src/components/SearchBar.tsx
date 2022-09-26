@@ -13,6 +13,7 @@ function SearchBar() :JSX.Element {
   const routerPush = () => {
     router.push({
       pathname: `/search/${inputText}`,
+      
     })
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
