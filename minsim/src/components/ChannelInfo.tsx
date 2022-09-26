@@ -4,19 +4,21 @@ import { ChannelInfoTextWrapper, ChannelnfoWrapper } from 'styles/componentStyle
 
 interface IChannelData{
   title: string,
-  sub1: string,
-  sub2: string,
+  subscriber: number,
+  video: number,
+  description: string,
   // tags: [],
 }
 
-const ChannelInfo = ({title, sub1, sub2}: IChannelData) => {
+const ChannelInfo = ({title, subscriber, video, description}: IChannelData) => {
   return (
     <>
       <ChannelInfoTextWrapper>
         <h3>{title}</h3>
         <ChannelnfoWrapper>
-          <p>{sub1}</p><br/>
-          <p>{sub2}</p>
+          <p>{subscriber}</p><br/>
+          <p>{video}</p>
+          <p>{description}</p>
         </ChannelnfoWrapper>
       </ChannelInfoTextWrapper>
     </> 

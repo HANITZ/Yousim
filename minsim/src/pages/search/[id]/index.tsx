@@ -1,17 +1,38 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+
+import { SearchInfoImgTextWrapper, SloganContainer } from 'styles/searchStyles/SearchStyle'
+
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
-import { SloganContainer } from 'styles/SearchStyle'
+import ChannelInfo from 'src/components/ChannelInfo'
 import SearchList from 'src/components/SearchList'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import TitleImg from '/public/images/titleImg.jpg'
+import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
+import apisearchList from 'src/pages/api/apisearchList'
+
+
+
+
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
   const searchName = router.query.id?.toString()
   
+  const [searchList, setSearchList]= useState<object[]>([])
+
+
+  useEffect(()=> {
+    apisearchList(searchName)
+    .then((data)=>{
+      setSearchList(data)
+    })
+  }, [])
   
+
   return (
     <>
       <Head>
@@ -24,9 +45,11 @@ const SearchPage: NextPage = () => {
       <NavBar />
       <SearchBar />
       <main>
-        <SloganContainer>
-          <SearchList name={searchName} />
-        </SloganContainer>
+
+        <VideoListContainer>
+        {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
+        <SearchList  datas={searchList} />
+        </VideoListContainer>
       </main>
     </>
   )
