@@ -36,7 +36,7 @@ public class YoutubeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "인기 영상 조회", content = @Content(schema = @Schema(implementation = Video.class))),
     })
-    @PostMapping("/popular")
+    @GetMapping("/popular")
     public ResponseEntity<List<Video>> popularVideos(
            int categoryId) throws IOException, ParseException {
 
@@ -75,7 +75,7 @@ public class YoutubeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "최근 영상 조회", content = @Content(schema = @Schema(implementation = Video.class))),
     })
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public ResponseEntity<List<Video>> details(
            String channelId, String nextToken) throws Exception {
 
