@@ -21,17 +21,6 @@ import { CustomEase } from 'gsap/all'
 import { useRef, useEffect } from 'react'
 
 const Home: NextPage = () => {
-  // gsap.registerPlugin(ScrollTrigger);
-  // gsap.to("#IntroductionDivAnimation2", {
-  //   scrollTrigger: {
-  //     trigger: '#IntroductionDivAnimation2',
-  //     markers: true,
-  //     start: "top top",
-  //     end: "top 800px",
-  //     scrub: 1,
-  //   }
-  // });
-  // let el = gsap.timeline();
   const DivAnimationRef1 = useRef(null)
   const DivAnimationRef2 = useRef(null)
   useEffect(() => {
@@ -60,20 +49,17 @@ const Home: NextPage = () => {
       },
       x: 300, duration: 4
       });
-    gsap.to("#NavStyle", {
-      scrollTrigger: {
-        trigger: '#NavStyle',
-        markers:true,
-        start: "top top",
-        end: "+=200",
-        scrub: true,
-        pin: true,
-        toggleClass:"#ChangeNavStyle"
-      }});
+    // gsap.to("#NavStyle", {
+    //   scrollTrigger: {
+    //     trigger: '#NavStyle',
+    //     markers:true,
+    //     start: "top top",
+    //     end: "+=200",
+    //     scrub: true,
+    //     pin: true,
+    //     toggleClass:"#ChangeNavStyle"
+    //   }});
       }, [])
-      console.log(NavBar)
-      console.log(SloganContainer)
-      console.log(IntroductionDivAnimation1)
       
   return (
     <>
