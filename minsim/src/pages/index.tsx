@@ -20,7 +20,11 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { CustomEase } from 'gsap/all'
 import { useRef, useEffect } from 'react'
 
+export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const Home: NextPage = () => {
+  console.log(HOME_URL);    
+  
   const DivAnimationRef1 = useRef(null)
   const DivAnimationRef2 = useRef(null)
   useEffect(() => {
@@ -62,6 +66,7 @@ const Home: NextPage = () => {
       }, [])
       
   return (
+    
     <>
       <Head>
         <title>민심</title>

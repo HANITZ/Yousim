@@ -15,6 +15,9 @@ export const SloganContainer = styled.div`
   }
   
 `
+export const SearchMarginDiv = styled.div`
+  margin-top: 256px;
+`
 
 export const SearchInfoImgTextWrapper = styled.div`
   display: flex;

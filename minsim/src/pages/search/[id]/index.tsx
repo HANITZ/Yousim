@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import { SearchInfoImgTextWrapper, SloganContainer } from 'styles/searchStyles/SearchStyle'
+import { SearchInfoImgTextWrapper, SearchMarginDiv, SloganContainer } from 'styles/searchStyles/SearchStyle'
 
 import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
@@ -51,10 +51,9 @@ const SearchPage: NextPage = () => {
       </Head>
 
 
-      <NavBar />
-      <SearchBar />
       <main>
-
+        <NavBar />
+        <SearchMarginDiv />
         <VideoListContainer>
         {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
         <SearchList  datas={searchList} />

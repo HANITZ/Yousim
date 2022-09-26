@@ -16,11 +16,9 @@ import { Rank1Tag, Rank2Tag, Rank3Tag } from 'styles/videoDetail/RankTagStyle'
 import CommentInfo from 'src/components/CommentInfo'
 import { VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
 
-
 const VideoDetailPage: NextPage = () => {
   const router = useRouter()
   const query = router.query
-  console.log(query)
   
   return (
     <div>

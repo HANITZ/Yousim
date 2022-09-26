@@ -53,7 +53,6 @@ const SearchChannelItem = ( data: ISearchItem) => {
           ></ChannelInfo>
         </SearchInfoImgTextWrapper>
       </VideoListContainerInnerWrapper>
-      ;
     </>
   );
 };
