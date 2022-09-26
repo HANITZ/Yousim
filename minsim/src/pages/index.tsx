@@ -84,8 +84,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <NavBar/>
-        <SearchBar />
+        <NavBar />
         <section>
           <SloganContainer id='SloganContainer'>
             <h4>
