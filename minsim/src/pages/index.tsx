@@ -17,7 +17,7 @@ import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { CustomEase } from 'gsap/all'
+// import { CustomEase } from 'gsap/all'
 import { useRef, useEffect } from 'react'
 
 const Home: NextPage = () => {

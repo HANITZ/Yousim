@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "/public/images/yousimlogo.png";
 import { useRouter } from "next/router";
 import { NavLi, NavLiHidden, NavStyle, NavUl } from "styles/componentStyles/NavBarStyle";
 import SearchBar from "./SearchBar";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { gsap } from 'gsap';
 
 function NavBar() {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    start: 'top -80',
+    end: 99999,
+    toggleClass: {className: 'SearchBar--scrolled', targets: '#SearchBar'}
+  });
+  useEffect(() => {
+    gsap.to('#SeachBar', {
+      scrollTrigger: {
+        trigger: "#SloganContainer",
+        markers: true,
+        start: "top top",
+        end: "+=1000",
+        scrub: true,
+        pin: true,
+      },
+      x: -300, duration: 4
+      });
+    
+  })
+
   const router = useRouter();
   const routerpush = () => {
     router.push("/");
@@ -30,7 +53,7 @@ function NavBar() {
           </h3>
         </NavLi>
       </NavUl>
-      <SearchBar/>
+      <SearchBar id='SearchBar'/>
     </NavStyle>
   );
 }
