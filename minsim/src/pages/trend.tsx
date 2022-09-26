@@ -2,9 +2,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import DescribeText from 'src/components/DescribeText'
 import NavBar from 'src/components/NavBar'
-import SimpleWordCloud from 'src/components/WordCloud'
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
+import SimpleWordCloud from 'src/components/WordCloud'
 
 const TrendPage: NextPage = () => {
   return (
