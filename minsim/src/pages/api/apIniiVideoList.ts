@@ -11,6 +11,5 @@ export default async function apiIniVideoList(
     });
     const data = await response.json().catch(()=> {
     });
-
-    return data
+    return data 
 }

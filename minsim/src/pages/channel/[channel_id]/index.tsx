@@ -25,20 +25,20 @@ import {
 import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
-import apiIniVideoList from "src/pages/api/apIniivideoList";
+import apiIniVideoList from "src/pages/api/apIniiVideoList";
 
 
 
 
 interface IVideo {
   categoryId: number;
-  channelTitle: string | null;
+  channelTitle: string;
   comment: number;
   description: string;
   id: string;
   like: number;
   nextToken: string;
-  tag: [];
+  tag: string[];
   thumbnail: string;
   time: string;
   title: string;
@@ -50,17 +50,16 @@ interface IVideo {
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-  const [videos, setVideos] = useState<IVideo[]>();
+  const [videos, setVideos] = useState<IVideo[]>([]);
 
-  // 임시
 
-  console.log(query);
-  console.log(query.channel_id);
 
   useEffect(() => {
     apiIniVideoList(query.channel_id?.toString()).then((data) => {
       setVideos(data);
     });
+    console.log(videos)
+    console.log(1)
 
   }, []);
 
@@ -113,7 +112,7 @@ const ChannelDetailPage: NextPage = () => {
 
           <VideoList videos={videos}  />
           <VideoListContainer>
-            <VideoListContainerInnerWrapper>
+            {/* <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <Image
                   src={TitleImg}
@@ -130,7 +129,7 @@ const ChannelDetailPage: NextPage = () => {
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <VideoTags />
-            </VideoListContainerInnerWrapper>
+            </VideoListContainerInnerWrapper> */}
           </VideoListContainer>
         </section>
       </main>
