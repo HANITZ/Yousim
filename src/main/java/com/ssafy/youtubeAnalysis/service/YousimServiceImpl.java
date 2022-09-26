@@ -46,6 +46,11 @@ public class YousimServiceImpl implements YousimService {
 
     public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
+    static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
+            .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
+
+    static JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
+
     @Override
     public void saveChannelMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
@@ -253,10 +258,7 @@ public class YousimServiceImpl implements YousimService {
             }
         }
 
-        SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
-                .setMaster("local").set("spark.driver.allowMultipleContexts", "true");;
 
-        JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 //        JavaRDD rdd =
 //                sparkContext.parallelize(comments);
 //        Tuple2<String, Integer> mytuple =
