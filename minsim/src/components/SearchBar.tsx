@@ -12,8 +12,7 @@ function SearchBar() :JSX.Element {
   const router = useRouter()
   const routerPush = () => {
     router.push({
-      pathname: "/search/[id]",
-      query: {id: 'channelId'},
+      pathname: `/search/${inputText}`,
     })
   }
   const onKeyDown = (e: React.KeyboardEvent) => {

@@ -9,14 +9,39 @@ import SearchBar from 'src/components/SearchBar'
 import NavBar from 'src/components/NavBar'
 import ChannelInfo from 'src/components/ChannelInfo'
 import SearchList from 'src/components/SearchList'
+import { useEffect, useState } from 'react'
 import TitleImg from '/public/images/titleImg.jpg'
 import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
+import apisearchList from 'src/pages/api/apisearchList'
+
+interface ISearchItem {
+  id: string;
+  banner: string;
+  name: string;
+  description: string;
+  subscriber: number;
+  video: number;
+  thumbnail: string;
+  time: string;
+  view: number;
+}
 
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
-  console.log(router.query);
+  const searchName = router.query.id?.toString()
   
+  const [searchList, setSearchList]= useState<ISearchItem[]>([])
+
+
+  useEffect(()=> {
+    apisearchList(searchName)
+    .then((data)=>{
+      setSearchList(data)
+    })
+  }, [])
+  
+
   return (
     <>
       <Head>
@@ -29,23 +54,10 @@ const SearchPage: NextPage = () => {
       <NavBar />
       <SearchBar />
       <main>
-        <SloganContainer>
-          <SearchList />
-        </SloganContainer>
+
         <VideoListContainer>
         {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
-          <VideoListContainerInnerWrapper>
-            <SearchInfoImgTextWrapper>
-              <Image src={TitleImg}  alt='채널 대표 이미지' width={'188px'} height={'188px'} objectFit='cover' style={{borderRadius: '50%'}} />
-              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
-            </SearchInfoImgTextWrapper>
-          </VideoListContainerInnerWrapper>
-          <VideoListContainerInnerWrapper>
-            <SearchInfoImgTextWrapper>
-              <Image src={TitleImg}  alt='채널 대표 이미지' width={'188px'} height={'188px'} objectFit='cover' style={{borderRadius: '50%'}} />
-              <ChannelInfo title='아이유' sub1='구독자 127만명  |  동영상 6267개' sub2='반갑습니다. 오늘도 즐거운 날입니다.' ></ChannelInfo>
-            </SearchInfoImgTextWrapper>
-          </VideoListContainerInnerWrapper>
+        <SearchList  datas={searchList} />
         </VideoListContainer>
       </main>
     </>
