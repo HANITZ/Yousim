@@ -9,6 +9,9 @@ export const NavStyle = styled.nav`
     padding: 0 64px 0 64px;
     width : 100%;
 `
+export const ChangeNavStyle = styled.nav`
+    background-color: white;
+`
 export const NavUl = styled.ul`
     display : flex;
     list-style : none;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "/public/images/yousimlogo.png";
 import { useRouter } from "next/router";
-import { NavLi, NavStyle, NavUl } from "styles/componentStyles/NavBarStyle";
+import { NavLi, NavStyle, NavUl, ChangeNavStyle } from "styles/componentStyles/NavBarStyle";
 
 function NavBar() {
   const router = useRouter();
@@ -12,7 +12,7 @@ function NavBar() {
   };
 
   return (
-    <NavStyle>
+    <NavStyle id="NavStyle">
       <NavUl>
         <NavLi>
           <h3>Trend</h3>

@@ -6,6 +6,7 @@ import Chart from '/public/images/chart.png'
 import NavBar from 'src/components/NavBar'
 import SearchBar from 'src/components/SearchBar'
 import DescribeText from 'src/components/DescribeText'
+import { ChangeNavStyle } from 'styles/componentStyles/NavBarStyle'
 
 import { SloganContainer } from 'styles/mainStyles/IndexStyle'
 import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
@@ -36,7 +37,6 @@ const Home: NextPage = () => {
   useEffect(() => {
     const el1 = DivAnimationRef1.current;
     const el2 = DivAnimationRef2.current;
-    CustomEase.create("hof", "M0,0 C0,0 0.037,0.011 0.038,0.01 0.038,0.016 0.057,0.129 0.058,0.138 0.061,0.128 0.09,0.051 0.095,0.036 0.097,0.047 0.119,0.017 0.135,0.078 0.175,0.191 0.2,0.102 0.206,0.116 0.206,0.107 0.243,0.25 0.245,0.198 0.257,0.185 0.277,0.309 0.285,0.302 0.291,0.31 0.308,0.188 0.32,0.202 0.321,0.245 0.376,0.276 0.378,0.31 0.392,0.238 0.426,0.298 0.476,0.316 0.479,0.374 0.532,0.272 0.538,0.354 0.553,0.387 0.588,0.542 0.592,0.55 0.596,0.529 0.632,0.58 0.635,0.57 0.636,0.581 0.655,0.67 0.665,0.754 0.666,0.756 0.669,0.69 0.67,0.69 0.671,0.669 0.727,0.607 0.728,0.59 0.73,0.592 0.761,0.654 0.77,0.666 0.819,0.808 0.793,0.782 0.8,0.8 0.8,0.785 0.849,0.699 0.85,0.688 0.851,0.696 0.899,0.881 0.905,0.901 0.907,0.896 0.954,0.869 0.958,0.862 0.965,0.88 1,1 1,1 ");
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(el1, {
       scrollTrigger: {
@@ -60,18 +60,21 @@ const Home: NextPage = () => {
       },
       x: 300, duration: 4
       });
-      gsap.to("#iamge", {duration: 1, y: -100, ease: "hop"});
-
-    // gsap.to("#IntroductionDivAnimation1", {
-    //   x: -300, duration: 3
-    //   });
-    // gsap.to("#IntroductionDivAnimation2", {
-    //   x: 300, duration: 3
-    //   }
-    // );
-  
-    
-  }, [])
+    gsap.to("#NavStyle", {
+      scrollTrigger: {
+        trigger: '#NavStyle',
+        markers:true,
+        start: "top top",
+        end: "+=200",
+        scrub: true,
+        pin: true,
+        toggleClass:"#ChangeNavStyle"
+      }});
+      }, [])
+      console.log(NavBar)
+      console.log(SloganContainer)
+      console.log(IntroductionDivAnimation1)
+      
   return (
     <>
       <Head>
@@ -81,7 +84,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <NavBar />
+        <NavBar/>
         <SearchBar />
         <section>
           <SloganContainer id='SloganContainer'>
@@ -98,7 +101,6 @@ const Home: NextPage = () => {
           <IntroductionSearchBar/>
           <IntroductionVideoContainer>
             <IntroductionDivAnimation1 id='IntroductionDivAnimation1' ref={DivAnimationRef1}/>
-            {/* <IntroductionVideo /> */}
             <IntroductionDivAnimation2 id='IntroductionDivAnimation2' ref={DivAnimationRef2}/>
           </IntroductionVideoContainer>
           <Spinner />
@@ -109,7 +111,7 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer>
-            <Image id="iamge" src={Chart} alt="배경 차트"/>
+            <Image src={Chart} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
         <section>
@@ -119,13 +121,6 @@ const Home: NextPage = () => {
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <IntroductionVideoContainer />
         </section>
-        {/* <button 
-        
-        onClick={() => {
-          throw new Error('Sentry Frontend Error')
-        }}>
-        Throw error
-      </button> */}
       </main>
     </>
   )
