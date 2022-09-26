@@ -12,6 +12,7 @@ public class YoutubeAnalysisApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YoutubeAnalysisApplication.class, args);
+
 	}
 
 }
