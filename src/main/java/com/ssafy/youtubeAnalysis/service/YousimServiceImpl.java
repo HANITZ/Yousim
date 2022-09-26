@@ -254,8 +254,7 @@ public class YousimServiceImpl implements YousimService {
         }
 
         SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
-                .setMaster("local");
-        sparkConf.set("spark.driver.allowMultipleContexts","true");
+                .setMaster("local").set("spark.driver.allowMultipleContexts", "true");;
 
         JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 //        JavaRDD rdd =
