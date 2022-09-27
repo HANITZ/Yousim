@@ -1,14 +1,8 @@
 package com.ssafy.youtubeAnalysis.service;
 
 import com.google.gson.JsonObject;
-import com.ssafy.youtubeAnalysis.entity.ChannelList;
-import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
-import com.ssafy.youtubeAnalysis.entity.Status;
-import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
-import com.ssafy.youtubeAnalysis.repository.ChannelListRepository;
-import com.ssafy.youtubeAnalysis.repository.ChannelMSRepository;
-import com.ssafy.youtubeAnalysis.repository.StatusRepository;
-import com.ssafy.youtubeAnalysis.repository.VideoMSRepository;
+import com.ssafy.youtubeAnalysis.entity.*;
+import com.ssafy.youtubeAnalysis.repository.*;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -43,6 +37,9 @@ public class YousimServiceImpl implements YousimService {
 
     @Autowired
     WordAnalysisService wordAnalysisService;
+
+    @Autowired
+    TrendRepository trendRepository;
 
     public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
@@ -93,32 +90,35 @@ public class YousimServiceImpl implements YousimService {
         JSONObject jsonMain = (JSONObject) obj;
         JSONArray jsonArr = (JSONArray) jsonMain.get("items");
 
-        String result;
+        VideoToChannel result;
         float sum = 0;
         int cnt = 0;
+        JavaPairRDD<String, Integer> keyword = null;
+
         if (jsonArr.size() > 0) {
             for (int i = 0; i < jsonArr.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr.get(i);
 
                 JSONObject VideoId = (JSONObject) jsonObj.get("id");
                 result = saveVideoMS((String) VideoId.get("videoId"));
-                String temp[] = result.split("#");
-                sum += Float.parseFloat(temp[0]);
-                cnt += Integer.parseInt(temp[1]);
+                sum += result.getSum();
+                cnt += result.getCnt();
+                System.out.println(result.getKeywords());
+                if (i == 0)
+                    keyword = result.getKeywords();
+                else
+                    keyword = keyword.union(result.getKeywords()).reduceByKey((amount, value) -> amount + value);
             }
         }
 
-
-        JSONObject temp = new JSONObject();
-
-        temp.put("침착맨", 8);
-        temp.put("주호민", 6);
-
+        JSONObject keywords = new JSONObject();
+        keyword.take(5000).forEach(tuple -> keywords.put(tuple._1, tuple._2));
 
         ChannelMinsim CM = ChannelMinsim.builder()
                 ._id(id)
                 .MS(sum / cnt)
-                .keywords(temp).build();
+                .keywords(keywords)
+                .build();
 
         ST = Status.builder()
                 ._id(id)
@@ -131,11 +131,11 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
-    public String saveVideoMS(String id) throws Exception {
+    public VideoToChannel saveVideoMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
         if (check.isPresent() && Objects.equals(check.get().getStatus(), "갱신 중")) {
-            return "";
+            return null;
         }
 
         Status ST = Status.builder()
@@ -258,18 +258,12 @@ public class YousimServiceImpl implements YousimService {
             }
         }
 
-
-//        JavaRDD rdd =
-//                sparkContext.parallelize(comments);
-//        Tuple2<String, Integer> mytuple =
-//                new Tuple2<String, Integer>("top", 100000);
-
         JavaPairRDD<String, Integer> keyword = sparkContext.parallelize(comments)
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((amount, value) -> amount + value);
 
         JSONObject keywords = new JSONObject();
-        keyword.take(1000).forEach(tuple -> keywords.put(tuple._1,tuple._2));
+        keyword.take(1000).forEach(tuple -> keywords.put(tuple._1, tuple._2));
 
 
         VideoMinsim VM = VideoMinsim.builder()
@@ -286,7 +280,80 @@ public class YousimServiceImpl implements YousimService {
         videoMSRepository.save(VM);
         statusRepository.save(ST);
 
-        return sum + "#" + (jsonArr1.size() + jsonArr1.size());
+
+        VideoToChannel VTC = VideoToChannel.builder()
+                .cnt(jsonArr1.size() + jsonArr2.size())
+                .sum(sum)
+                .keywords(keyword)
+                .build();
+
+        return VTC;
+    }
+
+    @Override
+    public Trend saveTrend() throws Exception {
+
+        String apiurl = "https://www.googleapis.com/youtube/v3/videos";
+        apiurl += "?key=" + KEY;
+        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=5&chart=mostPopular&regionCode=KR";
+
+        URL url = new URL(apiurl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = br.readLine()) != null) {
+            response.append(inputLine);
+        }
+        br.close();
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(response.toString());
+
+        JSONObject jsonMain = (JSONObject) obj;
+        JSONArray jsonArr = (JSONArray) jsonMain.get("items");
+
+        List<Video> result = new ArrayList<>();
+
+        List<String> keyword = new ArrayList<>();
+        List<String> tag = new ArrayList<>();
+
+        if (jsonArr.size() > 0) {
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+
+                JSONObject snippet = (JSONObject) jsonObj.get("snippet");
+                JSONObject localized = (JSONObject) snippet.get("localized");
+
+                keyword.addAll(wordAnalysisService.doWordAnalysis((String) localized.get("title")));
+                if (snippet.get("tags")!=null)
+                tag.addAll(wordAnalysisService.doWordAnalysis(snippet.get("tags").toString()));
+            }
+        }
+
+        JavaPairRDD<String, Integer> keywords = sparkContext.parallelize(keyword)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+        JavaPairRDD<String, Integer> tags = sparkContext.parallelize(tag)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+
+        JSONObject kw = new JSONObject();
+        keywords.take(1000).forEach(tuple -> kw.put(tuple._1, tuple._2));
+        JSONObject tg = new JSONObject();
+        tags.take(1000).forEach(tuple -> tg.put(tuple._1, tuple._2));
+
+        Trend trend = Trend.builder()
+                ._id("0")
+                .keywords(kw)
+                .tags(tg)
+                .build();
+
+        trendRepository.save(trend);
+
+        return trend;
     }
 
     @Override

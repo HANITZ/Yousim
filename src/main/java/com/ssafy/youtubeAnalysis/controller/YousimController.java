@@ -1,6 +1,7 @@
 package com.ssafy.youtubeAnalysis.controller;
 
 import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
+import com.ssafy.youtubeAnalysis.entity.Trend;
 import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
 import com.ssafy.youtubeAnalysis.service.WordAnalysisService;
 import com.ssafy.youtubeAnalysis.service.YousimService;
@@ -135,19 +136,33 @@ public class YousimController {
         return ResponseEntity.status(200).body(optional);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity test() throws Exception {
-
-        List<String> rList = wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼");
-        String str = "가 나 다 라 라";
-        rList = Arrays.asList(wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼").toString());
-
-        for (String temp:rList) {
-            System.out.println(temp);
-        }
+    @Operation(summary = "트렌드 확인", description = "트렌드 확인 & 갱신하는 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공", content = @Content(schema = @Schema(implementation = Trend.class))),
+//            @ApiResponse(responseCode = "202", description = "갱신 중")
+    })
+    @PostMapping("/trend")
+    public ResponseEntity getTrend() throws Exception {
 
 
+        Trend trend = yousimService.saveTrend();
 
-        return ResponseEntity.status(200).body("");
+        return ResponseEntity.status(200).body(trend);
     }
+
+//    @GetMapping("/test")
+//    public ResponseEntity test() throws Exception {
+//
+//        List<String> rList = wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼");
+//        String str = "가 나 다 라 라";
+//        rList = Arrays.asList(wordAnalysisService.doWordNouns("가나다다라 안녕 뭐해 김치찌개 개꿀잼").toString());
+//
+//        for (String temp:rList) {
+//            System.out.println(temp);
+//        }
+//
+//
+//
+//        return ResponseEntity.status(200).body("");
+//    }
 }
