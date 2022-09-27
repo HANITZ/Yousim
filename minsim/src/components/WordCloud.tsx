@@ -22,5 +22,5 @@ const words = [
 
  
 export default function SimpleWordCloud() {
-  return <ReactWordcloud words={words} options={{fontSizes: [10, 100],}}/>
+  return process.browser && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}}/>
 }

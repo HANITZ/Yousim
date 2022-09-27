@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react'
 import TitleImg from '/public/images/titleImg.jpg'
 import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
 import apisearchList from 'src/pages/api/apisearchList'
+import { useRecoilState } from 'recoil'
+import { aSerachList } from 'states/atom'
 
 interface ISearchItem {
   id: string;
@@ -30,8 +32,8 @@ interface ISearchItem {
 const SearchPage: NextPage = () => {
   const router = useRouter()
   const searchName = router.query.id?.toString()
-  
-  const [searchList, setSearchList]= useState<ISearchItem[]>([])
+  const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
+
 
 
   useEffect(()=> {
@@ -55,8 +57,7 @@ const SearchPage: NextPage = () => {
         <NavBar />
         <SearchMarginDiv />
         <VideoListContainer>
-        {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
-        <SearchList  datas={searchList} />
+          <SearchList  datas={searchList} />
         </VideoListContainer>
       </main>
     </>

@@ -1,13 +1,5 @@
-import styled from "@emotion/styled";
+import { SearchListUl } from 'styles/searchStyles/SearchStyle';
 import SearchChannelItem from "./SearchChannelItem";
-
-const SearchListStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const UlName = styled.ul`
-  text-align: center;
-`;
 
 interface ISearchItem {
   id: string;
@@ -28,11 +20,11 @@ interface Iprops {
 
 function SearchList({ datas }: Iprops) {
   return (
-    <UlName>
-      {datas.map((data, index) => {
+    <SearchListUl>
+      {datas?.map((data, index) => {
         return <SearchChannelItem key={index} {...data} />;
       })}
-    </UlName>
+    </SearchListUl>
   );
 }
 
