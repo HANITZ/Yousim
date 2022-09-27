@@ -4,6 +4,7 @@ import { SearchInfoImgTextWrapper } from "styles/searchStyles/SearchStyle";
 import Image, { StaticImageData } from "next/image";
 import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
+import { useRecoilState } from "recoil";
 
 
 const LiDescription = styled.li`
@@ -33,7 +34,7 @@ interface ISearchItem {
 
 const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
-
+  const [chData, setChData] = useRecoilState<ISearchItem>()
   const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
