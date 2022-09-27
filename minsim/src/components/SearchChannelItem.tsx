@@ -3,6 +3,7 @@ import { SearchImgDiv, SearchInfoImgTextWrapper, SearchListContainerInnerWrapper
 import Image from "next/image";
 import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
+import { useRecoilState } from "recoil";
 
 interface ISearchItem {
     key: number;
@@ -19,7 +20,7 @@ interface ISearchItem {
 
 const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
-
+  const [chData, setChData] = useRecoilState<ISearchItem>()
   const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
@@ -60,3 +61,7 @@ const SearchChannelItem = ( data: ISearchItem) => {
 };
 
 export default SearchChannelItem;
+
+
+
+
