@@ -27,18 +27,15 @@ import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
 import apiIniVideoList from "src/pages/api/apiIniiVideoList";
 
-
-
-
 interface IVideo {
   categoryId: number;
-  channelTitle: string | null;
+  channelTitle: string;
   comment: number;
   description: string;
   id: string;
   like: number;
   nextToken: string;
-  tag: [];
+  tag: string[];
   thumbnail: string;
   time: string;
   title: string;
@@ -52,15 +49,14 @@ const ChannelDetailPage: NextPage = () => {
   const query = router.query;
   const [videos, setVideos] = useState<IVideo[]>();
 
-  // 임시
 
-  console.log(query);
-  console.log(query.channel_id);
 
   useEffect(() => {
     apiIniVideoList(query.channel_id?.toString()).then((data) => {
       setVideos(data);
     });
+    console.log(videos)
+    console.log(1)
 
   }, []);
 
@@ -113,7 +109,7 @@ const ChannelDetailPage: NextPage = () => {
 
           <VideoList videos={videos}  />
           <VideoListContainer>
-            <VideoListContainerInnerWrapper>
+            {/* <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <Image
                   src={TitleImg}
@@ -130,7 +126,7 @@ const ChannelDetailPage: NextPage = () => {
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <VideoTags />
-            </VideoListContainerInnerWrapper>
+            </VideoListContainerInnerWrapper> */}
           </VideoListContainer>
         </section>
       </main>

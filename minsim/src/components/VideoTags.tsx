@@ -1,19 +1,22 @@
 import { ChannelTagWrapper, VideoTagWrapper } from "styles/componentStyles/ChannelInfoStyle";
 import { Tag } from "styles/componentStyles/TagStyle";
 
-const VideoTags = () => {
+
+interface ITag {
+  tags: string[]
+}
+
+
+const VideoTags = ({tags}:ITag) => {
   return (
     <VideoTagWrapper>
-      {/* {tags.map} */}
-      <Tag>
-        <p>asd</p>
-      </Tag>
-      <Tag>
-        <p>asd</p>
-      </Tag>
-      <Tag>
-        <p>asd</p>
-      </Tag>
+      {tags.map((tag, index) => {
+        return (
+          <Tag key={index}>
+            <p>{tag}</p>
+          </Tag>
+        )
+      })}
     </VideoTagWrapper>
   );
 };

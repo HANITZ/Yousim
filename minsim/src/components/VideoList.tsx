@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { VideoListContainer } from "styles/channelDetail/VideoListContainerStyle";
+import ChannelVideo from "./ChannelVideo";
 import SearchChannelItem from "./SearchChannelItem";
 
 const SearchListStyle = styled.div`
@@ -14,13 +15,13 @@ const UlName = styled.ul`
 
 interface IVideo {
     categoryId: number;
-    channelTitle: string | null;
+    channelTitle: string;
     comment: number;
     description: string;
     id: string;
     like: number;
     nextToken: string;
-    tag: [];
+    tag: string[];
     thumbnail: string;
     time: string;
     title: string;
@@ -28,7 +29,7 @@ interface IVideo {
   }
 
 interface Iprops {
-    datas: IVideo[]
+    videos: IVideo[]
 }
 
 
@@ -38,15 +39,12 @@ function VideoList({videos}: Iprops) {
   return (
 
 
-    // <VideoListContainer>
+    <VideoListContainer>
+        {videos.map((video, index) => {
+            return <ChannelVideo key={index} {...video} />
+        })}
 
-
-    // </VideoListContainer>
-    <UlName>
-      {datas.map((data, index) => {
-        return <SearchChannelItem key={index} {...data} />;
-      })}
-    </UlName>
+    </VideoListContainer>
 
   );
 }

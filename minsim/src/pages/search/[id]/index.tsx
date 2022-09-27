@@ -39,6 +39,8 @@ const SearchPage: NextPage = () => {
     .then((data)=>{
       setSearchList(data)
     })
+    console.log(searchList)
+    console.log(1)
   }, [searchName])
   
 
