@@ -1,17 +1,15 @@
 import styled from '@emotion/styled';
 import media, { getBreakPoints } from 'css-in-js-media'
+
 getBreakPoints();
 
 export const NavDiv = styled.div`
-  position: fixed;
-  top: 86px;
-
+  padding-bottom: 10px;
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
+  backdrop-filter: blur(10px);
 `;
 
 export const Label = styled.label`

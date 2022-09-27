@@ -14,15 +14,24 @@ import TitleImg from '/public/images/titleImg.jpg'
 import { VideoListContainer, VideoListContainerInnerWrapper } from 'styles/channelDetail/VideoListContainerStyle'
 import apisearchList from 'src/pages/api/apisearchList'
 
-
-
+interface ISearchItem {
+  id: string;
+  banner: string;
+  name: string;
+  description: string;
+  subscriber: number;
+  video: number;
+  thumbnail: string;
+  time: string;
+  view: number;
+}
 
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
   const searchName = router.query.id?.toString()
   
-  const [searchList, setSearchList]= useState<object[]>([])
+  const [searchList, setSearchList]= useState<ISearchItem[]>([])
 
 
   useEffect(()=> {
@@ -30,7 +39,9 @@ const SearchPage: NextPage = () => {
     .then((data)=>{
       setSearchList(data)
     })
-  }, [])
+    console.log(searchList)
+    console.log(1)
+  }, [searchName])
   
 
   return (

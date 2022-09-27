@@ -1,9 +1,10 @@
-import Link from "next/link";
 import styled from "@emotion/styled";
 import { VideoListContainerInnerWrapper } from "styles/channelDetail/VideoListContainerStyle";
 import { SearchInfoImgTextWrapper } from "styles/searchStyles/SearchStyle";
 import Image, { StaticImageData } from "next/image";
 import ChannelInfo from "./ChannelInfo";
+import { useRouter } from 'next/router';
+
 
 const LiDescription = styled.li`
   color: black;
@@ -30,12 +31,30 @@ interface ISearchItem {
     view: number;
 }
 
-const SearchChannelItem = ( props: ISearchItem) => {
-  console.log(props)
+const SearchChannelItem = ( data: ISearchItem) => {
+  const router = useRouter()
+
+  const onClick = () => {
+    router.push({
+      pathname: `/channel/${data.id}`,
+      query: {
+        banner: data.banner,
+        name: data.name,
+        subscriber: data.subscriber,
+        video: data.video,
+        thumbnail: data.thumbnail,
+        description: data.description,
+      }
+    })
+  }
+  
+
+
+
   return (
     <>
 
-      <VideoListContainerInnerWrapper>
+      <VideoListContainerInnerWrapper onClick={onClick} >
         <SearchInfoImgTextWrapper>
           <Image
             src={data.thumbnail}

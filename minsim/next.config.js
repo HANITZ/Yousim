@@ -3,7 +3,9 @@
 
 const nextConfig = {
   images: {
-    domains: ["localhost","yt3.ggpht.com", "*"],
+    domains: ["localhost", "*" ],
+    deviceSizes: [360, 768, 1440],
+    imageSizes: [36, 64, 128],
   },
   reactStrictMode: true,
   swcMinify: true,
@@ -12,6 +14,6 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["yt3.ggpht.com"]
+    domains: ["yt3.ggpht.com","i.ytimg.com"]
   }
 }
