@@ -41,10 +41,9 @@ public class YoutubeController {
             @ApiResponse(responseCode = "200", description = "인기 영상 조회", content = @Content(schema = @Schema(implementation = Video.class))),
     })
     @GetMapping("/popular")
-    public ResponseEntity<List<Video>> popularVideos(
-           int categoryId) throws IOException, ParseException {
+    public ResponseEntity<List<Video>> popularVideos() throws IOException, ParseException {
 
-        List<Video> result = youtubeService.getPopularVideos(categoryId);
+        List<Video> result = youtubeService.getPopularVideos();
 
         return ResponseEntity.status(200).body(result);
     }

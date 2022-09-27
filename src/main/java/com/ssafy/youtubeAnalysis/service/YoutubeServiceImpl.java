@@ -26,11 +26,11 @@ public class YoutubeServiceImpl implements YoutubeService {
     private static IWordAnalysisRepository wordAnalysisService;
 
     @Override
-    public List<Video> getPopularVideos(int categoryId) throws IOException, ParseException {
+    public List<Video> getPopularVideos() throws IOException, ParseException {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/videos";
         apiurl += "?key=" + KEY;
-        apiurl += "&videoCategoryId=" + categoryId;
+//        apiurl += "&videoCategoryId=" + categoryId;
         apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=5&chart=mostPopular&regionCode=KR";
 
         URL url = new URL(apiurl);
