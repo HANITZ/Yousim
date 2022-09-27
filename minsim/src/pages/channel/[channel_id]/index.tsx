@@ -25,7 +25,7 @@ import {
 import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
-import apiIniVideoList from "src/pages/api/apIniivideoList";
+import apiIniVideoList from "src/pages/api/apiIniiVideoList";
 
 
 

@@ -1,22 +1,8 @@
-import styled from "@emotion/styled";
 import { VideoListContainerInnerWrapper } from "styles/channelDetail/VideoListContainerStyle";
-import { SearchInfoImgTextWrapper } from "styles/searchStyles/SearchStyle";
-import Image, { StaticImageData } from "next/image";
+import { SearchImgDiv, SearchInfoImgTextWrapper, SearchListContainerInnerWrapper } from "styles/searchStyles/SearchStyle";
+import Image from "next/image";
 import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
-
-
-const LiDescription = styled.li`
-  color: black;
-`;
-const LiSubscriber = styled.li`
-  color: black;
-`;
-
-const LiVideo = styled.li`
-  color: black;
-`;
-const LiThumbnail = styled.li``;
 
 interface ISearchItem {
     key: number;
@@ -47,23 +33,20 @@ const SearchChannelItem = ( data: ISearchItem) => {
       }
     })
   }
-  
-
-
 
   return (
     <>
-
-      <VideoListContainerInnerWrapper onClick={onClick} >
+      <SearchListContainerInnerWrapper onClick={onClick} >
         <SearchInfoImgTextWrapper>
-          <Image
-            src={data.thumbnail}
-            alt="채널 대표 이미지"
-            width={"188px"}
-            height={"188px"}
-            objectFit="cover"
-            style={{ borderRadius: "50%" }}
-          />
+          <SearchImgDiv>
+            <Image
+              src={data.thumbnail}
+              alt="채널 대표 이미지"
+              layout='fill'
+              objectFit="cover"
+              style={{ borderRadius: "50%" }}
+            />
+          </SearchImgDiv>
           <ChannelInfo
             title={data.name}
             subscriber={data.subscriber} 
@@ -71,7 +54,7 @@ const SearchChannelItem = ( data: ISearchItem) => {
             description={data.description}
           ></ChannelInfo>
         </SearchInfoImgTextWrapper>
-      </VideoListContainerInnerWrapper>
+      </SearchListContainerInnerWrapper>
     </>
   );
 };

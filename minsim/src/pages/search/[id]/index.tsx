@@ -55,8 +55,7 @@ const SearchPage: NextPage = () => {
         <NavBar />
         <SearchMarginDiv />
         <VideoListContainer>
-        {/* VideoListContainerInnerWrapper 단위로 mapㄱㄱ */}
-        <SearchList  datas={searchList} />
+          <SearchList  datas={searchList} />
         </VideoListContainer>
       </main>
     </>
