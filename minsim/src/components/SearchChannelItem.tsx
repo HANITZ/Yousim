@@ -3,7 +3,7 @@ import { SearchImgDiv, SearchInfoImgTextWrapper, SearchListContainerInnerWrapper
 import Image from "next/image";
 import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 
 interface ISearchItem {
     key: number;

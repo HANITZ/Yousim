@@ -16,13 +16,14 @@ import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
 import { useRef, useEffect } from 'react'
 
 export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const Home: NextPage = () => {
-  console.log(HOME_URL);    
-  
+const Home: NextPage = () => {  
+
+
   const DivAnimationRef1 = useRef(null)
   const DivAnimationRef2 = useRef(null)
   useEffect(() => {
@@ -32,35 +33,52 @@ const Home: NextPage = () => {
     gsap.to(el1, {
       scrollTrigger: {
         trigger: "#SloganContainer",
-        // markers: true, 화면에 marker를 띄워 animation 위치 확인가능
+        // 화면에 marker를 띄워 animation 위치 확인가능
+        // markers: true, 
         start: "top top",
         end: "+=800",
         scrub: true,
         // pin: true,
       },
-      x: -300, duration: 4
+      x: -300, duration: 2
       });
     gsap.to(el2, {
       scrollTrigger: {
         trigger: "#SloganContainer",
-        // markers: true, 화면에 marker를 띄워 animation 위치 확인가능
+        // 화면에 marker를 띄워 animation 위치 확인가능
+        // markers: true, 
         start: "top top",
         end: "+=800",
         scrub: true,
         // pin: true,
       },
-      x: 300, duration: 4
+      x: 300, duration: 2
       });
-    // gsap.to("#NavStyle", {
-    //   scrollTrigger: {
-    //     trigger: '#NavStyle',
-    //     markers:true,
-    //     start: "top top",
-    //     end: "+=200",
-    //     scrub: true,
-    //     pin: true,
-    //     toggleClass:"#ChangeNavStyle"
-    //   }});
+    gsap.to("#ImgFrameContainer", {
+      opacity: 0,
+      ease: "none",
+      // scrollTrigger: {
+      //   trigger: '#SloganContainer',
+      //   markers:true,
+      //   start: "top top",
+      //   end: "+=800",
+      //   scrub: true,
+      // },
+      });
+    gsap.to("#ImgFrameContainer", {
+      // autoAlpha: 1,
+      ease: "none",
+      // duration:20000,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '#ImgFrameStart',
+        markers:true,
+        start: "top top",
+        end: "bottom center",
+        scrub: true,
+      },
+      });
+
       }, [])
       const aaa= ()=>{
         console.log("함수 실행됨")
@@ -91,20 +109,19 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <IntroductionSearchBar/>
-          <IntroductionVideoContainer>
+          <IntroductionVideoContainer id='IntroductionVideoContainer'>
             <IntroductionDivAnimation1 id='IntroductionDivAnimation1' ref={DivAnimationRef1}/>
             <IntroductionDivAnimation2 id='IntroductionDivAnimation2' ref={DivAnimationRef2}/>
           </IntroductionVideoContainer>
           <Spinner />
         </section>
-        <button  onClick={aaa} >123123</button>
-        <section>
-          <DescribeText 
+        <section id="ImgFrameStart">
+          <DescribeText
             mainText='민심 확인' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <ImgFrameContainer>
-            <Image src={Chart} alt="배경 차트"/>
+          <ImgFrameContainer id="ImgFrameContainer">
+            <Image id="chartimg" src={Chart} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
         <section>

@@ -1,6 +1,6 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import ReactWordcloud from 'react-wordcloud';
- 
+
 const words = [
   {
     text: 'told',
@@ -19,8 +19,20 @@ const words = [
     value: 17,
   },
 ]
-
  
+
 export default function SimpleWordCloud() {
-  return process.browser && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}}/>
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasMounted(true)
+    } 
+  }, []);
+  return (
+    <>
+        {/* process.browser &&  */}
+        {hasMounted && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}} suppressHydrationWarning={true}/>}
+    </>
+  )
 }
