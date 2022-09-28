@@ -62,7 +62,10 @@ const Home: NextPage = () => {
     //     toggleClass:"#ChangeNavStyle"
     //   }});
       }, [])
-      
+      const aaa= ()=>{
+        console.log("함수 실행됨")
+        
+      }
   return (
     
     <>
@@ -74,6 +77,7 @@ const Home: NextPage = () => {
 
       <main>
         <NavBar />
+        
         <section>
           <SloganContainer id='SloganContainer'>
             <h4>
@@ -93,6 +97,7 @@ const Home: NextPage = () => {
           </IntroductionVideoContainer>
           <Spinner />
         </section>
+        <button  onClick={aaa} >123123</button>
         <section>
           <DescribeText 
             mainText='민심 확인' 

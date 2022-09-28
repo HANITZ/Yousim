@@ -20,7 +20,7 @@ interface ISearchItem {
 
 const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
-  const [chData, setChData] = useRecoilState<ISearchItem>()
+  // const [chData, setChData] = useRecoilState<ISearchItem>()
   const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
