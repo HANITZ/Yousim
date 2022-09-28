@@ -34,7 +34,8 @@ export default function SimpleWordCloud() {
     
     <>
         {/* process.browser &&  */}
-        {hasMounted && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}} suppressHydrationWarning={true}/>}
+        {/* suppressHydrationWarning={true} */}
+        {hasMounted && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}}/>}
         {/* <ReactWordcloud words={words} options={{fontSizes: [10, 100],}} /> */}
     </>
   )

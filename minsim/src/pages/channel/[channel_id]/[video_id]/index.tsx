@@ -19,6 +19,8 @@ import { VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/
 const VideoDetailPage: NextPage = () => {
   const router = useRouter()
   const query = router.query
+  console.log(query);
+  
   
   return (
     <div>
@@ -30,11 +32,11 @@ const VideoDetailPage: NextPage = () => {
 
       <main>
         <NavBar />
-        <VideoFrame src='https://player.vimeo.com/external/319226256.sd.mp4?s=15bd6bd5af266703564dcee166b1ae076659193a&profile_id=164&oauth2_token_id=57447761' title=''/>
+        <VideoFrame src={`https://www.youtube.com/watch?v=${query.id}`} title=''/>
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <VideoInfo title='노래' sub1='아이유' sub2='조회수 127만명  |  1일 전' ></VideoInfo>
+                <VideoInfo title={`${query.title}`} sub1='아이유' sub2={`조회수 ${query.view}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time}`} ></VideoInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />
             </ChannelInfoContainerInnerWrapper>

@@ -61,10 +61,11 @@ const TestPage = () => {
       query: {
         id: data.id,
         title: data.title,
+        time: data.time,
         view: data.view,
+        like: data.like,
         channelTitle: data.channelTitle,
         thumbnail: data.thumbnail,
-        time: data.time
       }
     })
   }
