@@ -23,16 +23,19 @@ const words = [
 
 export default function SimpleWordCloud() {
   const [hasMounted, setHasMounted] = useState(false);
-
+  // const options = {}
   useEffect(() => {
     if (typeof window !== "undefined") {
       setHasMounted(true)
     } 
   }, []);
+
   return (
+    
     <>
         {/* process.browser &&  */}
         {hasMounted && <ReactWordcloud words={words} options={{fontSizes: [10, 100],}} suppressHydrationWarning={true}/>}
+        {/* <ReactWordcloud words={words} options={{fontSizes: [10, 100],}} /> */}
     </>
   )
 }

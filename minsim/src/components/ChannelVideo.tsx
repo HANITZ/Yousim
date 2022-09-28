@@ -35,11 +35,7 @@ interface IVideo {
   }
 
 const ChannelVideo = (video: IVideo) => {
-
-
     const router = useRouter()
-
-
     const onClick = () => {
     // router.push({
     //   pathname: `/channel/${data.id}`,
@@ -59,8 +55,6 @@ const ChannelVideo = (video: IVideo) => {
 
   return (
     <>
-    
-
       <VideoListContainerInnerWrapper onClick={onClick} >
         <SearchInfoImgTextWrapper>
           <Image

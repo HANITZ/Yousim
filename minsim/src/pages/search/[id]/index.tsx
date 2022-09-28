@@ -34,9 +34,9 @@ const SearchPage: NextPage = () => {
   const searchName = router.query.id?.toString()
   const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
 
-
-
   useEffect(()=> {
+    console.log(searchList);
+    
     apisearchList(searchName)
     .then((data)=>{
       setSearchList(data)
