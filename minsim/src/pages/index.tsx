@@ -80,7 +80,10 @@ const Home: NextPage = () => {
       });
 
       }, [])
-      
+      const aaa= ()=>{
+        console.log("함수 실행됨")
+        
+      }
   return (
     
     <>
@@ -92,6 +95,7 @@ const Home: NextPage = () => {
 
       <main>
         <NavBar />
+        
         <section>
           <SloganContainer id='SloganContainer'>
             <h4>
