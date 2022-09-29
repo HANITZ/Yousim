@@ -68,7 +68,6 @@ const SearchPage: NextPage = () => {
   //   });
   // }, [searchName]);
 
-
   return (
     <>
       <Head>
