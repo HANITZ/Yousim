@@ -4,43 +4,56 @@ import { useRouter } from 'next/router'
 
 import DescribeText from 'src/components/DescribeText'
 import NavBar from 'src/components/NavBar'
-import SimpleWordCloud from 'src/components/WordCloud'
+import SimpleWordCloud from 'src/components/TrendList'
 
-import { useEffect, useState } from 'react'
 import { useQuery } from "react-query";
 
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
+import Tags from 'src/components/Tags'
+
+
+
+interface ITrendTag {
+  text: string;
+  value: number;
+}
+
+interface ITrendKeyword {
+  text: string;
+  value: number;
+}
+
+interface Iprops {
+  _id: string;
+  tags: ITrendTag[];
+  keywords: ITrendKeyword[];
+}
 
 
 const TrendPage: NextPage = () => {
   const router = useRouter();
   const query = router.query
-  const [flag, setFlag] = useState(false)
   const {
     data: trendList,
     error,
     status,
-  } = useQuery(
-    ["trendList", flag ],
+  } = useQuery<Iprops>(
+    ["trendList"],
     () => {
-      apitrendList();
+      return apitrendList();
     },
   );
-  useEffect(()=>{
-    setFlag(true)
-  },[])
-  console.log(trendList)
+  
   if (status === "loading") {
     return <span>Loading...</span>;
   }
 
   if (status === "error") {
-    return <span>Error: {error.message} </span>;
+    return <span>Error </span>;
   }
   
-
 
   return (
     <div>
@@ -54,12 +67,21 @@ const TrendPage: NextPage = () => {
         <NavBar />
         <TrendSectionStyle>
           <DescribeText
-              mainText='Trend 정보' 
+              mainText='Trend Tag' 
+              subText1='태그입니다.'
+              subText2='현재 인기동영상의 태그를 확인해 보세요.'/>
+        </TrendSectionStyle>
+        <WordCloudContainer>
+          <SimpleWordCloud props={trendList?.tags}/>
+        </WordCloudContainer>
+        <TrendSectionStyle>
+          <DescribeText
+              mainText='Trend Keyword' 
               subText1='키워드입니다.'
               subText2='현재 인기동영상의 키워드를 확인해 보세요.'/>
         </TrendSectionStyle>
         <WordCloudContainer>
-          <SimpleWordCloud />
+          <SimpleWordCloud props={trendList?.keywords}/>
         </WordCloudContainer>
       </main>
     </div>
