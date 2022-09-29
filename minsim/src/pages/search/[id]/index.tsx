@@ -80,7 +80,11 @@ const SearchPage: NextPage = () => {
       setSearchList(data);
     });
   }, [searchName]);
+<<<<<<< HEAD
 >>>>>>> Han
+=======
+>>>>>>> 6710dc4bead9188be26bfb8710ecfaf19183de41
+>>>>>>> 112a583358a872e34ef397a85958df2b0b2db0bb
 
   return (
     <>
