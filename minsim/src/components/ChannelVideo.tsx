@@ -57,15 +57,14 @@ const ChannelVideo = (video: IVideo) => {
           <Image
             src={video.thumbnail}
             alt="채널 대표 이미지"
-            width={"188px"}
-            height={"188px"}
-            objectFit="cover"
+            width={"256px"}
+            height={"128px"}
+            objectFit='fill'
           />
           <VideoInfo title={`${video.title}`} sub1='아이유' sub2={`조회수 ${video.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${video.time?.slice(0, 10)}`} ></VideoInfo>
         </SearchInfoImgTextWrapper>
         <VideoTags tags={video.tag} />
       </VideoListContainerInnerWrapper>
-      ;
     </>
   );
 };
