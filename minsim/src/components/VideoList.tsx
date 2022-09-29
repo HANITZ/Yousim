@@ -43,7 +43,6 @@ function VideoList({videos}: Iprops) {
         {videos?.map((video, index) => {
             return <ChannelVideo key={index} {...video} />
         })}
-
     </VideoListContainer>
 
   );
