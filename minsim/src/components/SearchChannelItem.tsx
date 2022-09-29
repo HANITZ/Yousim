@@ -23,19 +23,7 @@ const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
   
-  // useEffect(()=>{
-  //   setChData({
-  //     id: data.id,
-  //     banner: data.banner,
-  //     name: data.name,
-  //     description: data.description,
-  //     subscriber: data.subscriber,
-  //     video: data.video,
-  //     thumbnail: data.thumbnail,
-  //     time: data.time,
-  //     view: data.view
-  //   })
-  // },[])
+
   
   const onClick = () => {
     setChData({
