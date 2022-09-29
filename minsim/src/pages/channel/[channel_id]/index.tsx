@@ -67,7 +67,6 @@ const ChannelDetailPage: NextPage = () => {
   })
 
 
-
   return (
     <div>
       <Head>
@@ -93,10 +92,10 @@ const ChannelDetailPage: NextPage = () => {
                   />
                 </ImgDiv>
                 <ChannelInfo
-                  title={chData.name}
-                  subscriber={chData.subscriber}
-                  video={chData.video}
-                  description={chData.description}
+                  title={chData?.name}
+                  subscriber={chData?.subscriber}
+                  video={chData?.video}
+                  description={chData?.description}
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />
@@ -116,9 +115,11 @@ const ChannelDetailPage: NextPage = () => {
           <VideoListTitle>채널 영상</VideoListTitle>
           
           {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
-          <VideoList videos={videos}  />
           <VideoListContainer>
-            {/* <VideoListContainerInnerWrapper>
+            {videos ? <VideoList videos={videos} /> : <></>}
+          </VideoListContainer>
+          {/* <VideoListContainer>
+            <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <Image
                   src={TitleImg}
@@ -135,8 +136,8 @@ const ChannelDetailPage: NextPage = () => {
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <VideoTags />
-            </VideoListContainerInnerWrapper> */}
-          </VideoListContainer>
+            </VideoListContainerInnerWrapper>
+          </VideoListContainer> */}
         </section>
       </main>
     </div>

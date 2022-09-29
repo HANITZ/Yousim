@@ -35,22 +35,16 @@ const SearchChannelItem = ( data: ISearchItem) => {
       time: data.time,
       view: data.view
     })
-  },[])
+  },[data.id])
   
   const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
-      query: {
-        banner: data.banner,
-        name: data.name,
-        subscriber: data.subscriber,
-        video: data.video,
-        thumbnail: data.thumbnail,
-        description: data.description,
-      }
+
     })
   }
-
+  console.log(data.id);
+  
   return (
     <>
       <SearchListContainerInnerWrapper onClick={onClick} >
