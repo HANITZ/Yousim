@@ -20,9 +20,8 @@ import {
   VideoListContainerInnerWrapper,
 } from "styles/channelDetail/VideoListContainerStyle";
 import apisearchList from "src/pages/api/apisearchList";
-import { useRecoilState } from "recoil";
 import { aSerachList } from "states/atom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface ISearchItem {
   id: string;
@@ -38,33 +37,19 @@ interface ISearchItem {
 
 const SearchPage: NextPage = () => {
   const router = useRouter();
-  const [name, setName] = useState<string>();
   const searchName = router.query.id?.toString();
 
-<<<<<<< HEAD
-  useEffect(()=> {
-    console.log(searchList);
-    
-    apisearchList(searchName)
-    .then((data)=>{
-      setSearchList(data)
-    })
-  }, [searchName])
   
-=======
-  // const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
+
   const {
     data: searchList,
     error,
     status,
   } = useQuery(
-    ["searchList"],
+    ["searchList", searchName ],
     () => {
-      apisearchList(searchName);
+      return apisearchList(searchName);
     },
-    {
-      enabled: !!searchName,
-    }
   );
 
   if (status === "loading") {
@@ -75,12 +60,6 @@ const SearchPage: NextPage = () => {
     return <span>Error: {error.message} </span>;
   }
 
-  useEffect(() => {
-    apisearchList(searchName).then((data) => {
-      setSearchList(data);
-    });
-  }, [searchName]);
->>>>>>> 6710dc4bead9188be26bfb8710ecfaf19183de41
 
   return (
     <>
