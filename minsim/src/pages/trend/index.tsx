@@ -6,13 +6,25 @@ import DescribeText from 'src/components/DescribeText'
 import NavBar from 'src/components/NavBar'
 import SimpleWordCloud from 'src/components/TrendList'
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
-import Tags from 'src/components/Tags'
 
+// interface ITrendTag {
+//   text: string;
+//   value: number;
+// }
+
+// interface ITrendKeyword {
+//   text: string;
+//   value: number;
+// }
+
+// interface Iprops {
+//   props: ITrendTag[] | undefined;
+// }
 
 
 interface ITrendTag {
@@ -34,7 +46,7 @@ interface Iprops {
 
 const TrendPage: NextPage = () => {
   const router = useRouter();
-  const query = router.query
+  console.log('1')
   const {
     data: trendList,
     error,
@@ -68,8 +80,8 @@ const TrendPage: NextPage = () => {
         <TrendSectionStyle>
           <DescribeText
               mainText='Trend Tag' 
-              subText1='태그입니다.'
-              subText2='현재 인기동영상의 태그를 확인해 보세요.'/>
+              subText1='인기동영상의 태그입니다.'
+              subText2='현재 인기동영상들의 모든 태그를 나타내고 있습니다.'/>
         </TrendSectionStyle>
         <WordCloudContainer>
           <SimpleWordCloud props={trendList?.tags}/>
@@ -77,8 +89,8 @@ const TrendPage: NextPage = () => {
         <TrendSectionStyle>
           <DescribeText
               mainText='Trend Keyword' 
-              subText1='키워드입니다.'
-              subText2='현재 인기동영상의 키워드를 확인해 보세요.'/>
+              subText1='인기동영상의 키워드입니다.'
+              subText2='현재 인기동영상 제목의 키워드를 나타내고 있습니다.'/>
         </TrendSectionStyle>
         <WordCloudContainer>
           <SimpleWordCloud props={trendList?.keywords}/>
