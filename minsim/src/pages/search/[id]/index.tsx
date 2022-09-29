@@ -39,13 +39,12 @@ const SearchPage: NextPage = () => {
   const router = useRouter();
   const searchName = router.query.id?.toString();
 
-  
 
   const {
     data: searchList,
     error,
     status,
-  } = useQuery(
+  } = useQuery<ISearchItem[]>(
     ["searchList", searchName ],
     () => {
       return apisearchList(searchName);

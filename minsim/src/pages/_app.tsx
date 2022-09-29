@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      <QueryClientProvider client={queryClient} >
+      <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <Global
             styles={css`
