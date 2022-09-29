@@ -23,7 +23,9 @@ const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
   
-  useEffect(()=>{
+
+  
+  const onClick = () => {
     setChData({
       id: data.id,
       banner: data.banner,
@@ -35,16 +37,12 @@ const SearchChannelItem = ( data: ISearchItem) => {
       time: data.time,
       view: data.view
     })
-  },[data.id])
-  
-  const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
 
     })
   }
-  console.log(data.id);
-  
+
   return (
     <>
       <SearchListContainerInnerWrapper onClick={onClick} >
@@ -71,7 +69,3 @@ const SearchChannelItem = ( data: ISearchItem) => {
 };
 
 export default SearchChannelItem;
-
-
-
-

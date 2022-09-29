@@ -25,7 +25,7 @@ import {
 import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
-import apiIniVideoList from "src/pages/api/apiIniivideoList";
+import apiIniVideoList from "src/pages/api/apiIniVideoList";
 import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -43,7 +43,7 @@ interface IVideo {
   thumbnail: string;
   time: string;
   title: string;
-  view: number
+  view: number;
 }
 
 interface ISearchItem {
@@ -61,11 +61,14 @@ interface ISearchItem {
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-  const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
-  const {data:videos, status} = useQuery<IVideo[]>(["video", query.channel_id], ()=>{
-    return apiIniVideoList(query.channel_id)
-  })
 
+  const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
+  const { data: videos, status } = useQuery<IVideo[]>(
+    ["video", query.channel_id],
+    () => {
+      return apiIniVideoList(query.channel_id);
+    }
+  );
 
   return (
     <div>
@@ -115,9 +118,11 @@ const ChannelDetailPage: NextPage = () => {
           <VideoListTitle>채널 영상</VideoListTitle>
           
           {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
-          <VideoListContainer>
+
+          {videos ? <VideoList videos={videos} /> : <></>}
+          {/* <VideoListContainer>
             {videos ? <VideoList videos={videos} /> : <></>}
-          </VideoListContainer>
+          </VideoListContainer> */}
           {/* <VideoListContainer>
             <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
