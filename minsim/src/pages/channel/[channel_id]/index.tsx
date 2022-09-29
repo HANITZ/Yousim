@@ -26,6 +26,10 @@ import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
 import apiIniVideoList from "src/pages/api/apiIniiVideoList";
+import { useQuery } from "@tanstack/react-query";
+import SearchList from "src/components/SearchList";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { aChData } from "states/atom";
 
 interface IVideo {
   categoryId: number;
@@ -42,23 +46,27 @@ interface IVideo {
   view: number
 }
 
-
+interface ISearchItem {
+  id: string;
+  banner: string;
+  name: string;
+  description: string;
+  subscriber: number;
+  video: number;
+  thumbnail: string;
+  time: string;
+  view: number;
+}
 
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-  const [videos, setVideos] = useState<IVideo[]>();
+  const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
+  const {data:videos, status} = useQuery<IVideo[]>(["video", query.channel_id], ()=>{
+    return apiIniVideoList(query.channel_id)
+  })
 
 
-
-  useEffect(() => {
-    apiIniVideoList(query.channel_id?.toString()).then((data) => {
-      setVideos(data);
-    });
-    console.log(videos)
-    console.log(1)
-
-  }, []);
 
   return (
     <div>
@@ -71,13 +79,13 @@ const ChannelDetailPage: NextPage = () => {
       <main>
         <NavBar />
         <section>
-          <Banner src={query.banner} alt="배너" />
+          <Banner src={chData.banner} alt="배너" />
           <ChannelInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <ImgDiv>
                   <Image
-                    src={query.thumbnail}
+                    src={chData.thumbnail}
                     alt="채널 대표 이미지"
                     layout="fill"
                     objectFit="cover"
@@ -85,10 +93,10 @@ const ChannelDetailPage: NextPage = () => {
                   />
                 </ImgDiv>
                 <ChannelInfo
-                  title={query.name}
-                  subscriber={router.query.subscriber}
-                  video={router.query.video}
-                  description={router.query.description}
+                  title={chData.name}
+                  subscriber={chData.subscriber}
+                  video={chData.video}
+                  description={chData.description}
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />

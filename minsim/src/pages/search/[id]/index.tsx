@@ -22,7 +22,7 @@ import {
 import apisearchList from "src/pages/api/apisearchList";
 import { useRecoilState } from "recoil";
 import { aSerachList } from "states/atom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface ISearchItem {
   id: string;
@@ -40,12 +40,11 @@ const SearchPage: NextPage = () => {
   const router = useRouter();
   const searchName = router.query.id?.toString();
 
-  // const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
   const {
     data: searchList,
     error,
     status,
-  } = useQuery(
+  } = useQuery<ISearchItem[]>(
     ["searchList", searchName ],
     () => {
       return apisearchList(searchName);
@@ -60,13 +59,7 @@ const SearchPage: NextPage = () => {
     return <span>Error: {error.message} </span>;
   }
 
-  console.log(searchList)
-  console.log(searchName)
-  // useEffect(() => {
-  //   apisearchList(searchName).then((data) => {
-  //     setSearchList(data);
-  //   });
-  // }, [searchName]);
+
 
   return (
     <>
