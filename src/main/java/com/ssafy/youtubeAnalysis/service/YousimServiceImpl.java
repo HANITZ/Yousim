@@ -200,7 +200,7 @@ public class YousimServiceImpl implements YousimService {
                 }
                 br.close();
                 String temp = response.toString().replace("%", "");
-                if (temp.equals("35.13")) continue;
+                if ("35.13".equals(temp)) continue;
                 System.out.println(temp + "||" + snippet2.get("textDisplay"));
                 if (Float.parseFloat(temp) >= 50)
                     sum += 100;
