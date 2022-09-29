@@ -47,8 +47,8 @@ const VideoDetailPage: NextPage = () => {
 
   useEffect(() => {
     setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})));
-    console.log(commentList);
-  }, [])
+  }, [data])
+  console.log(commentData);
   
   
   if (status === "loading" || commentStatus === "loading") {
