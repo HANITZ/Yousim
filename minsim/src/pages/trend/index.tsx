@@ -5,27 +5,11 @@ import { useRouter } from 'next/router'
 import DescribeText from 'src/components/DescribeText'
 import NavBar from 'src/components/NavBar'
 import SimpleWordCloud from 'src/components/TrendList'
-
 import { useQuery } from "@tanstack/react-query";
 
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
-
-// interface ITrendTag {
-//   text: string;
-//   value: number;
-// }
-
-// interface ITrendKeyword {
-//   text: string;
-//   value: number;
-// }
-
-// interface Iprops {
-//   props: ITrendTag[] | undefined;
-// }
-
 
 interface ITrendTag {
   text: string;
@@ -46,7 +30,7 @@ interface Iprops {
 
 const TrendPage: NextPage = () => {
   const router = useRouter();
-  console.log('1')
+
   const {
     data: trendList,
     error,
@@ -57,7 +41,6 @@ const TrendPage: NextPage = () => {
       return apitrendList();
     },
   );
-  
   if (status === "loading") {
     return <span>Loading...</span>;
   }

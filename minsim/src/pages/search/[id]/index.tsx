@@ -59,9 +59,6 @@ const SearchPage: NextPage = () => {
     return <span>Error </span>;
   }
 
-
-  console.log(searchList)
-  console.log(searchName)
   // useEffect(() => {
   //   apisearchList(searchName).then((data) => {
   //     setSearchList(data);
@@ -80,7 +77,7 @@ const SearchPage: NextPage = () => {
         <NavBar />
         <SearchMarginDiv />
         <VideoListContainer>
-          <SearchList datas={searchList} />
+          {searchList ? <SearchList datas={searchList} /> : <></>}
         </VideoListContainer>
       </main>
     </>
