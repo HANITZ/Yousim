@@ -20,9 +20,8 @@ import {
   VideoListContainerInnerWrapper,
 } from "styles/channelDetail/VideoListContainerStyle";
 import apisearchList from "src/pages/api/apisearchList";
-import { useRecoilState } from "recoil";
 import { aSerachList } from "states/atom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface ISearchItem {
   id: string;
@@ -40,12 +39,12 @@ const SearchPage: NextPage = () => {
   const router = useRouter();
   const searchName = router.query.id?.toString();
 
-  // const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
+
   const {
     data: searchList,
     error,
     status,
-  } = useQuery(
+  } = useQuery<ISearchItem[]>(
     ["searchList", searchName ],
     () => {
       return apisearchList(searchName);
@@ -59,6 +58,7 @@ const SearchPage: NextPage = () => {
   if (status === "error") {
     return <span>Error: {error.message} </span>;
   }
+
 
   console.log(searchList)
   console.log(searchName)

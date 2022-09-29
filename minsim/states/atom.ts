@@ -23,6 +23,7 @@ export const aSerachList = atom<ISearchItem[]>({
 
 
 
+
 // 채널 정보 channel/[channel_id]/index
 export const aChData = atom<ISearchItem>({
 	key: "aChData",

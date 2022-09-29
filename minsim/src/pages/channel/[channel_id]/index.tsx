@@ -25,41 +25,68 @@ import {
 import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
+<<<<<<< HEAD
+import apiIniVideoList from "src/pages/api/apIniivideoList";
+
+
+
+=======
 import apiIniVideoList from "src/pages/api/apiIniiVideoList";
+import { useQuery } from "@tanstack/react-query";
+import SearchList from "src/components/SearchList";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { aChData } from "states/atom";
+>>>>>>> ffc94d9ff47f5cbcbd43162a8e84bdfdf0b2f023
 
 interface IVideo {
   categoryId: number;
-  channelTitle: string;
+  channelTitle: string | null;
   comment: number;
   description: string;
   id: string;
   like: number;
   nextToken: string;
-  tag: string[];
+  tag: [];
   thumbnail: string;
   time: string;
   title: string;
   view: number
 }
 
-
+interface ISearchItem {
+  id: string;
+  banner: string;
+  name: string;
+  description: string;
+  subscriber: number;
+  video: number;
+  thumbnail: string;
+  time: string;
+  view: number;
+}
 
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-  const [videos, setVideos] = useState<IVideo[]>();
+  const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
+  const {data:videos, status} = useQuery<IVideo[]>(["video", query.channel_id], ()=>{
+    return apiIniVideoList(query.channel_id)
+  })
 
+  // 임시
+  console.log(query);
+  console.log(query.channel_id);
 
-
+<<<<<<< HEAD
   useEffect(() => {
     apiIniVideoList(query.channel_id?.toString()).then((data) => {
       setVideos(data);
     });
-    console.log(videos)
-    console.log(1)
 
   }, []);
 
+=======
+>>>>>>> ffc94d9ff47f5cbcbd43162a8e84bdfdf0b2f023
   return (
     <div>
       <Head>
@@ -71,13 +98,13 @@ const ChannelDetailPage: NextPage = () => {
       <main>
         <NavBar />
         <section>
-          <Banner src={query.banner} alt="배너" />
+          <Banner src={chData.banner} alt="배너" />
           <ChannelInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <ImgDiv>
                   <Image
-                    src={query.thumbnail}
+                    src={chData.thumbnail}
                     alt="채널 대표 이미지"
                     layout="fill"
                     objectFit="cover"
@@ -85,10 +112,10 @@ const ChannelDetailPage: NextPage = () => {
                   />
                 </ImgDiv>
                 <ChannelInfo
-                  title={query.name}
-                  subscriber={router.query.subscriber}
-                  video={router.query.video}
-                  description={router.query.description}
+                  title={chData.name}
+                  subscriber={chData.subscriber}
+                  video={chData.video}
+                  description={chData.description}
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />
@@ -107,9 +134,9 @@ const ChannelDetailPage: NextPage = () => {
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>
 
-          <VideoList videos={videos}  />
+          {/* <VideoList videos={videos}  /> */}
           <VideoListContainer>
-            {/* <VideoListContainerInnerWrapper>
+            <VideoListContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
                 <Image
                   src={TitleImg}
@@ -125,8 +152,8 @@ const ChannelDetailPage: NextPage = () => {
                   sub2="반갑습니다. 오늘도 즐거운 날입니다."
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
-              <VideoTags />
-            </VideoListContainerInnerWrapper> */}
+              {/* <VideoTags /> */}
+            </VideoListContainerInnerWrapper>
           </VideoListContainer>
         </section>
       </main>

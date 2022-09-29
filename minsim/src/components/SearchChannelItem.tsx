@@ -3,10 +3,11 @@ import { SearchImgDiv, SearchInfoImgTextWrapper, SearchListContainerInnerWrapper
 import Image from "next/image";
 import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
-// import { useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import { aChData } from "states/atom";
+import { useEffect } from "react";
 
 interface ISearchItem {
-    key: number;
     id: string;
     banner: string;
     name: string;
@@ -20,7 +21,22 @@ interface ISearchItem {
 
 const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
-  // const [chData, setChData] = useRecoilState<ISearchItem>()
+  const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
+  
+  useEffect(()=>{
+    setChData({
+      id: data.id,
+      banner: data.banner,
+      name: data.name,
+      description: data.description,
+      subscriber: data.subscriber,
+      video: data.video,
+      thumbnail: data.thumbnail,
+      time: data.time,
+      view: data.view
+    })
+  },[])
+  
   const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
