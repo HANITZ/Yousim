@@ -1,4 +1,6 @@
-![벨루생선](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAVN3hHMkIytFeAS2QNJMXesePfWInu5aGxQ&usqp=CAU)
+<div align="center">
+![민심](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAVN3hHMkIytFeAS2QNJMXesePfWInu5aGxQ&usqp=CAU)
+</div>
 
 <div align="center">
   <h1>유튜브 트랜드 분석 You心</h1>
@@ -31,15 +33,15 @@
 
 #### 유튜브 트랜드 분석 😖
 
-> 국내 하루 평균 길에 버려지는 담배꽁초가 무려 **1250**만 개비라고 합니다.<br />
+> 유튜브 트랜드 분석 소개 1<br />
 >
-> 담배가 그대로 하수구를 통해 바다에 유입돼 바다오염이 되고<br />
+> 유튜브 트랜드 분석 소개 2<br />
 >
-> 그렇게 바다에서 분해된 미세플라스틱은 오롯이 인간이 먹게됩니다..
+> 유튜브 트랜드 분석 소개 3다..
 
-#### 바다오염의 해결책 담배꽁초수거 플랫폼 SSOKDAM 💊
+#### 유튜브 트랜드 분석 You心 💊
 
-##### 바다를 오염시키는 무분별한 담배 꽁초로 부터 지구를 지키기 위해 SSOKDAM을 이용해주세요!
+##### 내가 보는 유튜버 의 민심을 확인하세요 ~~  You心을 이용해주세요!
 
 </br>
 
@@ -226,59 +228,6 @@
 - 디바이스를 잘 조치했다면 고장상태를 변경할 수 있습니다.
 
 
-
-
-
-
-
-
-
-## 🎛️ 디바이스 주요기능
-
-### 0. 디바이스 이미지
-
-<img src="https://user-images.githubusercontent.com/62362910/185401544-c46a1400-b708-4692-b073-763319dff4d5.jpg" width="332" height="591"/>
-<img src="https://user-images.githubusercontent.com/62362910/185401559-8cf49a38-1c31-4aa7-aeef-21b36b11c1f6.jpg" width="443" height="591"/>
-
-###  1. 투입구 개폐
-
-![open](https://user-images.githubusercontent.com/62362910/185402118-2ff660ec-4d82-4f81-9815-bf741753b6cb.gif)
-
-- 사용자가 디바이스 상단에 위치한 QR코드를 인식합니다. 사용자 인것이 DB측과의 지속적인 GET요청을 통하여 확인이 되면 내부의 모터가 작동하며 투입구와 내부 덮개가 열리게 됩니다. 이후 담배 인식이 되면 개폐구는 닫히게 됩니다.
-
-###  2. 담배 인식 및 판별
-
-![sensor](https://user-images.githubusercontent.com/62362910/185403878-708ea2cc-fd23-4dfe-be75-847c29a625bb.png)
-
-- 인식부에서는 CDS 조도 센서를 사용하여, 물체가 입구를 통과 할 경우 낮아지는 조도량을 측정하여 
-물체 통과를 인식합니다. 인식되지 않을경우 5초후 다음 과정은 생략됩니다.
-- 판별부에서는 정확도를 높이기 위해 3가지 센서를 사용하여 담배인지 아닌지를 판별합니다. 
-- 비접촉 온도센서에서는 적정 설정온도를, 가스 센서에서는 일정량 이상의 가스를, 공기질 센서에서는 미세먼지 량을 측정하여 3가지 판별 프로세스 중 하나라도 통과하면 담배로 인식됩니다. 
-
-###  3. 담배 분쇄
-
-![grind](https://user-images.githubusercontent.com/62362910/185403679-e9990766-4514-4ee4-9586-2405be27c395.gif)
-
-- 판별부에서 담배로 인식이 된다면 곧바로 분쇄하게 됩니다. 분쇄된 담배는 일반 쓰레기와 분리되어 수거됩니다.
-
-###  4. 처리 후 사용 정보 DB 송신
-
-![get](https://user-images.githubusercontent.com/62362910/185400157-af7e391a-c9b0-4066-8b6e-0d41cc67b7c9.png)
-
-- 판별이 끝난 후 담배 인것이 확인되면 이를 DB측으로 송신합니다. 
-- DB에서는 이를 포인트로 적립시킵니다.
-
-
-###  5. 기기정보 업로드
-
-<img src="https://user-images.githubusercontent.com/62362910/185400142-e22f8ffc-08c9-417b-8cef-46a3e9dc1f27.png" width="629" height="416"/>
-
-- 1시간 마다 기기의 정보를 업로드합니다. 
-- 위의 이미지 처럼 DB의 Table에 해당되는 JSON 형식으로 POST요청을 보냅니다. 기기 ID, 사용자 이름, 기기 상태, 쓰레기 통 용량, 배터리 등의 정보를 관리자 측으로 송신합니다.
-
-
-</br>
-
 </br>
 
 
@@ -319,23 +268,14 @@
 
 <table>
     <tr>
-        <td height="140px" align="center"> <a href="https://github.com/Owenkim9720">
-            <img src="https://user-images.githubusercontent.com/97595340/184632028-dec1cfd0-eb4e-4044-af95-f09376b13f9c.jpg" width="140px" /> <br><br> 👑 김도원 <br>(Embedded) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/kiki249049">
-            <img src="https://user-images.githubusercontent.com/97595340/184632031-f03361a4-9af9-4e51-82c1-d90e1e96d40e.jpg" width="140px" /> <br><br> 🙂 김강현 <br>(Front-End) </a> <br></td>
         <td height="140px" align="center"> <a href="https://github.com/dm0114">
-            <img src="https://user-images.githubusercontent.com/97595340/184632030-caf381aa-97d8-4324-b171-fd256356fc14.jpg" width="140px" /> <br><br> 😆 권덕민 <br>(Front-End) </a> <br></td>
+            <img src="https://user-images.githubusercontent.com/97595340/184632030-caf381aa-97d8-4324-b171-fd256356fc14.jpg" width="140px" /> <br><br> 👑 권덕민 <br>(Front-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 😆 장우주 <br>(Front-End) </a> <br></td>
         <td height="140px" align="center"> <a href="https://github.com/swyou1123">
-            <img src="https://user-images.githubusercontent.com/97595340/184631762-20bf666d-aa58-4238-9e93-370f45919628.PNG" width="140px" /> <br><br> 😁 유승우 <br>(Back-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="https://github.com/yoonseonghan">
-            <img src="https://user-images.githubusercontent.com/97595340/184631769-830304cc-c992-441b-907b-5596b1f501fd.jpg" width="140px" /> <br><br> 🙄 윤성한 <br>(Embedded) </a> <br></td>
-    </tr>
-    <tr>
-        <td align="center">Firmware<br/>3D Modeling</td>
-        <td align="center">UI/UX<br/>React</td>
-        <td align="center">UI/UX<br/>React</td>
-        <td align="center">REST API<br/>CI/CD<br/>Infra<br/></td>
-        <td align="center">Firmware</td>
+            <img src="https://user-images.githubusercontent.com/97595340/184631762-20bf666d-aa58-4238-9e93-370f45919628.PNG" width="140px" /> <br><br> 🙂 유승우 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 😁 장한울 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 🙄 정관철 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 🙄 최영현 <br>(Back-End) </a> <br></td>
     </tr>
 </table>
 
