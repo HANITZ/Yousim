@@ -56,7 +56,7 @@ const SearchPage: NextPage = () => {
   }
 
   if (status === "error") {
-    return <span>Error: {error.message} </span>;
+    return <span>Error </span>;
   }
 
 

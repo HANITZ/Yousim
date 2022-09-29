@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { VideoListContainerInnerWrapper } from "styles/channelDetail/VideoListContainerStyle";
 import { SearchInfoImgTextWrapper } from "styles/searchStyles/SearchStyle";
 import Image, { StaticImageData } from "next/image";
-import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
 import VideoTags from "./VideoTags";
+import VideoInfo from "./VideoInfo";
 
 
 const LiDescription = styled.li`
@@ -36,26 +36,23 @@ interface IVideo {
 
 const ChannelVideo = (video: IVideo) => {
     const router = useRouter()
-    const onClick = () => {
-    // router.push({
-    //   pathname: `/channel/${data.id}`,
-    //   query: {
-    //     banner: data.banner,
-    //     name: data.name,
-    //     subscriber: data.subscriber,
-    //     video: data.video,
-    //     thumbnail: data.thumbnail,
-    //     description: data.description,
-    //   }
-    // })
-  }
-  
-
-
+  //   const onClick = () => {
+  //   router.push({
+  //     pathname: `/channel/${data.id}`,
+  //     query: {
+  //       name: data.name,
+  //       subscriber: data.subscriber,
+  //       video: data.video,
+  //       thumbnail: data.thumbnail,
+  //       description: data.description,
+  //     }
+  //   })
+  // }
 
   return (
     <>
-      <VideoListContainerInnerWrapper onClick={onClick} >
+      {/* onclick */}
+      <VideoListContainerInnerWrapper>
         <SearchInfoImgTextWrapper>
           <Image
             src={video.thumbnail}
@@ -63,13 +60,8 @@ const ChannelVideo = (video: IVideo) => {
             width={"188px"}
             height={"188px"}
             objectFit="cover"
-            style={{ borderRadius: "50%" }}
           />
-          {/* <ChannelInfo
-            title={video.title}
-            video={data.video}
-            description={data.description}
-          ></ChannelInfo> */}
+          <VideoInfo title={`${video.title}`} sub1='아이유' sub2={`조회수 ${video.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${video.time?.slice(0, 10)}`} ></VideoInfo>
         </SearchInfoImgTextWrapper>
         <VideoTags tags={video.tag} />
       </VideoListContainerInnerWrapper>
