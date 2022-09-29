@@ -97,24 +97,31 @@
 #### Backend 디렉토리 구조
 
 ```
-├─main
-│  │   
-│  ├─java                
-│  │  └─com
-│  │      └─ssafy
-│  │          └─project
-│  │              ├─config        # CORS 및 암호화 설정 폴더
-│  │              ├─controller    # 각 도메인별 컨트롤러 있는 폴더
-│  │              ├─domain       # 각 DB 테이블 을 설정한 도메인 폴더
-│  │              ├─Function      # 추가적인 기능을 모아둔 폴더
-│  │              ├─Repository   # 도메인별 JPA Repository 설정한 폴더
-│  │              └─Service        # 도메인별 기능을 정의해둔 폴더 
-│  └─resources
-└─test
-    └─java
-        └─com
-            └─ssafy
-                └─project            # 테스트 케이스 있는 폴더
+──Spring Boot
+    ├─main   
+    │  ├─java                
+    │  │  └─com
+    │  │      └─ssafy
+    │  │          └─youtubeAnalysis
+    │  │              ├─config        # CORS 및 암호화 설정 폴더
+    │  │              ├─controller    # 각 도메인별 컨트롤러 있는 폴더
+    │  │              ├─entity       # 각 DB 테이블 을 설정한 도메인 폴더
+    │  │              ├─Repository   # 도메인별 JPA Repository 설정한 폴더
+    │  │              └─Service        # 도메인별 기능을 정의해둔 폴더 
+    │  └─resources
+    └─test
+        └─java
+            └─com
+                └─ssafy
+                    └─project            # 테스트 케이스 있는 폴더
+```
+
+```
+──Flask              
+    └─NSMC
+       ├─app.py             # 감성분석 flask 서버
+       ├─best_mobel.h5      # 학습한 모델중 높은 확률의 모델
+       └─tokenizer.pickle   # 학습 데이터 토큰화 파일
 ```
 
 #### Frontend 디렉토리 구조
