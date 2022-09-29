@@ -262,8 +262,14 @@ public class YousimServiceImpl implements YousimService {
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((amount, value) -> amount + value);
 
-        JSONObject keywords = new JSONObject();
-        keyword.take(1000).forEach(tuple -> keywords.put(tuple._1, tuple._2));
+        JSONArray keywords = new JSONArray();
+
+        keyword.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            keywords.add(temp);
+        });
 
 
         VideoMinsim VM = VideoMinsim.builder()
