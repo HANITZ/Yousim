@@ -17,28 +17,28 @@ import apitrendList from '../api/apitrendList'
 const TrendPage: NextPage = () => {
   const router = useRouter();
   const query = router.query
-
+  const [flag, setFlag] = useState(false)
   const {
     data: trendList,
     error,
     status,
   } = useQuery(
-    ["trendList"],
+    ["trendList", flag ],
     () => {
       apitrendList();
     },
-    {
-    
-    }
   );
+  useEffect(()=>{
+    setFlag(true)
+  },[])
+  console.log(trendList)
+  if (status === "loading") {
+    return <span>Loading...</span>;
+  }
 
-  // if (status === "loading") {
-  //   return <span>Loading...</span>;
-  // }
-
-  // if (status === "error") {
-  //   return <span>Error: {error.message} </span>;
-  // }
+  if (status === "error") {
+    return <span>Error: {error.message} </span>;
+  }
   
 
 
