@@ -60,6 +60,14 @@ const SearchPage: NextPage = () => {
   }
 
 
+  console.log(searchList)
+  console.log(searchName)
+  // useEffect(() => {
+  //   apisearchList(searchName).then((data) => {
+  //     setSearchList(data);
+  //   });
+  // }, [searchName]);
+
   return (
     <>
       <Head>

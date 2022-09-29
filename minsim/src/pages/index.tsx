@@ -32,26 +32,28 @@ const Home: NextPage = () => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(el1, {
       scrollTrigger: {
+        // trigger가 작동하는 위치(class or id 지정가능)
         trigger: "#SloganContainer",
         // 화면에 marker를 띄워 animation 위치 확인가능
         // markers: true, 
         start: "top top",
         end: "+=800",
         scrub: true,
-        // pin: true,
       },
+      // x값이 음수이면 왼쪽 이동
       x: -300, duration: 2
       });
     gsap.to(el2, {
       scrollTrigger: {
+        // trigger가 작동하는 위치(class or id 지정가능)
         trigger: "#SloganContainer",
         // 화면에 marker를 띄워 animation 위치 확인가능
         // markers: true, 
         start: "top top",
         end: "+=800",
         scrub: true,
-        // pin: true,
       },
+      // x값이 양수이면 오른쪽 이동
       x: 300, duration: 2
       });
     gsap.to("#ImgFrameContainer", {
@@ -68,11 +70,9 @@ const Home: NextPage = () => {
     gsap.to("#ImgFrameContainer", {
       // autoAlpha: 1,
       ease: "none",
-      // duration:20000,
       opacity: 1,
       scrollTrigger: {
         trigger: '#ImgFrameStart',
-        markers:true,
         start: "top top",
         end: "bottom center",
         scrub: true,
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer id="ImgFrameContainer">
-            <Image id="chartimg" src={Chart} alt="배경 차트"/>
+            <Image src={Chart} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
         <section>
