@@ -103,7 +103,6 @@ public class YousimServiceImpl implements YousimService {
                 result = saveVideoMS((String) VideoId.get("videoId"));
                 sum += result.getSum();
                 cnt += result.getCnt();
-                System.out.println(result.getKeywords());
                 if (i == 0)
                     keyword = result.getKeywords();
                 else
@@ -433,7 +432,6 @@ public class YousimServiceImpl implements YousimService {
 
     @Override
     public String checkStatusV(String id) throws Exception {
-        System.out.println(id);
         Optional<Status> result = statusRepository.findById(id);
 
         if (!result.isPresent()) {
