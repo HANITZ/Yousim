@@ -201,9 +201,12 @@ public class YousimServiceImpl implements YousimService {
                 }
                 br.close();
                 String temp = response.toString().replace("%", "");
-                if(temp.equals("35.13")) continue;
+                if (temp.equals("35.13")) continue;
                 System.out.println(temp + "||" + snippet2.get("textDisplay"));
-                sum += Float.parseFloat(temp);
+                if (Float.parseFloat(temp) >= 50)
+                    sum += 100;
+                else
+                    sum += 0;
             }
         }
 
