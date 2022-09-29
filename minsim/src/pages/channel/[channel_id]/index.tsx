@@ -118,31 +118,9 @@ const ChannelDetailPage: NextPage = () => {
           <VideoListTitle>채널 영상</VideoListTitle>
           
           {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
-
-          {videos ? <VideoList videos={videos} /> : <></>}
-          {/* <VideoListContainer>
+          <VideoListContainer>
             {videos ? <VideoList videos={videos} /> : <></>}
-          </VideoListContainer> */}
-          {/* <VideoListContainer>
-            <VideoListContainerInnerWrapper>
-              <ChannelInfoImgTextWrapper>
-                <Image
-                  src={TitleImg}
-                  alt="채널 대표 이미지"
-                  width={"256px"}
-                  height={"128px"}
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-                <ChannelInfo
-                  title="아이유"
-                  sub1="구독자 127만명  |  동영상 6267개"
-                  sub2="반갑습니다. 오늘도 즐거운 날입니다."
-                ></ChannelInfo>
-              </ChannelInfoImgTextWrapper>
-              <VideoTags />
-            </VideoListContainerInnerWrapper>
-          </VideoListContainer> */}
+          </VideoListContainer>
         </section>
       </main>
     </div>
