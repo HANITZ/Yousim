@@ -111,8 +111,13 @@ public class YousimServiceImpl implements YousimService {
             }
         }
 
-        JSONObject keywords = new JSONObject();
-        keyword.take(5000).forEach(tuple -> keywords.put(tuple._1, tuple._2));
+        JSONArray keywords = new JSONArray();
+        keyword.take(5000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            keywords.add(temp);
+        });
 
         ChannelMinsim CM = ChannelMinsim.builder()
                 ._id(id)
@@ -334,8 +339,8 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject localized = (JSONObject) snippet.get("localized");
 
                 keyword.addAll(wordAnalysisService.doWordAnalysis((String) localized.get("title")));
-                if (snippet.get("tags")!=null)
-                tag.addAll(wordAnalysisService.doWordAnalysis(snippet.get("tags").toString()));
+                if (snippet.get("tags") != null)
+                    tag.addAll(wordAnalysisService.doWordAnalysis(snippet.get("tags").toString()));
             }
         }
 
@@ -346,10 +351,20 @@ public class YousimServiceImpl implements YousimService {
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((amount, value) -> amount + value);
 
-        JSONObject kw = new JSONObject();
-        keywords.take(1000).forEach(tuple -> kw.put(tuple._1, tuple._2));
-        JSONObject tg = new JSONObject();
-        tags.take(1000).forEach(tuple -> tg.put(tuple._1, tuple._2));
+        JSONArray kw = new JSONArray();
+        keywords.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            kw.add(temp);
+        });
+        JSONArray tg = new JSONArray();
+        tags.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            tg.add(temp);
+        });
 
         Trend trend = Trend.builder()
                 ._id("0")
