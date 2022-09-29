@@ -38,7 +38,6 @@ interface ISearchItem {
 
 const SearchPage: NextPage = () => {
   const router = useRouter();
-  const [name, setName] = useState<string>();
   const searchName = router.query.id?.toString();
 
   // const [searchList, setSearchList] = useRecoilState<ISearchItem[]>(aSerachList)
@@ -47,13 +46,10 @@ const SearchPage: NextPage = () => {
     error,
     status,
   } = useQuery(
-    ["searchList"],
+    ["searchList", searchName ],
     () => {
-      apisearchList(searchName);
+      return apisearchList(searchName);
     },
-    {
-      enabled: !!searchName,
-    }
   );
 
   if (status === "loading") {
@@ -64,11 +60,13 @@ const SearchPage: NextPage = () => {
     return <span>Error: {error.message} </span>;
   }
 
-  useEffect(() => {
-    apisearchList(searchName).then((data) => {
-      setSearchList(data);
-    });
-  }, [searchName]);
+  console.log(searchList)
+  console.log(searchName)
+  // useEffect(() => {
+  //   apisearchList(searchName).then((data) => {
+  //     setSearchList(data);
+  //   });
+  // }, [searchName]);
 
 
   return (
