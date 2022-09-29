@@ -23,7 +23,21 @@ const SearchChannelItem = ( data: ISearchItem) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
   
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   setChData({
+  //     id: data.id,
+  //     banner: data.banner,
+  //     name: data.name,
+  //     description: data.description,
+  //     subscriber: data.subscriber,
+  //     video: data.video,
+  //     thumbnail: data.thumbnail,
+  //     time: data.time,
+  //     view: data.view
+  //   })
+  // },[])
+  
+  const onClick = () => {
     setChData({
       id: data.id,
       banner: data.banner,
@@ -35,19 +49,9 @@ const SearchChannelItem = ( data: ISearchItem) => {
       time: data.time,
       view: data.view
     })
-  },[])
-  
-  const onClick = () => {
     router.push({
       pathname: `/channel/${data.id}`,
-      query: {
-        banner: data.banner,
-        name: data.name,
-        subscriber: data.subscriber,
-        video: data.video,
-        thumbnail: data.thumbnail,
-        description: data.description,
-      }
+
     })
   }
 

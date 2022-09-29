@@ -7,7 +7,7 @@ import NavBar from 'src/components/NavBar'
 import SimpleWordCloud from 'src/components/WordCloud'
 
 import { useEffect, useState } from 'react'
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
@@ -17,20 +17,17 @@ import apitrendList from '../api/apitrendList'
 const TrendPage: NextPage = () => {
   const router = useRouter();
   const query = router.query
-  const [flag, setFlag] = useState(false)
   const {
     data: trendList,
     error,
     status,
   } = useQuery(
-    ["trendList", flag ],
+    ["trendList"],
     () => {
-      apitrendList();
+      return apitrendList();
     },
   );
-  useEffect(()=>{
-    setFlag(true)
-  },[])
+
   console.log(trendList)
   if (status === "loading") {
     return <span>Loading...</span>;
