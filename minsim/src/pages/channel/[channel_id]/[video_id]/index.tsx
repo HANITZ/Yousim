@@ -1,72 +1,74 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
-import TitleImg from '/public/images/titleImg.jpg'
-import NavBar from 'src/components/NavBar'
-import Tags from 'src/components/Tags'
-import VideoInfo from 'src/components/VideoInfo'
+import SearchBar from "src/components/SearchBar";
+import NavBar from "src/components/NavBar";
+import Banner from "styles/channelDetail/BannerStyle";
 
-import VideoFrame from 'styles/videoDetail/VideoFrameStyle'
-import { ChannelInfoContainerInnerWrapper, ChannelInfoImgTextWrapper } from 'styles/channelDetail/ChannelInfoContainerStyle'
-import { BadMinsim, GoodMinsim, MinsimTextWrapper, VideoMinsim, VideoMinsimContainer } from 'styles/videoDetail/VideoMinsimStyle'
-import { VideoDetailContainerInnerWrapper, VideoListContainer } from 'styles/channelDetail/VideoListContainerStyle'
-import { Rank1Tag, Rank2Tag, Rank3Tag } from 'styles/videoDetail/RankTagStyle'
-import CommentInfo from 'src/components/CommentInfo'
-import { VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
-import { useEffect, useState } from 'react'
-import apiIniVideoDetail from 'src/pages/api/apiVideoDetail'
-import { useQuery } from '@tanstack/react-query'
-import apiIniVideoComments from 'src/pages/api/apiVideoComments'
-import { ChannelTagWrapper } from 'styles/componentStyles/ChannelInfoStyle'
-import { Tag } from 'styles/componentStyles/TagStyle'
+import ChannelInfo from "src/components/ChannelInfo";
+import {
+  ChannelInfoContainer,
+  ChannelInfoContainerInnerWrapper,
+  ChannelInfoImgTextWrapper,
+  ImgDiv,
+} from "styles/channelDetail/ChannelInfoContainerStyle";
+import TitleImg from "/public/images/titleImg.jpg";
+import Tags from "src/components/Tags";
+import ChannelMinsimText from "src/components/ChannelMinsimText";
+import VideoListTitle from "styles/channelDetail/VideoListSectionTitleStyle";
+import {
+  VideoListContainer,
+  VideoListContainerInnerWrapper,
+} from "styles/channelDetail/VideoListContainerStyle";
+import VideoTags from "src/components/VideoTags";
+import { useEffect, useState } from "react";
+import VideoList from "src/components/VideoList";
+import apiIniVideoList from "src/pages/api/apiIniVideoList";
+import { useQuery } from "@tanstack/react-query";
+import SearchList from "src/components/SearchList";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { aChData } from "states/atom";
 
-
-interface commentData {
-  content: string;
+interface IVideo {
+  categoryId: number;
+  channelTitle: string;
+  comment: number;
+  description: string;
+  id: string;
   like: number;
-  minsim: string;
-  name: string;
+  nextToken: string;
+  tag: string[];
   thumbnail: string;
   time: string;
-}
-interface videoData {
-  text: string;
-  value: number;
+  title: string;
+  view: number;
 }
 
-const VideoDetailPage: NextPage = () => {
+interface ISearchItem {
+  id: string;
+  banner: string;
+  name: string;
+  description: string;
+  subscriber: number;
+  video: number;
+  thumbnail: string;
+  time: string;
+  view: number;
+}
 
-  const router = useRouter()
-  const query = router.query
-  const videoId = router.query.id?.toString();
-  const [commentList, setCommentList] = useState<Array<commentData>>([])
-  const [videoList, setVideoList] = useState<Array<videoData>>([])
-
-  const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
-  const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},
-    {
-      enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
+const ChannelDetailPage: NextPage = () => {
+  const router = useRouter();
+  const query = router.query;
+  const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
+  const { data: videos, status } = useQuery<IVideo[]>(
+    ["video", query.channel_id],
+    () => {
+      return apiIniVideoList(query.channel_id);
     }
-  )
+  );
 
-  useEffect(() => {
-    setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))
-    setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})));
-  }, [commentData])    
-  
-  
-  if (status === "loading" || commentStatus === "loading") {
-    return <span>Loading...</span>;
-  }
-
-  if (status === "error") {
-    return <span>Error</span>;
-  }
-
-
-  
   return (
     <div>
       <Head>
@@ -77,66 +79,68 @@ const VideoDetailPage: NextPage = () => {
 
       <main>
         <NavBar />
-        <VideoFrame src={`https://www.youtube.com/watch?v=${query.id}`} title=''/>
-          <VideoInfoContainer>
+        <section>
+          <Banner src={chData.banner} alt="배너" />
+          <ChannelInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <VideoInfo title={`${query.title}`} sub1='아이유' sub2={`조회수 ${query.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time?.slice(0, 10)}`} ></VideoInfo>
+                <ImgDiv>
+                  <Image
+                    src={chData.thumbnail}
+                    alt="채널 대표 이미지"
+                    layout="fill"
+                    objectFit="cover"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </ImgDiv>
+                <ChannelInfo
+                  title={chData.name}
+                  subscriber={chData.subscriber}
+                  video={chData.video}
+                  description={chData.description}
+                ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
-              <ChannelTagWrapper>
-                <Tag>
-                  <p>{videoList[0].text}</p>
-                </Tag>
-                <Tag>
-                  <p>{videoList[1].text}</p>
-                </Tag>
-                <Tag>
-                  <p>{videoList[2].text}</p>
-                </Tag>
-              </ChannelTagWrapper>
+              <Tags />
             </ChannelInfoContainerInnerWrapper>
-          </VideoInfoContainer>
+          </ChannelInfoContainer>
 
-          <VideoMinsimContainer>
-            <MinsimTextWrapper>
-              {/* text에 값 넣기 */}
-              <GoodMinsim>떡상 {data.ms.toFixed(0)}%</GoodMinsim>
-              <BadMinsim>떡락 {100 - data.ms.toFixed(0)}%</BadMinsim>
-            </MinsimTextWrapper>
-            {/* value에 값 넣기 */}
-            <VideoMinsim max={100} value={data.ms} />  
-          </VideoMinsimContainer>
+          <ChannelMinsimText
+            title="채널 민심"
+            mainText="95%  떡상"
+          ></ChannelMinsimText>
+          <ChannelMinsimText
+            title="가장 많이 언급된 키워드"
+            mainText="특화는 이게 맞아"
+          ></ChannelMinsimText>
+        </section>
+        <section>
+          <VideoListTitle>채널 영상</VideoListTitle>
 
+          <VideoList videos={videos} />
           <VideoListContainer>
-            <h4>Best 댓글</h4>
-            {commentList ? <>
-              <VideoDetailContainerInnerWrapper>
-                <Rank1Tag />
-                <VideoInfoImgTextWrapper>
-                  <Image src={commentList[9].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                  <CommentInfo name={commentList[9].name} publishedTime={commentList[9].time.slice(0, 10)} comment={commentList[9].content} liked={commentList[9].like.toString()} />
-                </VideoInfoImgTextWrapper>
-              </VideoDetailContainerInnerWrapper>
-              <VideoDetailContainerInnerWrapper>
-                <Rank2Tag />
-                <VideoInfoImgTextWrapper>
-                  <Image src={commentList[8].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                  <CommentInfo name={commentList[8].name} publishedTime={commentList[8].time.slice(0, 10)} comment={commentList[8].content} liked={commentList[8].like.toString()} />
-                </VideoInfoImgTextWrapper>
-              </VideoDetailContainerInnerWrapper>
-              <VideoDetailContainerInnerWrapper>
-                <Rank3Tag />
-                <VideoInfoImgTextWrapper>
-                <Image src={commentList[7].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                  <CommentInfo name={commentList[7].name} publishedTime={commentList[7].time.slice(0, 10)} comment={commentList[7].content} liked={commentList[7].like.toString()} />
-                </VideoInfoImgTextWrapper>
-              </VideoDetailContainerInnerWrapper>
-            </> : <></>
-            }
+            {/* <VideoListContainerInnerWrapper>
+              <ChannelInfoImgTextWrapper>
+                <Image
+                  src={TitleImg}
+                  alt="채널 대표 이미지"
+                  width={"256px"}
+                  height={"128px"}
+                  objectFit="cover"
+                  objectPosition="top"
+                />
+                <ChannelInfo
+                  title="아이유"
+                  sub1="구독자 127만명  |  동영상 6267개"
+                  sub2="반갑습니다. 오늘도 즐거운 날입니다."
+                ></ChannelInfo>
+              </ChannelInfoImgTextWrapper>
+              <VideoTags />
+            </VideoListContainerInnerWrapper> */}
           </VideoListContainer>
+        </section>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default VideoDetailPage
+export default ChannelDetailPage;
