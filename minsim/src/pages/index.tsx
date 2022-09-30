@@ -2,7 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Chart from '/public/images/chart.png'
-
+import { GetServerSideProps } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import NavBar from 'src/components/NavBar'
 import SearchBar from 'src/components/SearchBar'
 import DescribeText from 'src/components/DescribeText'
@@ -21,7 +22,7 @@ import { useRef, useEffect } from 'react'
 
 export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const Home: NextPage = () => {  
+const Home: NextPage = (props) => {  
 
 
   const DivAnimationRef1 = useRef(null)
@@ -137,3 +138,18 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
+
+
+
+// export async function getServerSideProps(context){
+//   console.log(context)
+
+//   return {
+//     props: {}
+//   }
+  
+
+
+// }

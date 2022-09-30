@@ -19,7 +19,7 @@ interface Iprops {
 }
 
 
-export default function SimpleWordCloud({ datas }: Iprops) {
+export default function SimpleWordCloud(datas: Iprops) {
   const [hasMounted, setHasMounted] = useState(false);
   // const options = {}
 
@@ -42,7 +42,7 @@ export default function SimpleWordCloud({ datas }: Iprops) {
   //   },
   // ];
   // console.log(words)
-  const words = [datas?.tags]
+  const words = datas.tags
   console.log(datas)
   useEffect(() => {
     if (typeof window !== "undefined") {

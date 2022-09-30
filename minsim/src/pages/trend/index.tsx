@@ -14,7 +14,8 @@ import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
 
 
-const TrendPage: NextPage = () => {
+
+const TrendPage: NextPage = ({trend}) => {
   const router = useRouter();
   const query = router.query
   const {
@@ -64,3 +65,13 @@ const TrendPage: NextPage = () => {
 }
 
 export default TrendPage
+
+
+
+export async function getStaticProps() {
+  const data = await apitrendList()
+  console.log(data)
+  return {
+    trend: data
+  }
+}
