@@ -39,7 +39,9 @@ function NavBar() :JSX.Element {
           <h3>Trend</h3>
         </NavLiHidden>
         <NavLi>
-          <h2>유심</h2>
+          <h2>
+            <Link href="/">유심</Link>
+          </h2>
           {/* <Image src={Logo} alt="" width={100} height={50} onClick={routerpush}></Image> */}
           {/* <Image src={Logo} alt="" width={100} height={50} onClick={() => {router.push("/")}}></Image> */}
         </NavLi>
