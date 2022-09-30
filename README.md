@@ -86,7 +86,7 @@
 
 ![7 광주_1반_C106조_시스템개략도](https://user-images.githubusercontent.com/97595340/185265060-a67b27f0-b63c-4ef0-9bda-126923750d6c.png)
 
-<img src="https://user-images.githubusercontent.com/97595340/185183225-d1f297ad-9373-458f-bb83-b3815698f94d.png" style="width : 100%">
+![yousim_CICD](/uploads/13bb13d7ccb1e7e38f6d0dd93850e4ce/yousim_CICD.jpg)
 
 #### ERD
 
