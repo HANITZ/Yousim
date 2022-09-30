@@ -90,7 +90,7 @@
 
 #### ERD
 
-![image-20220818102735177](/uploads/f20c9f3fc682157c9f9063f34187765b/yousim_erd.jpg)
+![yousim_erd](/uploads/13bb13d7ccb1e7e38f6d0dd93850e4ce/yousim_erd.jpg)
 
 
 
