@@ -173,7 +173,7 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject id = (JSONObject) jsonObj.get("id");
                 result.add(searchVideoDetailByVideoID((String) id.get("videoId")));
                 result.get(i).setNextToken(token);
-                searchCommentsByVideoID((String) id.get("videoId"));
+//                searchCommentsByVideoID((String) id.get("videoId"));
             }
         }
 
@@ -382,78 +382,78 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     // 영상 ID로 댓글 가져오기
-    public static void searchCommentsByVideoID(String videoID) throws Exception {
-        try {             // 1. 파일 객체 생성
-            File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
-            // 2. 파일 존재여부 체크 및 생성
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            //
-//             3. Buffer를 사용해서 File에 write할 수 있는 BufferedWriter 생성
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-//             4. 파일에 쓰기
-
-
-            String isNext = "";
-
-            do {
-                String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
-                apiurl += "?key=" + KEY;
-                apiurl += "&part=snippet&maxResults=50";
-                apiurl += "&videoId=" + videoID;
-//            apiurl += "&pageToken=" + isNext;
-
-                URL url = new URL(apiurl);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = br.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                br.close();
-                // 끝
-
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(response.toString());
-
-                JSONObject jsonMain = (JSONObject) obj;
-//            isNext = (String) jsonMain.get("nextPageToken");
-                System.out.println(isNext);
-                JSONArray jsonArr = (JSONArray) jsonMain.get("items");
-
-
-                Map<String, Integer> rMap = null;
-                if (jsonArr.size() > 0) {
-                    for (int i = 0; i < jsonArr.size(); i++) {
-
-
-                        JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-
-                        JSONObject snippet = (JSONObject) jsonObj.get("snippet");
-                        JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
-                        JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
-//                    System.out.println(snippet);
-//                        writer.write((String) snippet2.get("testDisplay"));
-
-//                    rMap=wordAnalysisService.doWordAnalysis((String)snippet2.get("testDisplay"));
-//                    System.out.println(rMap);
-//                    System.out.println("댓글 내용 : " + snippet2.get("textDisplay"));
-//                    System.out.println("작성 시간 : " + snippet2.get("publishedAt"));
-//                    System.out.println("좋아요 : " + snippet2.get("likeCount"));
-
-                    }
-                }
-
-            } while (isNext != "" && isNext != null);
-            // 시작
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void searchCommentsByVideoID(String videoID) throws Exception {
+//        try {             // 1. 파일 객체 생성
+//            File file = new File("C:/Users/multicampus/Desktop/youtubedata.txt");
+//            // 2. 파일 존재여부 체크 및 생성
+//            if (!file.exists()) {
+//                file.createNewFile();
+//            }
+//            //
+////             3. Buffer를 사용해서 File에 write할 수 있는 BufferedWriter 생성
+//            FileWriter fw = new FileWriter(file);
+//            BufferedWriter writer = new BufferedWriter(fw);
+////             4. 파일에 쓰기
+//
+//
+//            String isNext = "";
+//
+//            do {
+//                String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
+//                apiurl += "?key=" + KEY;
+//                apiurl += "&part=snippet&maxResults=50";
+//                apiurl += "&videoId=" + videoID;
+////            apiurl += "&pageToken=" + isNext;
+//
+//                URL url = new URL(apiurl);
+//                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//                con.setRequestMethod("GET");
+//
+//                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+//                String inputLine;
+//                StringBuffer response = new StringBuffer();
+//                while ((inputLine = br.readLine()) != null) {
+//                    response.append(inputLine);
+//                }
+//                br.close();
+//                // 끝
+//
+//                JSONParser parser = new JSONParser();
+//                Object obj = parser.parse(response.toString());
+//
+//                JSONObject jsonMain = (JSONObject) obj;
+////            isNext = (String) jsonMain.get("nextPageToken");
+//                System.out.println(isNext);
+//                JSONArray jsonArr = (JSONArray) jsonMain.get("items");
+//
+//
+//                Map<String, Integer> rMap = null;
+//                if (jsonArr.size() > 0) {
+//                    for (int i = 0; i < jsonArr.size(); i++) {
+//
+//
+//                        JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+//
+//                        JSONObject snippet = (JSONObject) jsonObj.get("snippet");
+//                        JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
+//                        JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
+////                    System.out.println(snippet);
+////                        writer.write((String) snippet2.get("testDisplay"));
+//
+////                    rMap=wordAnalysisService.doWordAnalysis((String)snippet2.get("testDisplay"));
+////                    System.out.println(rMap);
+////                    System.out.println("댓글 내용 : " + snippet2.get("textDisplay"));
+////                    System.out.println("작성 시간 : " + snippet2.get("publishedAt"));
+////                    System.out.println("좋아요 : " + snippet2.get("likeCount"));
+//
+//                    }
+//                }
+//
+//            } while (isNext != "" && isNext != null);
+//            // 시작
+//            writer.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
