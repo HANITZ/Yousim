@@ -98,22 +98,17 @@
 
 ```
 ──Spring Boot
-    ├─main   
-    │  ├─java                
-    │  │  └─com
-    │  │      └─ssafy
-    │  │          └─youtubeAnalysis
-    │  │              ├─config        # CORS 및 암호화 설정 폴더
-    │  │              ├─controller    # 각 도메인별 컨트롤러 있는 폴더
-    │  │              ├─entity       # 각 DB 테이블 을 설정한 도메인 폴더
-    │  │              ├─Repository   # 도메인별 JPA Repository 설정한 폴더
-    │  │              └─Service        # 도메인별 기능을 정의해둔 폴더 
-    │  └─resources
-    └─test
-        └─java
-            └─com
-                └─ssafy
-                    └─project            # 테스트 케이스 있는 폴더
+    └─main   
+       ├─java                
+       │  └─com
+       │      └─ssafy
+       │          └─youtubeAnalysis
+       │              ├─config        # CORS 및 배치 설정 폴더
+       │              ├─controller    # 각 도메인별 컨트롤러 있는 폴더
+       │              ├─entity       # 각 DB 테이블 을 설정한 도메인 폴더
+       │              ├─Repository   # 도메인별 JPA Repository 설정한 폴더
+       │              └─Service        # 도메인별 기능을 정의해둔 폴더 
+       └─resources
 ```
 
 ```
