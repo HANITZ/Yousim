@@ -44,7 +44,7 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     TrendRepository trendRepository;
 
-    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
+    public static final String KEY = "AIzaSyCMqbJ4t_5SQ4CV-FCQp1IMMBiBi3nB5Z4";
 
     static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
             .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
@@ -239,7 +239,7 @@ public class YousimServiceImpl implements YousimService {
 
         apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=100&order=relevance";
+        apiurl += "&part=snippet&maxResults=10&order=relevance";
         apiurl += "&videoId=" + id;
 
 
