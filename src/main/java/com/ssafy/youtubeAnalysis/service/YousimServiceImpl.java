@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import scala.Tuple2;
 
 import java.io.BufferedReader;
@@ -20,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
+
 
 @Service("yousimService")
 public class YousimServiceImpl implements YousimService {
@@ -49,6 +52,7 @@ public class YousimServiceImpl implements YousimService {
     static JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
     public void saveChannelMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
@@ -135,6 +139,7 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
     public VideoToChannel saveVideoMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
@@ -322,6 +327,7 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
     public Trend saveTrend() throws Exception {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/videos";

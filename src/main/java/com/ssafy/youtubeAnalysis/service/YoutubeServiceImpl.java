@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -21,9 +22,10 @@ import java.util.Map;
 
 @Service("youtubeService")
 public class YoutubeServiceImpl implements YoutubeService {
-    public static final String KEY = "AIzaSyAU4mBYrU0O5IaKLKKBUuDxPxLLVotxTcg";
+    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
     private static IWordAnalysisRepository wordAnalysisService;
+
 
     @Override
     public List<Video> getPopularVideos() throws IOException, ParseException {
@@ -86,6 +88,7 @@ public class YoutubeServiceImpl implements YoutubeService {
 
         return result;
     }
+
 
     @Override
     public List<Channel> searchChannelId(String title) throws Exception {
