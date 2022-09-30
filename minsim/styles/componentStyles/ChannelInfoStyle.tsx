@@ -20,6 +20,15 @@ export const ChannelInfoTextWrapper = styled.div`
 
 export const VideoInfoTextWrapper = styled.div`
   display:inline-block;
+  ${media(">desktop")} {
+    margin-left: 64px;
+  }
+  ${media("<=desktop", ">tablet")} {
+    margin-left: 32px;
+  }
+  ${media("<=tablet", ">phone")} {
+    margin-left: 16px;
+  }
 `
 
 export const ChannelnfoWrapper = styled.div`
@@ -32,6 +41,7 @@ export const ChannelTagWrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin-left: 16px;
 `
 
 export const VideoTagWrapper = styled.div`

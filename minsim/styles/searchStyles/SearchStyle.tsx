@@ -59,6 +59,27 @@ export const SearchInfoImgTextWrapper = styled.div`
   p, h3 {
     display:inline-block;
   }
+  ${media("<=tablet", ">phone")} {
+    flex-direction: column;
+  }
+`
+export const ChannelVideoImgContainer = styled.div`
+  min-width: 160px;
+  width: 160px;
+  height: 90px;
+
+  ${media("<=desktop", ">tablet")} {
+    min-width: 120px;
+    width: 120px;
+    height: 60px;
+  }
+
+  ${media("<=tablet", ">phone")} {
+    min-width: 120px;
+    width: 120px;
+    height: 60px;
+    margin-bottom: 32px;
+  }
 `
 
 export const SearchImgDiv = styled.div`
