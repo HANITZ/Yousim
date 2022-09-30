@@ -33,7 +33,7 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     StatusRepository statusRepository;
 
-    public static final String KEY = "AIzaSyBk4-MbPaB_PLYPKgx6i1lhckgGFTR0xwU";
+    public static final String KEY = "AIzaSyDlf4CXwHdrxu2dvRdiiqi-vb2hFntSq1g";
 
     @Override
     public void saveChannelMS(String id) throws Exception {
