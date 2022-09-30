@@ -112,7 +112,7 @@ const ChannelDetailPage: NextPage = () => {
 
           <ChannelMinsimText
             title="채널 민심"
-            mainText={`${channelMinsimData} 떡상? 떡락?`}
+            mainText={`${channelMinsimData} || API는 받아옴 떡상? 떡락? -> 서버 확인 후 수정`}
           ></ChannelMinsimText>
           <ChannelMinsimText
             title="채널 키워드"
