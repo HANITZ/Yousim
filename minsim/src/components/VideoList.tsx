@@ -36,9 +36,9 @@ function VideoList({ videos }: Iprops) {
   
   return (
     <>
-      {videos.map((video, index) => {
+      {videos ? videos.map((video, index) => {
         return <ChannelVideo key={index} {...video}/>;
-      })}
+      }) : <></>}
     </>
   );
 }
