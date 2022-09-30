@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import ReactWordcloud from "react-wordcloud";
 
@@ -31,7 +32,7 @@ export default function SimpleWordCloud(props: Iprops) {
 
   return (
     <>
-        {hasMounted && <ReactWordcloud words={words} options={{fontSizes: [20, 50],}}/>}
+        {words ? hasMounted && <ReactWordcloud words={words} options={{fontSizes: [20, 50],}}/> : <></>}
     </>
   );
 }
