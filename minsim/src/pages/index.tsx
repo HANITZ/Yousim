@@ -101,8 +101,8 @@ const Home: NextPage = () => {
         
         <section>
           <SloganContainer id='SloganContainer'>
-            <h4>
-              서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
+            <h4 style={{'textAlign': 'center'}}>
+              당신의 마음, 유튜브의 민심<br/>유심을 통해 유튜브의 민심을 쉽게 알아보세요.
             </h4>
           </SloganContainer>
         </section>
