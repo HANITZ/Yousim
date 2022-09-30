@@ -80,7 +80,13 @@ public class YousimServiceImpl implements YousimService {
 
         con.setDoOutput(true);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        BufferedReader br=null;
+        try {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } catch (Exception e) {
+            statusRepository.deleteById(id);
+        }
+
         String inputLine;
         StringBuffer response = new StringBuffer();
         while ((inputLine = br.readLine()) != null) {
@@ -164,7 +170,12 @@ public class YousimServiceImpl implements YousimService {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        BufferedReader br=null;
+        try {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } catch (Exception e) {
+            statusRepository.deleteById(id);
+        }
         String inputLine;
         StringBuffer response = new StringBuffer();
         while ((inputLine = br.readLine()) != null) {
@@ -198,7 +209,12 @@ public class YousimServiceImpl implements YousimService {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
 
-                br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+
+                try {
+                    br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+                } catch (Exception e) {
+                    statusRepository.deleteById(id);
+                }
                 response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
