@@ -5,6 +5,8 @@ import Image, { StaticImageData } from "next/image";
 import { useRouter } from 'next/router';
 import VideoTags from "./VideoTags";
 import VideoInfo from "./VideoInfo";
+import { useRecoilState } from 'recoil';
+import { aChData } from "states/atom";
 
 
 const LiDescription = styled.li`
@@ -35,24 +37,29 @@ interface IVideo {
   }
 
 const ChannelVideo = (video: IVideo) => {
-    const router = useRouter()
-  //   const onClick = () => {
-  //   router.push({
-  //     pathname: `/channel/${data.id}`,
-  //     query: {
-  //       name: data.name,
-  //       subscriber: data.subscriber,
-  //       video: data.video,
-  //       thumbnail: data.thumbnail,
-  //       description: data.description,
-  //     }
-  //   })
-  // }
+  const router = useRouter()
+  const [chData, setChData] = useRecoilState(aChData)
+  
+    const onClick = () => {
+      router.push({
+        pathname: `/channel/${chData.id}/${video.id}`,
+        query: {
+          chId: chData.id,
+          name: chData.name,
+          video: chData.video,
+          
+          id: video.id,
+          title: video.title,
+          time: video.time, 
+          view: video.view
+        }
+      })
+  }
 
   return (
     <>
       {/* onclick */}
-      <VideoListContainerInnerWrapper>
+      <VideoListContainerInnerWrapper onClick={onClick}>
         <SearchInfoImgTextWrapper>
           <Image
             src={video.thumbnail}

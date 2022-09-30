@@ -40,7 +40,9 @@ const VideoDetailPage: NextPage = () => {
 
   const router = useRouter()
   const query = router.query
-  const videoId = router.query.id?.toString();
+  console.log(query);
+
+  const videoId = query.id?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
   const [videoList, setVideoList] = useState<Array<videoData>>([])
 
@@ -50,11 +52,13 @@ const VideoDetailPage: NextPage = () => {
       enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
     }
   )
-
+  
+  
+  
   useEffect(() => {
-    setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))
+    if (typeof data === 'object') {setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))}
     setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})));
-  }, [commentData])    
+  }, [commentData, data])    
   
   
   if (status === "loading" || commentStatus === "loading") {
@@ -81,9 +85,9 @@ const VideoDetailPage: NextPage = () => {
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <VideoInfo title={`${query.title}`} sub1='아이유' sub2={`조회수 ${query.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time?.slice(0, 10)}`} ></VideoInfo>
+                <VideoInfo title={`${query.title}`} sub1={`${query.name}`} sub2={`조회수 ${query.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time?.slice(0, 10)}`} ></VideoInfo>
               </ChannelInfoImgTextWrapper>
-              <ChannelTagWrapper>
+              {typeof data === 'object' && videoList[0].text ?  <ChannelTagWrapper>
                 <Tag>
                   <p>{videoList[0].text}</p>
                 </Tag>
@@ -93,18 +97,21 @@ const VideoDetailPage: NextPage = () => {
                 <Tag>
                   <p>{videoList[2].text}</p>
                 </Tag>
-              </ChannelTagWrapper>
+              </ChannelTagWrapper> : <>갱신 중</>}
+
             </ChannelInfoContainerInnerWrapper>
           </VideoInfoContainer>
 
           <VideoMinsimContainer>
+          {typeof data === 'object' ? 
+          <>
             <MinsimTextWrapper>
-              {/* text에 값 넣기 */}
               <GoodMinsim>떡상 {data.ms.toFixed(0)}%</GoodMinsim>
               <BadMinsim>떡락 {100 - data.ms.toFixed(0)}%</BadMinsim>
             </MinsimTextWrapper>
-            {/* value에 값 넣기 */}
             <VideoMinsim max={100} value={data.ms} />  
+          </>
+          : <>갱신 중</> }
           </VideoMinsimContainer>
 
           <VideoListContainer>

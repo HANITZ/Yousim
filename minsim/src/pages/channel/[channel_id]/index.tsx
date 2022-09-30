@@ -62,7 +62,8 @@ interface ISearchItem {
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-
+  
+  
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
   const { data: videos, status } = useQuery<IVideo[]>(
     ["video", query.channel_id],
@@ -70,7 +71,7 @@ const ChannelDetailPage: NextPage = () => {
       return apiIniVideoList(query.channel_id);
     }
   );
-  const {data: channelMinsimData, status: minsimStatus} = useQuery(["minsim", query.channel_id], ()=>{return apiChannelMinsim(query.channel_id)})
+  const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
   console.log(channelMinsimData);
   
 
