@@ -30,6 +30,7 @@ import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { aChData } from "states/atom";
+import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
 
 interface IVideo {
   categoryId: number;
@@ -69,6 +70,9 @@ const ChannelDetailPage: NextPage = () => {
       return apiIniVideoList(query.channel_id);
     }
   );
+  // const {data, status} = useQuery(["videoData", videoId], ()=>{return apiChannelMinsim(videoId)})
+  console.log(chData);
+  
 
   return (
     <div>
