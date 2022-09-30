@@ -222,14 +222,12 @@ public class YousimServiceImpl implements YousimService {
                 br.close();
                 String temp = response.toString().replace("%", "");
                 float temp2 = Float.parseFloat(temp);
-//                System.out.println(temp2);
                 float erase = 35.13f;
                 if (Float.compare(temp2, erase)==0) {
-                    System.out.println(" 제거 작업 실행중?");
+
                     data++;
                     continue;
                 }
-                System.out.println(temp + "||" + snippet2.get("textDisplay"));
                 if (Float.parseFloat(temp) >= 50)
                     sum += 100;
                 else
@@ -291,13 +289,13 @@ public class YousimServiceImpl implements YousimService {
                 float temp2 = Float.parseFloat(temp);
 
                 if (Float.compare(temp2, erase)==0) {
-                    System.out.println(" 제거 작업 실행중?");
+
                     data++;
                     continue;
                 }
 
 
-                System.out.println(temp + "||" + snippet2.get("textDisplay"));
+
                 sum += Float.parseFloat(temp);
 
 
