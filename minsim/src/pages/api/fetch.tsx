@@ -1,1 +1,1 @@
-export const BASE_URL = "https://43.200.1.125:8000/"
+export const BASE_URL = "https://j7c203.p.ssafy.io/"

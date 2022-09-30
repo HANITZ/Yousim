@@ -33,13 +33,12 @@ interface Iprops {
 
 function VideoList({ videos }: Iprops) {
   const router = useRouter();
-  console.log(videos);
   
   return (
     <>
-      {videos.map((video, index) => {
-        return <ChannelVideo key={index} {...video} />;
-      })}
+      {videos ? videos.map((video, index) => {
+        return <ChannelVideo key={index} {...video}/>;
+      }) : <></>}
     </>
   );
 }

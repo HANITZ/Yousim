@@ -62,7 +62,8 @@ interface ISearchItem {
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-
+  
+  
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
   const { data: videos, status } = useQuery<IVideo[]>(
     ["video", query.channel_id],
@@ -70,8 +71,8 @@ const ChannelDetailPage: NextPage = () => {
       return apiIniVideoList(query.channel_id);
     }
   );
-  // const {data, status} = useQuery(["videoData", videoId], ()=>{return apiChannelMinsim(videoId)})
-  console.log(chData);
+  const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
+  console.log(channelMinsimData);
   
 
   return (
@@ -111,11 +112,11 @@ const ChannelDetailPage: NextPage = () => {
 
           <ChannelMinsimText
             title="채널 민심"
-            mainText="95%  떡상"
+            mainText={`${channelMinsimData} || API는 받아옴 떡상? 떡락? -> 서버 확인 후 수정`}
           ></ChannelMinsimText>
           <ChannelMinsimText
-            title="가장 많이 언급된 키워드"
-            mainText="특화는 이게 맞아"
+            title="채널 키워드"
+            mainText={`${channelMinsimData} 떡상? 떡락?`}
           ></ChannelMinsimText>
         </section>
         <section>
