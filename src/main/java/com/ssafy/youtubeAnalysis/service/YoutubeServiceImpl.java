@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Service("youtubeService")
 public class YoutubeServiceImpl implements YoutubeService {
-    public static final String KEY = "AIzaSyBk4-MbPaB_PLYPKgx6i1lhckgGFTR0xwU";
+    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
     private static IWordAnalysisRepository wordAnalysisService;
 
@@ -66,21 +66,39 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject contentDetails = (JSONObject) jsonObj.get("contentDetails");
                 JSONObject statistics = (JSONObject) jsonObj.get("statistics");
 
-                Video video = Video.builder()
-                        .id((String) jsonObj.get("id"))
-                        .title((String) localized.get("title"))
-                        .description((String) localized.get("description"))
-                        .time((String) snippet.get("publishedAt"))
-                        .duration((String) contentDetails.get("duration"))
-                        .view(Integer.parseInt((String) statistics.get("viewCount")))
-                        .like(Integer.parseInt((String) statistics.get("likeCount")))
-                        .comment(Integer.parseInt((String) statistics.get("commentCount")))
-                        .thumbnail((String) high.get("url"))
-                        .channelTitle((String) snippet.get("channelTitle"))
-                        .categoryId(Integer.parseInt((String) snippet.get("categoryId")))
-                        .tag((List<String>) snippet.get("tags"))
-                        .build();
+                Video video =null;
+                if (statistics.get("likeCount")==null) {
 
+                     video = Video.builder()
+                            .id((String) jsonObj.get("id"))
+                            .title((String) localized.get("title"))
+                            .description((String) localized.get("description"))
+                            .time((String) snippet.get("publishedAt"))
+                            .duration((String) contentDetails.get("duration"))
+                            .view(Integer.parseInt((String) statistics.get("viewCount")))
+
+                            .comment(Integer.parseInt((String) statistics.get("commentCount")))
+                            .thumbnail((String) high.get("url"))
+                            .channelTitle((String) snippet.get("channelTitle"))
+                            .categoryId(Integer.parseInt((String) snippet.get("categoryId")))
+                            .tag((List<String>) snippet.get("tags"))
+                            .build();
+                } else {
+                 video = Video.builder()
+                            .id((String) jsonObj.get("id"))
+                            .title((String) localized.get("title"))
+                            .description((String) localized.get("description"))
+                            .time((String) snippet.get("publishedAt"))
+                            .duration((String) contentDetails.get("duration"))
+                            .view(Integer.parseInt((String) statistics.get("viewCount")))
+                            .like(Integer.parseInt((String) statistics.get("likeCount")))
+                            .comment(Integer.parseInt((String) statistics.get("commentCount")))
+                            .thumbnail((String) high.get("url"))
+                            .channelTitle((String) snippet.get("channelTitle"))
+                            .categoryId(Integer.parseInt((String) snippet.get("categoryId")))
+                            .tag((List<String>) snippet.get("tags"))
+                            .build();
+                }
                 result.add(video);
 
             }

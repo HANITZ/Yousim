@@ -44,7 +44,7 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     TrendRepository trendRepository;
 
-    public static final String KEY = "AIzaSyCMqbJ4t_5SQ4CV-FCQp1IMMBiBi3nB5Z4";
+    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
 
     static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
             .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
@@ -52,7 +52,7 @@ public class YousimServiceImpl implements YousimService {
     static JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
     public void saveChannelMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
@@ -145,7 +145,7 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
     public VideoToChannel saveVideoMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
@@ -341,7 +341,7 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = {RuntimeException.class, Exception.class})
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
     public Trend saveTrend() throws Exception {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/videos";
