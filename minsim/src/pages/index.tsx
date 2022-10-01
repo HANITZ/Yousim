@@ -157,15 +157,15 @@ export default Home
 //   }
 // }
 
-// export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   
 
-//   return {
-//     props: {
+  return {
+    props: {
 
-//     }
-//   }
-// }
+    }
+  }
+}
 
 
 
