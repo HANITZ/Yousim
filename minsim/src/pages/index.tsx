@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Chart from '/public/images/chart.png'
@@ -23,7 +23,6 @@ import { useRef, useEffect } from 'react'
 export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const Home: NextPage = (props) => {  
-
 
   const DivAnimationRef1 = useRef(null)
   const DivAnimationRef2 = useRef(null)
@@ -57,36 +56,40 @@ const Home: NextPage = (props) => {
       // x값이 양수이면 오른쪽 이동
       x: 300, duration: 2
       });
-    gsap.to("#ImgFrameContainer", {
+    // ImgFrameContainer의 opacity의 초기값을 0으로 세팅
+    gsap.set("#ImgFrameContainer", {
       opacity: 0,
       ease: "none",
-      // scrollTrigger: {
-      //   trigger: '#SloganContainer',
-      //   markers:true,
-      //   start: "top top",
-      //   end: "+=800",
-      //   scrub: true,
-      // },
       });
     gsap.to("#ImgFrameContainer", {
-      // autoAlpha: 1,
       ease: "none",
       opacity: 1,
       scrollTrigger: {
         trigger: '#ImgFrameStart',
-        start: "top top",
-        end: "bottom center",
+        start: "-=400",
+        end: "+=400",
         scrub: true,
+        markers: true,
       },
       });
-
+      gsap.set("#TrendImg", {
+        opacity: 0,
+        ease: "none",
+        });
+      gsap.to("#TrendImg", {
+        ease: "none",
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '#TrendImgStart',
+          start: "-=400",
+          end: "+=400",
+          scrub: true,
+          markers: true,
+        },
+        });
       }, [])
-      const aaa= ()=>{
-        console.log("함수 실행됨")
-        
-      }
+
   return (
-    
     <>
       <Head>
         <title>민심</title>
@@ -99,8 +102,8 @@ const Home: NextPage = (props) => {
         
         <section>
           <SloganContainer id='SloganContainer'>
-            <h4>
-              서비스 슬로건 및 비전뭐 그런거랑 간략한 설명 및 캐치프레이즈<br/>대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다. 
+            <h4 style={{'textAlign': 'center'}}>
+              당신의 마음, 유튜브의 민심<br/>유심을 통해 유튜브의 민심을 쉽게 알아보세요.
             </h4>
           </SloganContainer>
         </section>
@@ -125,12 +128,14 @@ const Home: NextPage = (props) => {
             <Image src={Chart} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
-        <section>
+        <section id="TrendImgStart">
           <DescribeText 
             mainText='트렌드 서칭' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <IntroductionVideoContainer />
+          <ImgFrameContainer id="TrendImg">
+            <Image src={Chart} alt="배경 차트"/>
+          </ImgFrameContainer>
         </section>
       </main>
     </>
@@ -142,14 +147,25 @@ export default Home
 
 
 
-
-// export async function getServerSideProps(context){
-//   console.log(context)
-
-//   return {
-//     props: {}
-//   }
+// export const getStaticProps: GetStaticProps = async () => {
   
 
+//   return {
+//     props: {
 
+//     }
+//   }
 // }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+  
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }
+
+
+

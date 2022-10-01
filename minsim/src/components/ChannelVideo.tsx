@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import { VideoListContainerInnerWrapper } from "styles/channelDetail/VideoListContainerStyle";
 import { SearchInfoImgTextWrapper } from "styles/searchStyles/SearchStyle";
 import Image, { StaticImageData } from "next/image";
-import ChannelInfo from "./ChannelInfo";
 import { useRouter } from 'next/router';
 import VideoTags from "./VideoTags";
+import VideoInfo from "./VideoInfo";
+import { useRecoilState } from 'recoil';
+import { aChData } from "states/atom";
 
 
 const LiDescription = styled.li`
@@ -35,45 +37,41 @@ interface IVideo {
   }
 
 const ChannelVideo = (video: IVideo) => {
-    const router = useRouter()
-    const onClick = () => {
-    // router.push({
-    //   pathname: `/channel/${data.id}`,
-    //   query: {
-    //     banner: data.banner,
-    //     name: data.name,
-    //     subscriber: data.subscriber,
-    //     video: data.video,
-    //     thumbnail: data.thumbnail,
-    //     description: data.description,
-    //   }
-    // })
-  }
+  const router = useRouter()
+  const [chData, setChData] = useRecoilState(aChData)
   
-
-
+    const onClick = () => {
+      router.push({
+        pathname: `/channel/${chData.id}/${video.id}`,
+        query: {
+          chId: chData.id,
+          name: chData.name,
+          video: chData.video,
+          
+          id: video.id,
+          title: video.title,
+          time: video.time, 
+          view: video.view
+        }
+      })
+  }
 
   return (
     <>
-      <VideoListContainerInnerWrapper onClick={onClick} >
+      {/* onclick */}
+      <VideoListContainerInnerWrapper onClick={onClick}>
         <SearchInfoImgTextWrapper>
           <Image
             src={video.thumbnail}
             alt="채널 대표 이미지"
-            width={"188px"}
-            height={"188px"}
-            objectFit="cover"
-            style={{ borderRadius: "50%" }}
+            width={"256px"}
+            height={"128px"}
+            objectFit='fill'
           />
-          {/* <ChannelInfo
-            title={video.title}
-            video={data.video}
-            description={data.description}
-          ></ChannelInfo> */}
+          <VideoInfo title={`${video.title}`} sub1='아이유' sub2={`조회수 ${video.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${video.time?.slice(0, 10)}`} ></VideoInfo>
         </SearchInfoImgTextWrapper>
         <VideoTags tags={video.tag} />
       </VideoListContainerInnerWrapper>
-      ;
     </>
   );
 };

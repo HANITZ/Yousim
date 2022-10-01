@@ -20,7 +20,6 @@
     "gsap": "^3.11.1",
     "jest": "^29.0.3",
     "jest-environment-jsdom": "^29.0.3",
-    "msw": "^0.47.3",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -39,8 +38,5 @@
     "typescript": "4.8.3"
   },
   "main": "index.js",
-  "license": "MIT",
-  "msw": {
-    "workerDirectory": "public"
-  }
+  "license": "MIT"
 }

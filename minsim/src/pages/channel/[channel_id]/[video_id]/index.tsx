@@ -15,12 +15,61 @@ import { VideoDetailContainerInnerWrapper, VideoListContainer } from 'styles/cha
 import { Rank1Tag, Rank2Tag, Rank3Tag } from 'styles/videoDetail/RankTagStyle'
 import CommentInfo from 'src/components/CommentInfo'
 import { VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
+import { useEffect, useState } from 'react'
+import apiIniVideoDetail from 'src/pages/api/apiVideoDetail'
+import { useQuery } from '@tanstack/react-query'
+import apiIniVideoComments from 'src/pages/api/apiVideoComments'
+import { ChannelTagWrapper } from 'styles/componentStyles/ChannelInfoStyle'
+import { Tag } from 'styles/componentStyles/TagStyle'
+
+
+interface commentData {
+  content: string;
+  like: number;
+  minsim: string;
+  name: string;
+  thumbnail: string;
+  time: string;
+}
+interface videoData {
+  text: string;
+  value: number;
+}
 
 const VideoDetailPage: NextPage = () => {
+
   const router = useRouter()
   const query = router.query
   console.log(query);
+
+  const videoId = query.id?.toString();
+  const [commentList, setCommentList] = useState<Array<commentData>>([])
+  const [videoList, setVideoList] = useState<Array<videoData>>([])
+
+  const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
+  const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},
+    {
+      enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
+    }
+  )
   
+  
+  
+  useEffect(() => {
+    if (typeof data === 'object') {setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))}
+    setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})));
+  }, [commentData, data])    
+  
+  
+  if (status === "loading" || commentStatus === "loading") {
+    return <span>Loading...</span>;
+  }
+
+  if (status === "error") {
+    return <span>Error</span>;
+  }
+
+
   
   return (
     <div>
@@ -36,45 +85,61 @@ const VideoDetailPage: NextPage = () => {
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <VideoInfo title={`${query.title}`} sub1='아이유' sub2={`조회수 ${query.view}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time}`} ></VideoInfo>
+                <VideoInfo title={`${query.title}`} sub1={`${query.name}`} sub2={`조회수 ${query.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time?.slice(0, 10)}`} ></VideoInfo>
               </ChannelInfoImgTextWrapper>
-              <Tags />
+              {typeof data === 'object' && videoList[0].text ?  <ChannelTagWrapper>
+                <Tag>
+                  <p>{videoList[0].text}</p>
+                </Tag>
+                <Tag>
+                  <p>{videoList[1].text}</p>
+                </Tag>
+                <Tag>
+                  <p>{videoList[2].text}</p>
+                </Tag>
+              </ChannelTagWrapper> : <>갱신 중</>}
+
             </ChannelInfoContainerInnerWrapper>
           </VideoInfoContainer>
 
           <VideoMinsimContainer>
+          {typeof data === 'object' ? 
+          <>
             <MinsimTextWrapper>
-              {/* text에 값 넣기 */}
-              <GoodMinsim>떡상 60%</GoodMinsim>
-              <BadMinsim>떡락 40%</BadMinsim>
+              <GoodMinsim>떡상 {data.ms.toFixed(0)}%</GoodMinsim>
+              <BadMinsim>떡락 {100 - data.ms.toFixed(0)}%</BadMinsim>
             </MinsimTextWrapper>
-            {/* value에 값 넣기 */}
-            <VideoMinsim max={100} value={60} />  
+            <VideoMinsim max={100} value={data.ms} />  
+          </>
+          : <>갱신 중</> }
           </VideoMinsimContainer>
 
           <VideoListContainer>
             <h4>Best 댓글</h4>
-            <VideoDetailContainerInnerWrapper>
-              <Rank1Tag />
-              <VideoInfoImgTextWrapper>
-                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
-              </VideoInfoImgTextWrapper>
-            </VideoDetailContainerInnerWrapper>
-            <VideoDetailContainerInnerWrapper>
-              <Rank2Tag />
-              <VideoInfoImgTextWrapper>
-                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
-              </VideoInfoImgTextWrapper>
-            </VideoDetailContainerInnerWrapper>
-            <VideoDetailContainerInnerWrapper>
-              <Rank3Tag />
-              <VideoInfoImgTextWrapper>
-                <Image src={TitleImg}  alt='채널 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
-                <CommentInfo name='아이유' publishedTime='5분 전' comment='반갑습니다. 오늘도 즐거운 날입니다.' liked='96' />
-              </VideoInfoImgTextWrapper>
-            </VideoDetailContainerInnerWrapper>
+            {commentList ? <>
+              <VideoDetailContainerInnerWrapper>
+                <Rank1Tag />
+                <VideoInfoImgTextWrapper>
+                  <Image src={commentList[9].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentInfo name={commentList[9].name} publishedTime={commentList[9].time.slice(0, 10)} comment={commentList[9].content} liked={commentList[9].like.toString()} />
+                </VideoInfoImgTextWrapper>
+              </VideoDetailContainerInnerWrapper>
+              <VideoDetailContainerInnerWrapper>
+                <Rank2Tag />
+                <VideoInfoImgTextWrapper>
+                  <Image src={commentList[8].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentInfo name={commentList[8].name} publishedTime={commentList[8].time.slice(0, 10)} comment={commentList[8].content} liked={commentList[8].like.toString()} />
+                </VideoInfoImgTextWrapper>
+              </VideoDetailContainerInnerWrapper>
+              <VideoDetailContainerInnerWrapper>
+                <Rank3Tag />
+                <VideoInfoImgTextWrapper>
+                <Image src={commentList[7].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentInfo name={commentList[7].name} publishedTime={commentList[7].time.slice(0, 10)} comment={commentList[7].content} liked={commentList[7].like.toString()} />
+                </VideoInfoImgTextWrapper>
+              </VideoDetailContainerInnerWrapper>
+            </> : <></>
+            }
           </VideoListContainer>
       </main>
     </div>

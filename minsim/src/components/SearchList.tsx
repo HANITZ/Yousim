@@ -18,10 +18,11 @@ interface Iprops {
 }
 
 
-function SearchList({ datas }: Iprops) {
+function SearchList({ datas }: Iprops) {  
+
   return (
     <SearchListUl>
-      {datas?.map((data, index) => {
+      {datas.map((data, index) => {
         return <SearchChannelItem key={index} {...data} />;
       })}
     </SearchListUl>

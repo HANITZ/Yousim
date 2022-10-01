@@ -30,6 +30,7 @@ import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { aChData } from "states/atom";
+import apiChannelMinsim from "src/pages/api/apiChannelMinsim";
 
 interface IVideo {
   categoryId: number;
@@ -61,6 +62,7 @@ interface ISearchItem {
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
+
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
   const { data: videos, status } = useQuery<IVideo[]>(
     ["video", query.channel_id],
@@ -68,6 +70,13 @@ const ChannelDetailPage: NextPage = () => {
       return apiIniVideoList(query.channel_id);
     }
   );
+  const { data: channelMinsimData, status: minsimStatus } = useQuery(
+    ["channelMinsim", query.channel_id],
+    async () => {
+      return await apiChannelMinsim(query.channel_id);
+    }
+  );
+  console.log(channelMinsimData);
 
   return (
     <div>
@@ -94,10 +103,10 @@ const ChannelDetailPage: NextPage = () => {
                   />
                 </ImgDiv>
                 <ChannelInfo
-                  title={chData.name}
-                  subscriber={chData.subscriber}
-                  video={chData.video}
-                  description={chData.description}
+                  title={chData?.name}
+                  subscriber={chData?.subscriber}
+                  video={chData?.video}
+                  description={chData?.description}
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
               <Tags />
@@ -106,36 +115,19 @@ const ChannelDetailPage: NextPage = () => {
 
           <ChannelMinsimText
             title="채널 민심"
-            mainText="95%  떡상"
+            mainText={`${channelMinsimData} || API는 받아옴 떡상? 떡락? -> 서버 확인 후 수정`}
           ></ChannelMinsimText>
           <ChannelMinsimText
-            title="가장 많이 언급된 키워드"
-            mainText="특화는 이게 맞아"
+            title="채널 키워드"
+            mainText={`${channelMinsimData} 떡상? 떡락?`}
           ></ChannelMinsimText>
         </section>
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>
 
-          <VideoList videos={videos} />
+          {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
           <VideoListContainer>
-            {/* <VideoListContainerInnerWrapper>
-              <ChannelInfoImgTextWrapper>
-                <Image
-                  src={TitleImg}
-                  alt="채널 대표 이미지"
-                  width={"256px"}
-                  height={"128px"}
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-                <ChannelInfo
-                  title="아이유"
-                  sub1="구독자 127만명  |  동영상 6267개"
-                  sub2="반갑습니다. 오늘도 즐거운 날입니다."
-                ></ChannelInfo>
-              </ChannelInfoImgTextWrapper>
-              <VideoTags />
-            </VideoListContainerInnerWrapper> */}
+            {videos ? <VideoList videos={videos} /> : <></>}
           </VideoListContainer>
         </section>
       </main>
@@ -144,3 +136,15 @@ const ChannelDetailPage: NextPage = () => {
 };
 
 export default ChannelDetailPage;
+
+// export async function getServerSideProps(context) {
+//   const chId=context.params.id
+  
+
+
+//   return {
+//     props: {
+
+//     },
+//   };
+// }

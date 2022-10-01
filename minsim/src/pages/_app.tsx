@@ -20,9 +20,9 @@ Sentry.init({
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
-    import("../mocks");
-  }
+  // if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+  //   import("../mocks");
+  // }
 
   return (
     <RecoilRoot>
