@@ -62,7 +62,7 @@ export const VideoInfoContainer = styled.div`
 `
 
 export const VideoInfoImgTextWrapper = styled.div`
-
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -73,5 +73,26 @@ export const VideoInfoImgTextWrapper = styled.div`
   ${media("<=tablet", ">phone")} {
     margin-top: 16px;
     margin-bottom: 16px;
+  }
+`
+
+export const CommentImgContainer = styled.div`
+  min-width: 80px;
+  min-height: 80px;
+  width: 80px;
+  height: 80px;
+
+  ${media("<=desktop", ">tablet")} {
+    min-width: 64px;
+    min-height: 64px;
+    width: 64px;
+    height: 64px;
+  }
+
+  ${media("<=tablet", ">phone")} {
+    min-width: 48px;
+    min-height: 48px;
+    width: 48px;
+    height: 48px;
   }
 `
