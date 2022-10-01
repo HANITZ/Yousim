@@ -14,7 +14,7 @@ import { BadMinsim, GoodMinsim, MinsimTextWrapper, VideoMinsim, VideoMinsimConta
 import { VideoDetailContainerInnerWrapper, VideoListContainer } from 'styles/channelDetail/VideoListContainerStyle'
 import { Rank1Tag, Rank2Tag, Rank3Tag } from 'styles/videoDetail/RankTagStyle'
 import CommentInfo from 'src/components/CommentInfo'
-import { VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
+import { CommentImgContainer, VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
 import { useEffect, useState } from 'react'
 import apiIniVideoDetail from 'src/pages/api/apiVideoDetail'
 import { useQuery } from '@tanstack/react-query'
@@ -40,7 +40,6 @@ const VideoDetailPage: NextPage = () => {
 
   const router = useRouter()
   const query = router.query
-  console.log(query);
 
   const videoId = query.id?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
@@ -51,8 +50,7 @@ const VideoDetailPage: NextPage = () => {
     {
       enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
     }
-  )
-  
+  ) 
   
   
   useEffect(() => {
@@ -120,21 +118,27 @@ const VideoDetailPage: NextPage = () => {
               <VideoDetailContainerInnerWrapper>
                 <Rank1Tag />
                 <VideoInfoImgTextWrapper>
-                  <Image src={commentList[9].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentImgContainer>
+                    <Image src={commentList[9].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  </CommentImgContainer>
                   <CommentInfo name={commentList[9].name} publishedTime={commentList[9].time.slice(0, 10)} comment={commentList[9].content} liked={commentList[9].like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>
               <VideoDetailContainerInnerWrapper>
                 <Rank2Tag />
                 <VideoInfoImgTextWrapper>
-                  <Image src={commentList[8].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentImgContainer>
+                    <Image src={commentList[8].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  </CommentImgContainer>
                   <CommentInfo name={commentList[8].name} publishedTime={commentList[8].time.slice(0, 10)} comment={commentList[8].content} liked={commentList[8].like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>
               <VideoDetailContainerInnerWrapper>
                 <Rank3Tag />
                 <VideoInfoImgTextWrapper>
-                <Image src={commentList[7].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'77px'} height={'77px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  <CommentImgContainer>
+                    <Image src={commentList[7].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                  </CommentImgContainer>
                   <CommentInfo name={commentList[7].name} publishedTime={commentList[7].time.slice(0, 10)} comment={commentList[7].content} liked={commentList[7].like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>

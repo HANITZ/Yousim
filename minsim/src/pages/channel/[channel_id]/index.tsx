@@ -59,20 +59,29 @@ interface ISearchItem {
   view: number;
 }
 
+interface minsimKeywordData {
+  text: string;
+  value: number;
+}
+
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
-  
+  const [resData, setResData] = useState('');
   
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
-  const { data: videos, status } = useQuery<IVideo[]>(
-    ["video", query.channel_id],
-    () => {
-      return apiIniVideoList(query.channel_id);
-    }
-  );
+  const {data: videos, status } = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
   const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
-  console.log(channelMinsimData);
+
+  useEffect(() => {
+    if (channelMinsimData !== '갱신 중' && channelMinsimData !== undefined) {      
+      const tmp = [...channelMinsimData.keywords]
+      setResData(tmp.sort((a: minsimKeywordData, b: minsimKeywordData) => {return b.value - a.value}).slice(0, 3).map((el: minsimKeywordData) => {
+        return `#${el.text}`
+      }).join('  '))
+    }
+  }, [chData, channelMinsimData])
+  
   
 
   return (
@@ -112,17 +121,16 @@ const ChannelDetailPage: NextPage = () => {
 
           <ChannelMinsimText
             title="채널 민심"
-            mainText={`${channelMinsimData} || API는 받아옴 떡상? 떡락? -> 서버 확인 후 수정`}
+            mainText={channelMinsimData ? `${channelMinsimData.ms}% ${channelMinsimData.ms >=50 ? '떡상' : '떡락'}` : ''}
           ></ChannelMinsimText>
           <ChannelMinsimText
             title="채널 키워드"
-            mainText={`${channelMinsimData} 떡상? 떡락?`}
+            mainText={channelMinsimData ? `${resData}` : ''}
           ></ChannelMinsimText>
         </section>
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>
           
-          {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
           <VideoListContainer>
             {videos ? <VideoList videos={videos} /> : <></>}
           </VideoListContainer>
