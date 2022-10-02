@@ -31,6 +31,7 @@ import SearchList from "src/components/SearchList";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { aChData } from "states/atom";
 import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
+import FetchButton from 'src/components/FetchButton';
 
 interface IVideo {
   categoryId: number;
@@ -115,7 +116,7 @@ const ChannelDetailPage: NextPage = () => {
                   description={chData?.description}
                 ></ChannelInfo>
               </ChannelInfoImgTextWrapper>
-              <Tags />
+              <FetchButton />
             </ChannelInfoContainerInnerWrapper>
           </ChannelInfoContainer>
 

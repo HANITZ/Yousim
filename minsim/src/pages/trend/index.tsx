@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import DescribeText from 'src/components/DescribeText'
+import {DescribeText} from 'src/components/DescribeText'
 import NavBar from 'src/components/NavBar'
 import SimpleWordCloud from 'src/components/TrendList'
 import { useQuery } from "@tanstack/react-query";

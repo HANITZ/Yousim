@@ -79,7 +79,7 @@ const VideoDetailPage: NextPage = () => {
 
       <main>
         <NavBar />
-        <VideoFrame src={`https://www.youtube.com/watch?v=${query.id}`} title=''/>
+        <VideoFrame src={`https://www.youtube.com/embed/${query.id}`} title='YouTube video player' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>

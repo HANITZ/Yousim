@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import media, { getBreakPoints } from 'css-in-js-media'
 getBreakPoints();
 
-const DescribeTextStyle = styled.div`
+export const DescribeTextStyle = styled.div`
   margin: 128px 0px 64px 0;
   display: flex;
   flex-direction: column;
@@ -12,11 +12,33 @@ const DescribeTextStyle = styled.div`
     margin-right: 64px;
   }
   ${media("<=desktop", ">tablet")} {
-    min-width: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
   }
   ${media("<=tablet", ">phone")} {
     margin-left: 16px;
     margin-right: 16px;
+  }
+`
+  
+
+export const BlackDescribeTextStyle = styled.div`
+  padding: 128px 0px 64px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+
+  ${media(">desktop")} {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  ${media("<=desktop", ">tablet")} {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  ${media("<=tablet", ">phone")} {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `
 
@@ -36,7 +58,7 @@ interface IDescribeText{
   subText2: string
 }
 
-const DescribeText = ({mainText, subText1, subText2}: IDescribeText) => {
+export const DescribeText = ({mainText, subText1, subText2}: IDescribeText) => {
   return (
     <DescribeTextStyle>
       <DescribeMainText>{mainText}</DescribeMainText>
@@ -46,4 +68,12 @@ const DescribeText = ({mainText, subText1, subText2}: IDescribeText) => {
   )
 }
 
-export default DescribeText;
+export const BlackDescribeText = ({mainText, subText1, subText2}: IDescribeText) => {
+  return (
+    <BlackDescribeTextStyle>
+      <DescribeMainText>{mainText}</DescribeMainText>
+      <DescribeSubText>{subText1}</DescribeSubText>
+      <DescribeSubText>{subText2}</DescribeSubText>
+    </BlackDescribeTextStyle>
+  )
+}

@@ -2,10 +2,11 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Chart from '/public/images/chart.png'
+import WordCloud from '/public/images/wordCloud.jpg'
 
 import NavBar from 'src/components/NavBar'
 import SearchBar from 'src/components/SearchBar'
-import DescribeText from 'src/components/DescribeText'
+import { DescribeText,  BlackDescribeText } from 'src/components/DescribeText'
 
 import { SloganContainer } from 'styles/mainStyles/IndexStyle'
 import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
@@ -118,8 +119,8 @@ const Home: NextPage = () => {
           </IntroductionVideoContainer>
           <Spinner />
         </section>
-        <section id="ImgFrameStart">
-          <DescribeText
+        <section id="ImgFrameStart" style={{'backgroundColor': '#000'}}>
+          <BlackDescribeText
             mainText='민심 확인' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
@@ -133,7 +134,7 @@ const Home: NextPage = () => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer id="TrendImg">
-            <Image src={Chart} alt="배경 차트"/>
+            <Image src={WordCloud} alt="배경 차트"/>
           </ImgFrameContainer>
         </section>
       </main>

@@ -27,11 +27,6 @@ function NavBar() :JSX.Element {
     });
   })
 
-  const router = useRouter();
-  const routerpush = () => {
-    router.push("/");
-  };
-
   return (
     <NavStyle id="NavStyle">
       <NavUl>
@@ -47,7 +42,6 @@ function NavBar() :JSX.Element {
         </NavLi>
         <NavLi>
           <h3>
-            <div onClick={routerpush}></div>
             <Link href="/trend">Trend</Link>
           </h3>
         </NavLi>

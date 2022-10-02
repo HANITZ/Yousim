@@ -29,6 +29,12 @@ progress {
   background-color: #309DFF;
 }
 
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration{
+    display:none;
+}
 /* 
 @media (prefers-color-scheme: dark) {
   html {
