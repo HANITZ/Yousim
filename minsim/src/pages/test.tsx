@@ -1,13 +1,14 @@
 import React from 'react'
+// import { ReactComponent as Rise } from '/public/images/rise.svg'
 
 
 const TestPage = () => {
   
   
   return (
-    <>
-      <button>ㄲ</button>
-    </>
+    <div>
+      {/* <Rise /> */}
+    </div>
   )
 }
 

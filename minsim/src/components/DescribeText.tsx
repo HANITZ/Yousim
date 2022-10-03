@@ -23,10 +23,9 @@ export const DescribeTextStyle = styled.div`
   
 
 export const BlackDescribeTextStyle = styled.div`
-  padding: 128px 0px 64px 0;
   display: flex;
   flex-direction: column;
-  background-color: #000;
+  /* background-color: #000; */
 
   ${media(">desktop")} {
     padding-left: 64px;

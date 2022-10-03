@@ -3,6 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Chart from '/public/images/chart.png'
 import WordCloud from '/public/images/wordCloud.jpg'
+import Rise from '/public/images/rise.svg'
+import BackgroundImg from '/public/images/backgroundImg.png'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import NavBar from 'src/components/NavBar'
@@ -14,7 +16,7 @@ import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
 import { LightSection } from 'styles/mainStyles/LightSectionStyle'
 import { IntroductionVideoContainer, IntroductionDivAnimation1, IntroductionDivAnimation2 } from 'styles/mainStyles/IntroductionVideoStyle'
 import { Spinner } from 'styles/componentStyles/SpinnerStyle'
-import { ImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
+import { ImgFrameContainer, SvgImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -120,14 +122,17 @@ const Home: NextPage = (props) => {
           </IntroductionVideoContainer>
           <Spinner />
         </section>
-        <section id="ImgFrameStart" style={{'backgroundColor': '#000'}}>
+        <section id="ImgFrameStart" style={{'backgroundColor': '#1A191E'}}>
+          <ImgFrameContainer>
+            <Image src={BackgroundImg} alt="배경 이미지"/>
+          </ImgFrameContainer>
           <BlackDescribeText
             mainText='민심 확인' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <ImgFrameContainer id="ImgFrameContainer">
-            <Image src={Chart} alt="배경 차트"/>
-          </ImgFrameContainer>
+          <SvgImgFrameContainer id="ImgFrameContainer">
+            <Image src={Rise} alt="배경 차트"/>
+          </SvgImgFrameContainer>
         </section>
         <section id="TrendImgStart">
           <DescribeText 
@@ -135,7 +140,7 @@ const Home: NextPage = (props) => {
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer id="TrendImg">
-            <Image src={WordCloud} alt="배경 차트"/>
+            <Image src={WordCloud} alt="워드클라우드 예시"/>
           </ImgFrameContainer>
         </section>
       </main>
