@@ -38,8 +38,6 @@ interface ISearchItem {
 const SearchPage: NextPage = () => {
   const router = useRouter();
   const searchName = router.query.id?.toString();
-
-  console.log(searchName);
   
   const {
     data: searchList,
@@ -51,7 +49,7 @@ const SearchPage: NextPage = () => {
       return apisearchList(searchName);
     },
   );
-  console.log(searchList);
+  console.log(status);
   
 
 

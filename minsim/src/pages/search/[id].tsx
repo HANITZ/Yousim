@@ -8,6 +8,7 @@ import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 
+
 import {
   SearchInfoImgTextWrapper,
   SearchMarginDiv,
@@ -28,6 +29,7 @@ import apisearchList from "src/pages/api/apisearchList";
 import { aSerachList } from "states/atom";
 import { useQuery } from "@tanstack/react-query";
 import { isContext } from "vm";
+import { SearchLoadingPage } from "src/components/Loading";
 
 
 interface IProps {
@@ -47,6 +49,7 @@ interface ISearchItem {
 
 const SearchPage = ({ searchList }:IProps) => {
   const router = useRouter();
+
   // const searchName = router.query.id?.toString();
   // const {
   //   data: searchList,
@@ -73,6 +76,8 @@ const SearchPage = ({ searchList }:IProps) => {
   //   });
   // }, [searchName]);
 
+  
+
   return (
     <>
       <Head>
@@ -95,8 +100,6 @@ const SearchPage = ({ searchList }:IProps) => {
 export default SearchPage;
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-
-
   return {
     paths: [
       {
@@ -112,7 +115,6 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const ide = context.params?.id as string
   const data = await apisearchList(ide)
-
 
   return {
     props: {
