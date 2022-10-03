@@ -41,3 +41,5 @@ describe("Search 페이지 렌더링", () => {
     cy.get("li").should("have.length", 3);
   });
 });
+
+export {}

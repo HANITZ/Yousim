@@ -105,7 +105,7 @@ export default TrendPage
 
 export const getServerSideProps:GetServerSideProps = async () => {
   const data = await apitrendList()
-
+  
     return {
     props: {
       trendList: data
