@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -153,22 +153,22 @@ export default ChannelDetailPage;
 // }
 
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
+// export const getStaticPaths: GetStaticPaths = async (context) => {
   
-  return {
-    paths: [
-      {
-        params: {
-          channel_id: "UC3SyT4_WLHzN7JmHQwKQZww",
-        }
-      }
-    ],
-    fallback: true
-  }
-}
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           channel_id: "UC3SyT4_WLHzN7JmHQwKQZww",
+//         }
+//       }
+//     ],
+//     fallback: true
+//   }
+// }
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.channel_id as string
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))

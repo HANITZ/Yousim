@@ -47,13 +47,10 @@ interface ISearchItem {
 const SearchPage = () => {
   const router = useRouter();
   const id = router.query.id as string
-  const {data: searchList, status} = useQuery<ISearchItem[]>(["searchList", id],() => {return apisearchList(id);});
+  const {data: searchList} = useQuery<ISearchItem[]>(["searchList", id],() => {return apisearchList(id);});
 
 
-  if (status === "loading") {
-    return <p>로딩중</p>
-  }
-
+  
 
   return (
     <>
@@ -104,12 +101,3 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const data = await apisearchList(context.params.id);
-
-//   return {
-//     props: {
-//       searchList: data,
-//     },
-//   };
-// };

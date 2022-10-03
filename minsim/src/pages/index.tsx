@@ -147,17 +147,7 @@ export default Home
 
 
 
-// export const getStaticProps: GetStaticProps = async () => {
-  
-
-//   return {
-//     props: {
-
-//     }
-//   }
-// }
-
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   
 
   return {
@@ -166,6 +156,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
   }
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+  
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }
 
 
 
