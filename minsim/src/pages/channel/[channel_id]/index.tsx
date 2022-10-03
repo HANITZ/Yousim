@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -26,7 +26,7 @@ import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
 import apiIniVideoList from "src/pages/api/apiIniVideoList";
-import { useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { aChData } from "states/atom";
@@ -145,12 +145,39 @@ export default ChannelDetailPage;
 
 // export async function getServerSideProps(context) {
 //   const chId=context.params.id
-  
-
-
 //   return {
 //     props: {
-
 //     },
 //   };
 // }
+
+
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery([])
+
+  return {
+    paths: [
+      {
+        params: {
+          channel_id: "UC3SyT4_WLHzN7JmHQwKQZww",
+        }
+      }
+    ],
+    fallback: true
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ide = context.params?.id as string
+  const data = await apiIniVideoList(ide)
+  
+
+  return {
+    props: {
+      videos: data
+    },
+    revalidate: 86400
+  }
+}

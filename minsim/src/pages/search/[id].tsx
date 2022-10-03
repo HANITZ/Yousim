@@ -47,32 +47,7 @@ interface ISearchItem {
 
 const SearchPage = ({ searchList }:IProps) => {
   const router = useRouter();
-  // const searchName = router.query.id?.toString();
 
-  // const {
-  //   data: searchList,
-  //   error,
-  //   status,
-  // } = useQuery<ISearchItem[]>(
-  //   ["searchList", searchName ],
-  //   () => {
-  //     return apisearchList(searchName);
-  //   },
-  // );
-
-  // if (status === "loading") {
-  //   return <span>Loading...</span>;
-  // }
-
-  // if (status === "error") {
-  //   return <span>Error </span>;
-  // }
-
-  // useEffect(() => {
-  //   apisearchList(searchName).then((data) => {
-  //     setSearchList(data);
-  //   });
-  // }, [searchName]);
 
   return (
     <>
@@ -118,7 +93,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       searchList: data
-    }
+    },
+    revalidate: 86400
   }
 }
 

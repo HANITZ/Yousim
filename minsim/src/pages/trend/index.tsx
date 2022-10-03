@@ -94,9 +94,7 @@ export default TrendPage
 //   return {
 //     props: {
 //       trendList: data,
-
 //     }
-
 //   }
 // }
 
