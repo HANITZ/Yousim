@@ -131,7 +131,8 @@ const ChannelDetailPage: NextPage = () => {
         </section>
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>
-          
+
+          {/* 라우터 푸시로 필요한 것 - 채널 아이디랑 채널 이름  */}
           <VideoListContainer>
             {videos ? <VideoList videos={videos} /> : <></>}
           </VideoListContainer>
@@ -142,3 +143,15 @@ const ChannelDetailPage: NextPage = () => {
 };
 
 export default ChannelDetailPage;
+
+// export async function getServerSideProps(context) {
+//   const chId=context.params.id
+  
+
+
+//   return {
+//     props: {
+
+//     },
+//   };
+// }

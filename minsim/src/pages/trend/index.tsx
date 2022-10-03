@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
-
+import { GetServerSideProps } from 'next'
 interface ITrendTag {
   text: string;
   value: number;
@@ -28,26 +28,27 @@ interface Iprops {
 }
 
 
-const TrendPage: NextPage = () => {
+
+const TrendPage: NextPage<Iprops> = (trendList) => {
   const router = useRouter();
+  console.log(trendList)
+  // const {
+  //   data: trendList,
+  //   error,
+  //   status,
+  // } = useQuery<Iprops>(
+  //   ["trendList"],
+  //   () => {
+  //     return apitrendList();
+  //   },
+  // );
+  // if (status === "loading") {
+  //   return <span>Loading...</span>;
+  // }
 
-  const {
-    data: trendList,
-    error,
-    status,
-  } = useQuery<Iprops>(
-    ["trendList"],
-    () => {
-      return apitrendList();
-    },
-  );
-  if (status === "loading") {
-    return <span>Loading...</span>;
-  }
-
-  if (status === "error") {
-    return <span>Error </span>;
-  }
+  // if (status === "error") {
+  //   return <span>Error </span>;
+  // }
   
 
   return (
@@ -84,3 +85,31 @@ const TrendPage: NextPage = () => {
 }
 
 export default TrendPage
+
+
+
+// export async function getStaticProps() {
+//   const data = await apitrendList()
+//   console.log(data)
+//   return {
+//     props: {
+//       trendList: data,
+
+//     }
+
+//   }
+// }
+
+
+
+
+export const getServerSideProps:GetServerSideProps = async () => {
+  const data = await apitrendList()
+
+    return {
+    props: {
+      trendList: data
+    }
+  }
+}
+
