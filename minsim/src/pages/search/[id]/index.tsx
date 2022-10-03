@@ -39,7 +39,8 @@ const SearchPage: NextPage = () => {
   const router = useRouter();
   const searchName = router.query.id?.toString();
 
-
+  console.log(searchName);
+  
   const {
     data: searchList,
     error,
@@ -50,6 +51,8 @@ const SearchPage: NextPage = () => {
       return apisearchList(searchName);
     },
   );
+  console.log(searchList);
+  
 
   if (status === "loading") {
     return <span>Loading...</span>;
