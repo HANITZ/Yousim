@@ -14,7 +14,6 @@ import {
   ChannelInfoImgTextWrapper,
   ImgDiv,
 } from "styles/channelDetail/ChannelInfoContainerStyle";
-import TitleImg from "/public/images/titleImg.jpg";
 import Tags from "src/components/Tags";
 import ChannelMinsimText from "src/components/ChannelMinsimText";
 import VideoListTitle from "styles/channelDetail/VideoListSectionTitleStyle";
@@ -70,7 +69,7 @@ const ChannelDetailPage: NextPage = () => {
   const [resData, setResData] = useState('');
   
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
-  const {data: videos, status } = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
+  const {data: videos, status} = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
   const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
 
   useEffect(() => {
@@ -82,7 +81,9 @@ const ChannelDetailPage: NextPage = () => {
     }
   }, [chData, channelMinsimData])
   
-  
+  if (status === "loading"){
+    return <p>로딩중</p>
+  }
 
   return (
     <div>
@@ -153,10 +154,7 @@ export default ChannelDetailPage;
 
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery([])
-
+  
   return {
     paths: [
       {
@@ -169,14 +167,16 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const ide = context.params?.id as string
-  const data = await apiIniVideoList(ide)
-  
 
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = context.params?.channel_id as string
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))
+  await queryClient.prefetchQuery(["channelMinsim", id], ()=>apiChannelMinsim(id))
+  console.log(queryClient)
   return {
     props: {
-      videos: data
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 86400
   }

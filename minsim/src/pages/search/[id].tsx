@@ -19,7 +19,6 @@ import NavBar from "src/components/NavBar";
 import ChannelInfo from "src/components/ChannelInfo";
 import SearchList from "src/components/SearchList";
 import { useEffect, useLayoutEffect, useState } from "react";
-import TitleImg from "/public/images/titleImg.jpg";
 import {
   VideoListContainer,
   VideoListContainerInnerWrapper,

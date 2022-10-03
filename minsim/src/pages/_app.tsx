@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
   //   import("../mocks");
   // }
-  const [];
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
