@@ -1,0 +1,20 @@
+{
+  "/_document": "pages/_document.js",
+  "/api/apiVideoComments": "pages/api/apiVideoComments.js",
+  "/api/apiVideoDetail": "pages/api/apiVideoDetail.js",
+  "/api/apisearchList": "pages/api/apisearchList.js",
+  "/api/apitrendList": "pages/api/apitrendList.js",
+  "/api/fetch": "pages/api/fetch.js",
+  "/api/hello": "pages/api/hello.js",
+  "/api/apiChannelMinsim": "pages/api/apiChannelMinsim.js",
+  "/channel/[channel_id]/[video_id]": "pages/channel/[channel_id]/[video_id].html",
+  "/sentry_sample_error": "pages/sentry_sample_error.html",
+  "/test": "pages/test.html",
+  "/_error": "pages/_error.js",
+  "/_app": "pages/_app.js",
+  "/api/apiIniVideoList": "pages/api/apiIniVideoList.js",
+  "/": "pages/index.js",
+  "/search/[id]": "pages/search/[id].js",
+  "/trend": "pages/trend.js",
+  "/channel/[channel_id]": "pages/channel/[channel_id].html"
+}
