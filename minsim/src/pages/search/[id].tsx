@@ -25,11 +25,11 @@ import {
 } from "styles/channelDetail/VideoListContainerStyle";
 import apisearchList from "src/pages/api/apisearchList";
 import { aSerachList } from "states/atom";
-import { useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { isContext } from "vm";
 
 
-interface IProps {
+interface Iprops {
   searchList: ISearchItem[]
 }
 interface ISearchItem {
@@ -44,8 +44,15 @@ interface ISearchItem {
   view: number;
 }
 
-const SearchPage = ({ searchList }:IProps) => {
+const SearchPage = () => {
   const router = useRouter();
+  const id = router.query.id as string
+  const {data: searchList, status} = useQuery<ISearchItem[]>(["searchList", id],() => {return apisearchList(id);});
+
+
+  if (status === "loading") {
+    return <p>로딩중</p>
+  }
 
 
   return (
@@ -85,13 +92,13 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const ide = context.params?.id as string
-  const data = await apisearchList(ide)
-
+  const id = context.params?.id as string
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["searchList", id], ()=>apisearchList(id))
 
   return {
     props: {
-      searchList: data
+      dehydratedState: dehydrate(queryClient),
     },
     revalidate: 86400
   }

@@ -10,10 +10,12 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import { RecoilRoot } from "recoil";
 import {
+  DehydratedState,
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { NextPageContext } from "next";
 
 Sentry.init({
   dsn: "https://bf895e01895948d9b55d0bdc232962dd@o1409479.ingest.sentry.io/6745974",
@@ -23,13 +25,23 @@ Sentry.init({
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
+
+type HydrateProps = {
+  dehydratedState?: DehydratedState
+}
+
+type ExtendedAppProps<P = {}> = {
+  err?: NextPageContext['err'];
+} & AppProps<P>;
+
+
+function MyApp({ Component, pageProps, err }: ExtendedAppProps<HydrateProps>) {
   // if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
   //   import("../mocks");
   // }
 
   return (
-    <RecoilRoot>
+    <RecoilRoot  >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ThemeProvider theme={theme}>
