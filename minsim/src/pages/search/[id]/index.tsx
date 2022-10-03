@@ -51,6 +51,7 @@ const SearchPage: NextPage = () => {
     },
   );
 
+
   if (status === "loading") {
     return <span>Loading...</span>;
   }
