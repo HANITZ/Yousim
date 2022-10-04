@@ -85,7 +85,7 @@ import { SearchMarginDiv } from 'styles/searchStyles/SearchStyle';
 
 const TestPage = () => {  
   return (
-   <></>
+    <></>
   )
 }
 

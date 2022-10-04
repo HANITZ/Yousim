@@ -29,9 +29,10 @@ import apiIniVideoList from "src/pages/api/apiIniVideoList";
 import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { aChData } from "states/atom";
+import { aChData, chMinsim } from "states/atom";
 import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
 import FetchButton from 'src/components/FetchButton';
+import { ChannelLoadingPage } from 'src/components/Loading';
 
 interface IVideo {
   categoryId: number;
@@ -72,21 +73,25 @@ const ChannelDetailPage: NextPage = () => {
   const [resData, setResData] = useState('');
   
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
+  const [channelMinsim, setChannelMinsim] = useRecoilState(chMinsim)
 
   const {data: videos, status } = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
   const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
 
   useEffect(() => {
-    // 에러처리 확인
-    if (channelMinsimData !== '갱신 중' && !!channelMinsimData.keywords !== false) {      
+    setChannelMinsim(channelMinsimData)
+    if (channelMinsimData !== '갱신 중' && channelMinsimData !== undefined && channelMinsimData.keywords !== undefined) {      
       const tmp = [...channelMinsimData.keywords]
       setResData(tmp.sort((a: minsimKeywordData, b: minsimKeywordData) => {return b.value - a.value}).slice(0, 3).map((el: minsimKeywordData) => {
         return `#${el.text}`
       }).join('  '))
     }
-  }, [chData, channelMinsimData])
+  }, [chData, channelMinsimData, channelMinsim])
   
-  
+  if (status === "loading") {
+    return <ChannelLoadingPage />
+  }
+
 
   return (
     <div>
@@ -125,11 +130,11 @@ const ChannelDetailPage: NextPage = () => {
 
           <ChannelMinsimText
             title="채널 민심"
-            mainText={channelMinsimData ? `${channelMinsimData.ms}% ${channelMinsimData.ms >=50 ? '떡상' : '떡락'}` : ''}
+            mainText={channelMinsim ? `${channelMinsim.ms}% ${channelMinsim.ms >=50 ? '떡상' : '떡락'}` : ''}
           ></ChannelMinsimText>
           <ChannelMinsimText
             title="채널 키워드"
-            mainText={channelMinsimData ? `${resData}` : ''}
+            mainText={channelMinsim ? `${resData}` : ''}
           ></ChannelMinsimText>
         </section>
         <section>

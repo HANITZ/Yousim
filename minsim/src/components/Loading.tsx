@@ -2,7 +2,7 @@
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { ChannelBannerLoadingDiv, ChannelLoadingDiv, ChannelMainTextLoadingDiv, ChannelSubTextLoadingDiv, SearchLoadingDiv } from 'styles/componentStyles/LoadingStyle';
+import { ChannelBannerLoadingDiv, ChannelLoadingDiv, ChannelMainTextLoadingDiv, ChannelSubTextLoadingDiv, CommentLoadingDiv, SearchLoadingDiv, VideoBannerLoadingDiv } from 'styles/componentStyles/LoadingStyle';
 import { SearchMarginDiv } from 'styles/searchStyles/SearchStyle';
 
 export const SearchLoadingPage = () => {
@@ -46,9 +46,18 @@ export const VideoLoadingPage = () => {
   return (
     <SkeletonTheme baseColor="#31313C" highlightColor="#1c1c1f">
       <SearchMarginDiv />
-      <SearchLoadingDiv>
-        <Skeleton height={612}/> 
-      </SearchLoadingDiv>
+      <VideoBannerLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </VideoBannerLoadingDiv>
+      <ChannelLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </ChannelLoadingDiv>
+      <ChannelLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </ChannelLoadingDiv>
+      <CommentLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </CommentLoadingDiv>
     </SkeletonTheme>
   )
 }

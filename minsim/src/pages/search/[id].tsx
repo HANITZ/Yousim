@@ -53,7 +53,7 @@ const SearchPage = () => {
 
 
   if (status === "loading") {
-    return <p>로딩중</p>
+    return <SearchLoadingPage />
   }
 
 

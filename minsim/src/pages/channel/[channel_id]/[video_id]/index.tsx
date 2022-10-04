@@ -21,6 +21,7 @@ import { useQuery } from '@tanstack/react-query'
 import apiIniVideoComments from 'src/pages/api/apiVideoComments'
 import { ChannelTagWrapper } from 'styles/componentStyles/ChannelInfoStyle'
 import { Tag } from 'styles/componentStyles/TagStyle'
+import { VideoLoadingPage } from 'src/components/Loading'
 
 
 interface commentData {
@@ -60,11 +61,7 @@ const VideoDetailPage: NextPage = () => {
   
   
   if (status === "loading" || commentStatus === "loading") {
-    return <span>Loading...</span>;
-  }
-
-  if (status === "error") {
-    return <span>Error</span>;
+    return <VideoLoadingPage />
   }
 
 

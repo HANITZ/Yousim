@@ -72,3 +72,25 @@ export const ChannelSubTextLoadingDiv = styled.div`
     margin-left: 16px;
   };
 `
+
+export const VideoBannerLoadingDiv = styled.div`
+  width: 100vw;
+  height: 56.25vw;
+`
+
+export const CommentLoadingDiv = styled.div`
+  margin: 96px 64px 32px 64px;
+  height: 672px;
+  ${media(">desktop")} {
+    margin-left: 64px;
+    margin-right: 64px;
+  }
+  ${media("<=desktop", ">tablet")} {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+  ${media("<=tablet", ">phone")} {
+    margin-left: 16px;
+    margin-right: 16px;
+  };
+`

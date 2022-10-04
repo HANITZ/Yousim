@@ -12,7 +12,7 @@ export const FetchButtonStyle = styled.button`
   background-color: #ff5349;
   border-radius: 10px;
   border: none;
-  background: none;
+  cursor: pointer;
 `
 export const FetchLoadingButtonStyle = styled.div`
   width: 128px;
