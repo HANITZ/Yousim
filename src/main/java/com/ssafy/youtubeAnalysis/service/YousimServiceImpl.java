@@ -222,17 +222,29 @@ public class YousimServiceImpl implements YousimService {
                 br.close();
                 String temp = response.toString().replace("%", "");
                 float temp2 = Float.parseFloat(temp);
-                float erase = 35.13f;
+                float erase = 36.05f;
+
+
+                String str =(String) snippet2.get("textDisplay");
+
+                System.out.println(" erase 값 : "+erase + "  민심%값 : "   + temp2 + " 댓글 뭐냐 : "+str);
+
                 if (Float.compare(temp2, erase)==0) {
 
                     data++;
+                    System.out.println("data값 : "+data);
                     continue;
                 }
-                if (Float.parseFloat(temp) >= 50)
-                    sum += 100;
-                else
-                    sum += 0;
+//                if (Float.parseFloat(temp) >= 50)
+//                    sum += 100;
+//                else
+//                    sum += 0;
+//                sum+=Float.parseFloat(temp);
+                sum+=Float.parseFloat(temp);
+
             }
+
+
         }
 
         apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
@@ -263,6 +275,7 @@ public class YousimServiceImpl implements YousimService {
 
 
         if (jsonArr2.size() > 0) {
+
             for (int i = 0; i < jsonArr2.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr2.get(i);
 
@@ -285,15 +298,18 @@ public class YousimServiceImpl implements YousimService {
                 }
                 br.close();
                 String temp = response.toString().replace("%", "");
-                float erase = 35.13f;
+                float erase = 36.05f;
                 float temp2 = Float.parseFloat(temp);
-
+                String str =(String) snippet2.get("textDisplay");
+                System.out.println(" erase 값 : "+erase + "  민심%값 : "   + temp2 + " 댓글 뭐냐 : "+str);
                 if (Float.compare(temp2, erase)==0) {
 
                     data++;
+                    System.out.println("data값은?????? : " + data);
                     continue;
                 }
 
+                System.out.println(data + "   : data값은");
 
 
                 sum += Float.parseFloat(temp);
@@ -316,9 +332,10 @@ public class YousimServiceImpl implements YousimService {
         });
 
 
+
         VideoMinsim VM = VideoMinsim.builder()
                 ._id(id)
-                .MS(sum / (jsonArr1.size() + jsonArr2.size()) - data )
+                .MS(sum / ((jsonArr1.size() + jsonArr2.size()) - data ))
                 .keywords(keywords).build();
 
         ST = Status.builder()
@@ -332,7 +349,7 @@ public class YousimServiceImpl implements YousimService {
 
 
         VideoToChannel VTC = VideoToChannel.builder()
-                .cnt(jsonArr1.size() + jsonArr2.size())
+                .cnt(jsonArr1.size() + jsonArr2.size() - data)
                 .sum(sum)
                 .keywords(keyword)
                 .build();
