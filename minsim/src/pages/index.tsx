@@ -60,21 +60,20 @@ const Home: NextPage = (props) => {
       x: 300, duration: 2
       });
     // ImgFrameContainer의 opacity의 초기값을 0으로 세팅
-    gsap.set("#ImgFrameContainer", {
-      opacity: 0,
-      ease: "none",
-      });
-    gsap.to("#ImgFrameContainer", {
-      ease: "none",
-      opacity: 1,
-      scrollTrigger: {
-        trigger: '#ImgFrameStart',
-        start: "-=400",
-        end: "+=400",
-        scrub: true,
-        markers: true,
-      },
-      });
+      gsap.set("#ChartImg", {
+        opacity: 0,
+        ease: "none",
+        });
+      gsap.to("#ChartImg", {
+        ease: "none",
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '#ImgFrameStart',
+          start: "+=200",
+          end: "+=600",
+          scrub: true,
+        },
+        });
       gsap.set("#TrendImg", {
         opacity: 0,
         ease: "none",
@@ -87,7 +86,6 @@ const Home: NextPage = (props) => {
           start: "-=400",
           end: "+=400",
           scrub: true,
-          markers: true,
         },
         });
       }, [])
@@ -123,14 +121,14 @@ const Home: NextPage = (props) => {
           <Spinner />
         </section>
         <section id="ImgFrameStart" style={{'backgroundColor': '#1A191E'}}>
-          <ImgFrameContainer>
+          <ImgFrameContainer id="ChannelImg">
             <Image src={BackgroundImg} alt="배경 이미지"/>
           </ImgFrameContainer>
           <BlackDescribeText
             mainText='민심 확인' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <SvgImgFrameContainer id="ImgFrameContainer">
+          <SvgImgFrameContainer id="ChartImg">
             <Image src={Rise} alt="배경 차트"/>
           </SvgImgFrameContainer>
         </section>

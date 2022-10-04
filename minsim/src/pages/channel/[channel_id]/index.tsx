@@ -18,6 +18,8 @@ import TitleImg from "/public/images/titleImg.jpg";
 import Tags from "src/components/Tags";
 import ChannelMinsimText from "src/components/ChannelMinsimText";
 import VideoListTitle from "styles/channelDetail/VideoListSectionTitleStyle";
+import {SvgImgFrameContainer} from 'styles/mainStyles/ImgFrameStyle'
+
 import {
   VideoListContainer,
   VideoListContainerInnerWrapper,
@@ -33,6 +35,12 @@ import { aChData, chMinsim } from "states/atom";
 import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
 import FetchButton from 'src/components/FetchButton';
 import { ChannelLoadingPage } from 'src/components/Loading';
+
+import Rise from 'public/images/rise.svg'
+import Drop from 'public/images/drop.svg'
+
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 interface IVideo {
   categoryId: number;
@@ -91,7 +99,25 @@ const ChannelDetailPage: NextPage = () => {
   if (status === "loading") {
     return <ChannelLoadingPage />
   }
-
+    
+  // useEffect(() => {
+  //   gsap.registerPlugin(ScrollTrigger);
+  //   gsap.set("#ChartStart", {
+  //     opacity: 0,
+  //     ease: "none",
+  //     });
+  //   gsap.to("#ChartStart", {
+  //     ease: "none",
+  //     opacity: 1,
+  //     scrollTrigger: {
+  //       trigger: '#keyword',
+  //       start: "+=200",
+  //       end: "+=600",
+  //       scrub: true,
+  //       // markers: true,
+  //     },
+  //     });
+  // })
 
   return (
     <div>
@@ -108,7 +134,7 @@ const ChannelDetailPage: NextPage = () => {
           <ChannelInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <ImgDiv>
+                <ImgDiv id="keyword">
                   <Image
                     src={chData.thumbnail}
                     alt="채널 대표 이미지"
@@ -117,7 +143,7 @@ const ChannelDetailPage: NextPage = () => {
                     style={{ borderRadius: "50%" }}
                   />
                 </ImgDiv>
-                <ChannelInfo
+                <ChannelInfo 
                   title={chData?.name}
                   subscriber={chData?.subscriber}
                   video={chData?.video}
@@ -136,6 +162,9 @@ const ChannelDetailPage: NextPage = () => {
             title="채널 키워드"
             mainText={channelMinsim ? `${resData}` : ''}
           ></ChannelMinsimText>
+          <SvgImgFrameContainer id="ChartStart">
+            {channelMinsimData ? `${channelMinsimData.ms >=50 ? <Image src={Rise} alt="떡상" /> : <Image src={Drop} alt='떡락'/>}` : ''}
+          </SvgImgFrameContainer>
         </section>
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>
