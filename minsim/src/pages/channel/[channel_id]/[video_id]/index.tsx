@@ -43,12 +43,11 @@ const VideoDetailPage: NextPage = () => {
   const query = router.query
 
   const videoId = query.id?.toString();
+  const videoTitle = query.title?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
   const [videoList, setVideoList] = useState<Array<videoData>>([])
 
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
-  console.log(data);
-  
   const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},
     {
       enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
@@ -70,7 +69,7 @@ const VideoDetailPage: NextPage = () => {
     <div>
       <Head>
         <title>영상</title>
-        <meta name="description" content={query?.title} />
+        <meta name="description" content={videoTitle} />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
