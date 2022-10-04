@@ -30,7 +30,7 @@ import VideoList from "src/components/VideoList";
 import apiIniVideoList from "src/pages/api/apiIniVideoList";
 import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { aChData } from "states/atom";
 import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
 import FetchButton from 'src/components/FetchButton';
@@ -73,17 +73,20 @@ interface minsimKeywordData {
   value: number;
 }
 
+
 const ChannelDetailPage: NextPage = () => {
   const router = useRouter();
   const query = router.query;
   const [resData, setResData] = useState('');
   
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
+
   const {data: videos, status } = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
   const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
 
   useEffect(() => {
-    if (channelMinsimData !== '갱신 중' && channelMinsimData !== undefined) {      
+    // 에러처리 확인
+    if (channelMinsimData !== '갱신 중' && !!channelMinsimData.keywords !== false) {      
       const tmp = [...channelMinsimData.keywords]
       setResData(tmp.sort((a: minsimKeywordData, b: minsimKeywordData) => {return b.value - a.value}).slice(0, 3).map((el: minsimKeywordData) => {
         return `#${el.text}`
@@ -172,14 +175,4 @@ const ChannelDetailPage: NextPage = () => {
 
 export default ChannelDetailPage;
 
-// export async function getServerSideProps(context) {
-//   const chId=context.params.id
-  
 
-
-//   return {
-//     props: {
-
-//     },
-//   };
-// }

@@ -8,6 +8,7 @@ import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import Image from "next/image";
 
+
 import {
   SearchInfoImgTextWrapper,
   SearchMarginDiv,
@@ -19,18 +20,18 @@ import NavBar from "src/components/NavBar";
 import ChannelInfo from "src/components/ChannelInfo";
 import SearchList from "src/components/SearchList";
 import { useEffect, useLayoutEffect, useState } from "react";
-import TitleImg from "/public/images/titleImg.jpg";
 import {
   VideoListContainer,
   VideoListContainerInnerWrapper,
 } from "styles/channelDetail/VideoListContainerStyle";
 import apisearchList from "src/pages/api/apisearchList";
 import { aSerachList } from "states/atom";
-import { useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { isContext } from "vm";
+import { SearchLoadingPage } from "src/components/Loading";
 
 
-interface IProps {
+interface Iprops {
   searchList: ISearchItem[]
 }
 interface ISearchItem {
@@ -45,33 +46,18 @@ interface ISearchItem {
   view: number;
 }
 
-const SearchPage = ({ searchList }:IProps) => {
+const SearchPage = () => {
   const router = useRouter();
-  // const searchName = router.query.id?.toString();
-  // const {
-  //   data: searchList,
-  //   error,
-  //   status,
-  // } = useQuery<ISearchItem[]>(
-  //   ["searchList", searchName ],
-  //   () => {
-  //     return apisearchList(searchName);
-  //   },
-  // );
+  const id = router.query.id as string
+  const {data: searchList, status} = useQuery<ISearchItem[]>(["searchList", id],() => {return apisearchList(id);});
 
-  // if (status === "loading") {
-  //   return <span>Loading...</span>;
-  // }
 
-  // if (status === "error") {
-  //   return <span>Error </span>;
-  // }
+  if (status === "loading") {
+    return <p>로딩중</p>
+  }
 
-  // useEffect(() => {
-  //   apisearchList(searchName).then((data) => {
-  //     setSearchList(data);
-  //   });
-  // }, [searchName]);
+
+  
 
   return (
     <>
@@ -95,8 +81,6 @@ const SearchPage = ({ searchList }:IProps) => {
 export default SearchPage;
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-
-
   return {
     paths: [
       {
@@ -110,14 +94,15 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const ide = context.params?.id as string
-  const data = await apisearchList(ide)
-
+  const id = context.params?.id as string
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["searchList", id], ()=>apisearchList(id))
 
   return {
     props: {
-      searchList: data
-    }
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 86400
   }
 }
 

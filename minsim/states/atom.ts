@@ -39,11 +39,7 @@ export const aChData = atom<ISearchItem>({
 	}
 })
 
-// 트렌드 trend
-export const aTrData = atom<ITrendItem>({
-	key: "aTrData",
-	default: {
-		_keywolrds: {},
-		tags: {},
-	}
-})
+export const all_atoms = {
+	aChData: aChData
+}
+
