@@ -253,7 +253,7 @@
 
 ![image-20220815204147723](https://user-images.githubusercontent.com/97595340/184630576-51f8eb89-554c-410a-ae39-05ddb6c2bccf.png)
 
-![image-20220815205046798](https://user-images.githubusercontent.com/97595340/184630494-4c61490a-3a95-4463-98c5-e93cc348c584.png)
+![image](/uploads/ea952a718b73df21a067e8d73828fb99/image.png)
 
 
 
