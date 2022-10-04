@@ -53,17 +53,14 @@ const SearchPage = () => {
 
 
   if (status === "loading") {
-    return <p>로딩중</p>
+    return <SearchLoadingPage />
   }
-
-
-  
 
   return (
     <>
       <Head>
         <title>검색</title>
-        <meta name="description" content="유심의 검색 페이지입니다." />
+        <meta name="description" content="유심의 검색 페이지입니다. 원하시는 검색어를 활용해 검색해 주세요." />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
@@ -106,12 +103,3 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const data = await apisearchList(context.params.id);
-
-//   return {
-//     props: {
-//       searchList: data,
-//     },
-//   };
-// };

@@ -9,7 +9,8 @@ export default async function apiIniVideoComments (videoId?: string) {
   const data = await response.json().catch(()=> {
     
   });
-
+  console.log(data);
+  
   return data
 }
 

@@ -94,7 +94,8 @@ const Home: NextPage = (props) => {
     <>
       <Head>
         <title>유심</title>
-        <meta name="description" content="유심의 메인 페이지입니다." />
+        <meta name="description" content="유심의 메인 페이지입니다. 메인 기능을 확인하세요." />
+
         <link rel="icon" href="/favicon.png" />
       </Head>
 

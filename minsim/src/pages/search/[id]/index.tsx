@@ -71,8 +71,8 @@ const SearchPage: NextPage = () => {
     <>
       <Head>
         <title>검색 상세</title>
-        <meta name="description" content="유심의 검색 상세 페이지입니다." />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="유심의 검색 상세 페이지입니다. 검색에 대한 상세 정보를 알 수 있습니다." />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <main>
