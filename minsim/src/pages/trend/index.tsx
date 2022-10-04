@@ -88,16 +88,16 @@ export default TrendPage
 
 
 
-export async function getStaticProps() {
-  const data = await apitrendList()
-  return {
-    props: {
-      trendList: data,
+// export async function getStaticProps() {
+//   const data = await apitrendList()
+//   return {
+//     props: {
+//       trendList: data,
 
-    }
+//     }
 
-  }
-}
+//   }
+// }
 
 
 // export const getServerSideProps:GetServerSideProps = async () => {
