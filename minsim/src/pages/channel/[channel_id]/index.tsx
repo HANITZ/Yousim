@@ -153,3 +153,32 @@ const ChannelDetailPage: NextPage = () => {
 export default ChannelDetailPage;
 
 
+
+// export const getStaticPaths: GetStaticPaths = async (context) => {
+  
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           channel_id: "UC3SyT4_WLHzN7JmHQwKQZww",
+//         }
+//       }
+//     ],
+//     fallback: true
+//   }
+// }
+
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const id = context.params?.channel_id as string
+//   const queryClient = new QueryClient()
+//   await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))
+//   await queryClient.prefetchQuery(["channelMinsim", id], ()=>apiChannelMinsim(id))
+//   console.log(queryClient)
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//     revalidate: 86400
+//   }
+// }

@@ -20,6 +20,12 @@
       "@/components/*": ["components/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_document.js", "node_modules/@types/react-wordcloud/index.d.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/_document.js",
+    "node_modules/@types/react-wordcloud/index.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
