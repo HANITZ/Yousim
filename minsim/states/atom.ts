@@ -23,7 +23,6 @@ export const aSerachList = atom<ISearchItem[]>({
 
 
 
-
 // 채널 정보 channel/[channel_id]/index
 export const aChData = atom<ISearchItem>({
 	key: "aChData",
@@ -37,5 +36,14 @@ export const aChData = atom<ISearchItem>({
 		thumbnail: "",
 		time: "",
 		view: 0,
+	}
+})
+
+// 트렌드 trend
+export const aTrData = atom<ITrendItem>({
+	key: "aTrData",
+	default: {
+		_keywolrds: {},
+		tags: {},
 	}
 })
