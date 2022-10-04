@@ -84,8 +84,6 @@
 
 ## 🎛 시스템 아키텍쳐
 
-![7 광주_1반_C106조_시스템개략도](https://user-images.githubusercontent.com/97595340/185265060-a67b27f0-b63c-4ef0-9bda-126923750d6c.png)
-
 ![yousimCICD](/uploads/afd94b6133a1fb7381265a20bebe05b5/yousimCICD.jpg)
 
 #### ERD
