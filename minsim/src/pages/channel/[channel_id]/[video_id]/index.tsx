@@ -47,6 +47,8 @@ const VideoDetailPage: NextPage = () => {
   const [videoList, setVideoList] = useState<Array<videoData>>([])
 
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
+  console.log(data);
+  
   const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},
     {
       enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
@@ -56,7 +58,7 @@ const VideoDetailPage: NextPage = () => {
   
   useEffect(() => {
     if (typeof data === 'object') {setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))}
-    setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})));
+    if (commentData !== 'undefined') {setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return a.like - b.like;})))};
   }, [commentData, data])    
   
   
