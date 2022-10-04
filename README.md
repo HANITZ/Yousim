@@ -251,8 +251,6 @@
 
 ![image-20220815203822908](https://user-images.githubusercontent.com/97595340/184628695-0204ab05-b79a-43dc-adca-2598a48fe2e0.png)
 
-![image-20220815204147723](https://user-images.githubusercontent.com/97595340/184630576-51f8eb89-554c-410a-ae39-05ddb6c2bccf.png)
-
 ![image](/uploads/ea952a718b73df21a067e8d73828fb99/image.png)
 
 
