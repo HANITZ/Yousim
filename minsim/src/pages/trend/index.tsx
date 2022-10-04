@@ -100,8 +100,6 @@ export async function getStaticProps() {
 }
 
 
-
-
 // export const getServerSideProps:GetServerSideProps = async () => {
 //   const data = await apitrendList()
   

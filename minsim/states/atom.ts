@@ -39,3 +39,7 @@ export const aChData = atom<ISearchItem>({
 		view: 0,
 	}
 })
+
+export const all_atoms = {
+	aChData: aChData
+}
