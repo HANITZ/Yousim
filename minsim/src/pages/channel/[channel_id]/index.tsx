@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -14,6 +14,7 @@ import {
   ChannelInfoImgTextWrapper,
   ImgDiv,
 } from "styles/channelDetail/ChannelInfoContainerStyle";
+import TitleImg from "/public/images/titleImg.jpg";
 import Tags from "src/components/Tags";
 import ChannelMinsimText from "src/components/ChannelMinsimText";
 import VideoListTitle from "styles/channelDetail/VideoListSectionTitleStyle";
@@ -25,10 +26,10 @@ import VideoTags from "src/components/VideoTags";
 import { useEffect, useState } from "react";
 import VideoList from "src/components/VideoList";
 import apiIniVideoList from "src/pages/api/apiIniVideoList";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import SearchList from "src/components/SearchList";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { aChData, all_atoms } from "states/atom";
+import { aChData } from "states/atom";
 import apiChannelMinsim from 'src/pages/api/apiChannelMinsim';
 import FetchButton from 'src/components/FetchButton';
 
@@ -71,16 +72,13 @@ const ChannelDetailPage: NextPage = () => {
   const [resData, setResData] = useState('');
   
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
-<<<<<<< HEAD
 
   const {data: videos, status } = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
-=======
-  const {data: videos, status} = useQuery<IVideo[]>(["video", query.channel_id],() => {return apiIniVideoList(query.channel_id);});
->>>>>>> 23814a9582f781178b33fe8330047ef2c553d1c3
   const {data: channelMinsimData, status: minsimStatus} = useQuery(["channelMinsim", query.channel_id], async ()=>{return await apiChannelMinsim(query.channel_id)})  
 
   useEffect(() => {
-    if (channelMinsimData !== '갱신 중' && channelMinsimData !== undefined) {      
+    // 에러처리 확인
+    if (channelMinsimData !== '갱신 중' && !!channelMinsimData.keywords !== false) {      
       const tmp = [...channelMinsimData.keywords]
       setResData(tmp.sort((a: minsimKeywordData, b: minsimKeywordData) => {return b.value - a.value}).slice(0, 3).map((el: minsimKeywordData) => {
         return `#${el.text}`
@@ -88,9 +86,7 @@ const ChannelDetailPage: NextPage = () => {
     }
   }, [chData, channelMinsimData])
   
-  if (status === "loading"){
-    return <p>로딩중</p>
-  }
+  
 
   return (
     <div>
@@ -151,44 +147,4 @@ const ChannelDetailPage: NextPage = () => {
 
 export default ChannelDetailPage;
 
-<<<<<<< HEAD
 
-=======
-// export async function getServerSideProps(context) {
-//   const chId=context.params.id
-//   return {
-//     props: {
-//     },
-//   };
-// }
-
-
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  
-  return {
-    paths: [
-      {
-        params: {
-          channel_id: "UC3SyT4_WLHzN7JmHQwKQZww",
-        }
-      }
-    ],
-    fallback: true
-  }
-}
-
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.channel_id as string
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))
-  await queryClient.prefetchQuery(["channelMinsim", id], ()=>apiChannelMinsim(id))
-  console.log(queryClient)
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 86400
-  }
-}
->>>>>>> 23814a9582f781178b33fe8330047ef2c553d1c3

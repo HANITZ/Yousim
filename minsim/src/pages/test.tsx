@@ -1,76 +1,76 @@
-import {useEffect} from 'react'
-import {RecoilRoot, useRecoilState, atom} from 'recoil'
+// import {useEffect} from 'react'
+// import {RecoilRoot, useRecoilState, atom} from 'recoil'
 
-// User data
+// // User data
 
-const user1 = {username: 'joe', bio: "You will never see me, unless of course this example is totally broken."}
-const user2 = {username: 'bob', bio: "I am the one true user."}
-const user3 = {username: 'fred', bio: "Just kidding, make way for the new guy."}
+// const user1 = {username: 'joe', bio: "You will never see me, unless of course this example is totally broken."}
+// const user2 = {username: 'bob', bio: "I am the one true user."}
+// const user3 = {username: 'fred', bio: "Just kidding, make way for the new guy."}
 
-// Recoil atom to store user. The default user is user1, but it will be
-// replaced when the root state is initialized
+// // Recoil atom to store user. The default user is user1, but it will be
+// // replaced when the root state is initialized
 
-const userState = atom({
-    key: 'user',
-    default: user1
-})
+// const userState = atom({
+//     key: 'user',
+//     default: user1
+// })
 
-// Keep a reference to all atoms by key for initializeRecoilState
+// // Keep a reference to all atoms by key for initializeRecoilState
 
-const all_atoms = {
-    user: userState
-}
-// Where the magic happens: Used by RecoilRoot to update atoms by key given an
-// initial state object of the form {key: initial_value}
+// const all_atoms = {
+//     user: userState
+// }
+// // Where the magic happens: Used by RecoilRoot to update atoms by key given an
+// // initial state object of the form {key: initial_value}
 
-const initializeRecoilState = (initialRecoilState: any) => 
-  {return ({ set }: any) => {
-    for (const [key, value] of Object.entries(initialRecoilState)) {
-      const state = all_atoms[key];
-      if (state) {
-        set(state, value);
-      }
-    }
-  };}
+// const initializeRecoilState = (initialRecoilState: any) => 
+//   {return ({ set }: any) => {
+//     for (const [key, value] of Object.entries(initialRecoilState)) {
+//       const state = all_atoms[key];
+//       if (state) {
+//         set(state, value);
+//       }
+//     }
+//   };}
 
-// Component to display user info
-function User() {
-    const [user, setUser] = useRecoilState(userState)
+// // Component to display user info
+// function User() {
+//     const [user, setUser] = useRecoilState(userState)
 
-    // Show recoil is alive by setting to user3 after a bit
-    useEffect(() => {
-      // setTimeout(() => {setUser(user3);}, 2000);
-      console.log(user);   
-    }, [])
+//     // Show recoil is alive by setting to user3 after a bit
+//     useEffect(() => {
+//       // setTimeout(() => {setUser(user3);}, 2000);
+//       console.log(user);   
+//     }, [])
     
-    return <div>
-        <strong className='username'>{user.username}</strong>
-        <p className='bio'>{user.bio}</p>
-    </div>
-}
+//     return <div>
+//         <strong className='username'>{user.username}</strong>
+//         <p className='bio'>{user.bio}</p>
+//     </div>
+// }
 
-// Faux SSR "loading" user2 into the initial state
-export async function getServerSideProps() {
-    const initialRecoilState = {
-        user: user2
-    }
-    console.log("Created initial Recoil state:", initialRecoilState)
-    return {
-        props: {initialRecoilState}
-    }
-}
+// // Faux SSR "loading" user2 into the initial state
+// export async function getServerSideProps() {
+//     const initialRecoilState = {
+//         user: user2
+//     }
+//     console.log("Created initial Recoil state:", initialRecoilState)
+//     return {
+//         props: {initialRecoilState}
+//     }
+// }
 
-export default function Home({initialRecoilState={}}) {
-    console.log('Rendering with initial Recoil state:', initialRecoilState)
-    return (
-        <RecoilRoot initializeState={initializeRecoilState(initialRecoilState)}>
-            <User />
-            1
-        </RecoilRoot>
-    )
-}
+// export default function Home({initialRecoilState={}}) {
+//     console.log('Rendering with initial Recoil state:', initialRecoilState)
+//     return (
+//         <RecoilRoot initializeState={initializeRecoilState(initialRecoilState)}>
+//             <User />
+//             1
+//         </RecoilRoot>
+//     )
+// }
 
-/*
+
 import styled from '@emotion/styled';
 import media, { getBreakPoints } from 'css-in-js-media'
 import { useRouter } from 'next/router'
@@ -81,37 +81,12 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { SearchMarginDiv } from 'styles/searchStyles/SearchStyle';
 
-const ChannelBannerLoadingDiv = styled.div`
-  width: 100vw;
-  height: 15vw;
-`
-const ChannelLoadingDiv = styled.div`
-  margin: 0px 64px 32px 64px;
 
-  ${media(">desktop")} {
-    margin: 0px 64px 16px 64px;
-  }
-  ${media("<=desktop", ">tablet")} {
-    margin-left: 32px;
-    margin-right: 32px;
-  }
-  ${media("<=tablet", ">phone")} {
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-`
 
 const TestPage = () => {  
   return (
-    <SkeletonTheme baseColor="#31313C" highlightColor="#1c1c1f">
-      <SearchMarginDiv />
-      <ChannelBannerLoadingDiv>
-        <Skeleton /> 
-      </ChannelBannerLoadingDiv>
-      <ChannelLoadingDiv>
-        <Skeleton /> 
-      </ChannelLoadingDiv>
-    </SkeletonTheme>
+   <></>
   )
 }
-*/
+
+export default TestPage

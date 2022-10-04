@@ -8,7 +8,10 @@ interface ITag {
 
 
 const VideoTags = ({tags}:ITag) => {
-  const newRand = [tags[Math.floor(Math.random() * tags.length)], tags[Math.floor(Math.random() * tags.length)], tags[Math.floor(Math.random() * tags.length)], ]
+  let newRand: string[] = []
+  if (tags) {
+    newRand = [tags[Math.floor(Math.random() * tags.length)], tags[Math.floor(Math.random() * tags.length)], tags[Math.floor(Math.random() * tags.length)], ]
+  }
 
   return (
     <VideoTagWrapper>
