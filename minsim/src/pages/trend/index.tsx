@@ -29,25 +29,26 @@ interface Iprops {
 
 
 
-const TrendPage: NextPage<Iprops> = (trendList) => {
+const TrendPage: NextPage<Iprops> = () => {
   const router = useRouter();
-  // const {
-  //   data: trendList,
-  //   error,
-  //   status,
-  // } = useQuery<Iprops>(
-  //   ["trendList"],
-  //   () => {
-  //     return apitrendList();
-  //   },
-  // );
-  // if (status === "loading") {
-  //   return <span>Loading...</span>;
-  // }
+  const {
+    data: trendList,
+    error,
+    status,
+  } = useQuery<Iprops>(
+    ["trendList"],
+    () => {
+      return apitrendList();
+    },
+  );
+  if (status === "loading") {
+    return <span>Loading...</span>;
+  }
 
-  // if (status === "error") {
-  //   return <span>Error </span>;
-  // }
+  if (status === "error") {
+    return <span>Error </span>;
+  }
+  console.log(trendList);
   
 
   return (

@@ -66,6 +66,7 @@ const VideoDetailPage: NextPage = (props) => {
   if (status === "loading" || commentStatus === "loading") {
     return <VideoLoadingPage />
   }
+   
 
   return (
     <div>
