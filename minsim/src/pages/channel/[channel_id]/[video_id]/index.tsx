@@ -51,7 +51,7 @@ const VideoDetailPage: NextPage = (props) => {
     enabled: !!data
   
   }) 
-  
+
   
   useEffect(() => {
     if (typeof data === 'object') {setVideoList(data?.keywords.sort(((a: videoData, b: videoData) => {return b.value - a.value;})))}
@@ -155,12 +155,18 @@ export default VideoDetailPage
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const videoId = context.params?.video_id as string
-  console.log(videoId)
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery(["videoData", videoId], ()=>apiIniVideoDetail(videoId))
-  await queryClient.prefetchQuery(["commentData", videoId], ()=>apiIniVideoComments(videoId)) 
+  await queryClient.prefetchQuery(["videoData", videoId], ()=>apiIniVideoDetail(videoId),{
+    
+  })
 
+    
+  
+  if (queryClient.queryCache.queries[0].queryKey) {
+    console.log(111111111)
+    await queryClient.prefetchQuery(["commentData", videoId], ()=>apiIniVideoComments(videoId)) 
+  }
   // queryClient.setQueryData(["videoData", videoId], (olddata)=>{
   //   return apiIniVideoDetail(videoId)
   // })
