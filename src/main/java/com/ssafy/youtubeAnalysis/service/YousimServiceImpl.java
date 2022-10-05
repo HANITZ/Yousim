@@ -45,7 +45,7 @@ public class YousimServiceImpl implements YousimService {
     TrendRepository trendRepository;
 
 
-    public static final String KEY = "AIzaSyAU4mBYrU0O5IaKLKKBUuDxPxLLVotxTcg";
+    public static final String KEY = "AIzaSyCaDz-hcLURYljbMnCw0rXOUB5jHPnxEek";
 
 
 
