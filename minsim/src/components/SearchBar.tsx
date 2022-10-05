@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import search_black from '/public/images/search_black.png'
 import Image from 'next/image';
 
-import { NavDiv, Label } from 'styles/componentStyles/SearchBarStyle';
+import { NavDiv, Label, InputStyled } from 'styles/componentStyles/SearchBarStyle';
 
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { gsap } from 'gsap';
@@ -47,7 +47,7 @@ function SearchBar() :JSX.Element {
   return (
     <NavDiv id="navdiv">
       <Label htmlFor="search">
-        <input type="search" id="search" name="search" value={inputText} onChange={(e) => {
+        <InputStyled type="search" id="search" name="search" value={inputText} placeholder='채널을 검색해보세요.' onChange={(e) => {
           setInputText(e.target.value) 
         }} onKeyDown={onKeyDown}/>
         <button id="seachbutton" onClick={routerPush}>

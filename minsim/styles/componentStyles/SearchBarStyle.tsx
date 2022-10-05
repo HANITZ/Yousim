@@ -53,3 +53,8 @@ export const Label = styled.label`
     cursor: pointer;
   }
 `;
+
+export const InputStyled = styled.input`
+  text-align: center;
+
+`

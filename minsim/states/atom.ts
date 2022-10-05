@@ -13,13 +13,21 @@ interface ISearchItem {
   view: number;
 }
 
+interface Ikeywords {
+	text: string;
+	value: number
+}
+interface IMinsim {
+	id: string;
+	keywords: Ikeywords[];
+	ms: number;
+}
 
 // 검색 리스트 search/[id]/index
 export const aSerachList = atom<ISearchItem[]>({
 	key: "aSearchList",
 	default: []
 })
-
 
 
 
@@ -37,5 +45,18 @@ export const aChData = atom<ISearchItem>({
 		thumbnail: "",
 		time: "",
 		view: 0,
+	}
+})
+
+export const all_atoms = {
+	aChData: aChData
+}
+
+export const chMinsim = atom<IMinsim>({
+	key: "",
+	default: {
+		id: '',
+		keywords: [],
+		ms: 0,
 	}
 })
