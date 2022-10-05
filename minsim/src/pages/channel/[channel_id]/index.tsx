@@ -168,16 +168,16 @@ export default ChannelDetailPage;
 // }
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params?.channel_id as string
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))
-  await queryClient.prefetchQuery(["channelMinsim", id], ()=>apiChannelMinsim(id))
-  console.log(queryClient)
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 86400
-  }
-}
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const id = context.params?.channel_id as string
+//   const queryClient = new QueryClient()
+//   await queryClient.prefetchQuery(["video", id], ()=>apiIniVideoList(id))
+//   await queryClient.prefetchQuery(["channelMinsim", id], ()=>apiChannelMinsim(id))
+//   console.log(queryClient)
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//     revalidate: 86400
+//   }
+// }
