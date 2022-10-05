@@ -51,7 +51,6 @@ const SearchPage = () => {
   const id = router.query.id as string
   const {data: searchList, status} = useQuery<ISearchItem[]>(["searchList", id],() => {return apisearchList(id);});
 
-
   if (status === "loading") {
     return <SearchLoadingPage />
   }

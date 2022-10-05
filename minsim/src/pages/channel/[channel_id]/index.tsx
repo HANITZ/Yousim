@@ -162,8 +162,9 @@ const ChannelDetailPage: NextPage = () => {
             title="채널 키워드"
             mainText={channelMinsim ? `${resData}` : ''}
           ></ChannelMinsimText>
+          
           <SvgImgFrameContainer id="ChartStart">
-            {channelMinsimData ? `${channelMinsimData.ms >=50 ? <Image src={Rise} alt="떡상" /> : <Image src={Drop} alt='떡락'/>}` : ''}
+            {channelMinsimData ? channelMinsimData.ms >=50 ? <Image src={Rise} alt="떡상" layout='responsive'/> : <Image src={Drop} alt='떡락'/> : ''}
           </SvgImgFrameContainer>
         </section>
         <section>

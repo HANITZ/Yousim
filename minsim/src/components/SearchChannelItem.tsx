@@ -19,7 +19,7 @@ interface ISearchItem {
     view: number;
 }
 
-const SearchChannelItem = ( data: ISearchItem) => {
+const SearchChannelItem = (data: ISearchItem) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
   

@@ -22,6 +22,8 @@ import { Tag } from 'styles/componentStyles/TagStyle'
 import { VideoLoadingPage } from 'src/components/Loading'
 import FetchButton from 'src/components/FetchButton'
 import VideoFetchButton from 'src/components/VideoFetchButton'
+import { useRecoilState } from 'recoil'
+import { aVideo } from 'states/atom'
 
 
 interface commentData {
@@ -45,6 +47,8 @@ const VideoDetailPage: NextPage = (props) => {
   const videoId = query.video_id as string
   const videoTitle = query.title?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
+  const [videoData, setVideoData] = useRecoilState(aVideo)
+
   // const [videoList, setVideoList] = useState<Array<videoData>>([])
 
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
@@ -77,7 +81,7 @@ const VideoDetailPage: NextPage = (props) => {
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>
-                <VideoInfo title={`${query.title}`} sub1={`${query.name}`} sub2={`조회수 ${query.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${query.time?.slice(0, 10)}`} ></VideoInfo>
+                <VideoInfo title={`${videoData.title}`} sub1={`${videoData.name}`} sub2={`조회수 ${videoData.view?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}${'\u00A0'}${'\u00A0'} |${'\u00A0'}${'\u00A0'}  ${videoData.time?.slice(0, 10)}`} ></VideoInfo>
               </ChannelInfoImgTextWrapper>
               <VideoFetchButton />
               {/* {typeof data === 'object' && videoList[0].text ?  <ChannelTagWrapper>

@@ -1,10 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from 'recoil-persist'
-const { persistAtom } = recoilPersist(
-	{
-		key: 'Data',
-	}
-)
+const { persistAtom } = recoilPersist()
+
 interface ISearchItem {
   id: string;
   banner: string;
@@ -15,6 +12,13 @@ interface ISearchItem {
   thumbnail: string;
   time: string;
   view: number;
+}
+
+interface IVideo {
+  title: string;
+  name: string;
+  view: number;
+  time: string;
 }
 
 interface Ikeywords {
@@ -35,8 +39,6 @@ export const aSerachList = atom<ISearchItem[]>({
 })
 
 
-
-
 // 채널 정보 channel/[channel_id]/index
 export const aChData = atom<ISearchItem>({
 	key: "aChData",
@@ -50,7 +52,20 @@ export const aChData = atom<ISearchItem>({
 		thumbnail: "",
 		time: "",
 		view: 0,
-	}
+	},
+	effects_UNSTABLE: [persistAtom],
+})
+
+// 채널 정보 channel/[channel_id]/index
+export const aVideo = atom<IVideo>({
+	key: "aVideo",
+	default: {
+		title: '',
+		name: '',
+		time: '',
+		view: 0,
+	},
+	effects_UNSTABLE: [persistAtom],
 })
 
 export const all_atoms = {

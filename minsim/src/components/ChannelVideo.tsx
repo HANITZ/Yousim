@@ -6,20 +6,8 @@ import { useRouter } from 'next/router';
 import VideoTags from "./VideoTags";
 import VideoInfo from "./VideoInfo";
 import { useRecoilState } from 'recoil';
-import { aChData } from "states/atom";
-
-
-const LiDescription = styled.li`
-  color: black;
-`;
-const LiSubscriber = styled.li`
-  color: black;
-`;
-
-const LiVideo = styled.li`
-  color: black;
-`;
-const LiThumbnail = styled.li``;
+import { aChData, aVideo } from "states/atom";
+import { useEffect } from 'react';
 
 interface IVideo {
     categoryId: number;
@@ -39,11 +27,19 @@ interface IVideo {
 const ChannelVideo = (video: IVideo) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState(aChData)
-    
-    const onClick = () => {
-      router.push({
-        pathname: `/channel/${chData.id}/${video.id}`
-      })
+  const [videoData, setVideoData] = useRecoilState(aVideo)
+  useEffect(() => {
+    setVideoData({
+      title: video.title,
+      name: chData.name,
+      time: video.time,
+      view: video.view,
+    })
+  }, [])
+  const onClick = () => {
+    router.push({
+      pathname: `/channel/${chData.id}/${video.id}`
+    })
   }
 
   return (
