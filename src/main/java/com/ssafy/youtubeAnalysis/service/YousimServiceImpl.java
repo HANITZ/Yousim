@@ -44,7 +44,8 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     TrendRepository trendRepository;
 
-    public static final String KEY = "AIzaSyDlf4CXwHdrxu2dvRdiiqi-vb2hFntSq1g";
+
+    public static final String KEY = "AIzaSyAU4mBYrU0O5IaKLKKBUuDxPxLLVotxTcg";
 
 
 
