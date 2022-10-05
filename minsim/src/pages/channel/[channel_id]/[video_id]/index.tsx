@@ -40,8 +40,9 @@ const VideoDetailPage: NextPage = (props) => {
 
   const router = useRouter()
   const query = router.query
-  console.log(props)
+
   const videoId = query.video_id as string
+  const videoTitle = query.title as string 
   const [commentList, setCommentList] = useState<Array<commentData>>([])
   const [videoList, setVideoList] = useState<Array<videoData>>([])
 
@@ -152,24 +153,27 @@ const VideoDetailPage: NextPage = (props) => {
 export default VideoDetailPage
 
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const videoId = context.params?.video_id as string
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const videoId = context.params?.video_id as string
+  console.log(videoId)
+  const queryClient = new QueryClient()
 
-//   const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["videoData", videoId], ()=>apiIniVideoDetail(videoId))
+  await queryClient.prefetchQuery(["commentData", videoId], ()=>apiIniVideoComments(videoId)) 
 
-//   await queryClient.prefetchQuery(["videoData", videoId], ()=>apiIniVideoDetail(videoId))
-//   await queryClient.prefetchQuery(["commentData", videoId], ()=>apiIniVideoComments(videoId),
-//   ) 
+  // queryClient.setQueryData(["videoData", videoId], (olddata)=>{
+  //   return apiIniVideoDetail(videoId)
+  // })
+  // queryClient.setQueryData(["commentData", videoId], (olddata)=>{
+  //   return apiIniVideoComments(videoId)
+  // })
+  // console.log(queryClient.getQueryData(["commentData", videoId]))
 
-//   queryClient.setQueryData(["videoData", videoId], apiIniVideoDetail(videoId))
-//   queryClient.setQueryData(["commentData", videoId], apiIniVideoComments(videoId))
-//   console.log(queryClient.getQueryData(["commentData", videoId]))
 
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    }
+  }
+}
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//     revalidate: 86400
-//   }
-// }
