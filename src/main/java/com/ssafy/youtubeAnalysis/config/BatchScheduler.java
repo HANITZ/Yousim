@@ -23,7 +23,7 @@ public class BatchScheduler {
     @Autowired
     private BatchConfig batchConfig;
 
-    @Scheduled(cron = "* * * 5 * *")
+    @Scheduled(cron = "* * * * 11 *")
     public void runJob() {
 
         // job parameter 설정
