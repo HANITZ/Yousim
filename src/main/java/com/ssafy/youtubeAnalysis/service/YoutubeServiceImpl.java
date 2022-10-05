@@ -24,7 +24,7 @@ import java.util.Map;
 public class YoutubeServiceImpl implements YoutubeService {
 
 
-    public static final String KEY = "AIzaSyCaDz-hcLURYljbMnCw0rXOUB5jHPnxEek";
+    public static final String KEY = "AIzaSyBwgIzTH9dZ0HIokz6VntUdyYo05kK-LCM";
 
 
 
