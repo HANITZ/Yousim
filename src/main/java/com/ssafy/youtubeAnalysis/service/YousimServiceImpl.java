@@ -231,9 +231,7 @@ public class YousimServiceImpl implements YousimService {
                 String str =(String) snippet2.get("textDisplay");
 
                 System.out.println(" erase 값 : "+erase + "  민심%값 : "   + temp2 + " 댓글 뭐냐 : "+str);
-                if(comments.get(i)==".com"){
-                    comments.remove(i);
-                }
+               
                 if (Float.compare(temp2, erase)==0) {
 
                     data++;
