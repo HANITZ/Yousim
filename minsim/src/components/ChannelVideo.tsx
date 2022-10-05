@@ -42,17 +42,7 @@ const ChannelVideo = (video: IVideo) => {
     
     const onClick = () => {
       router.push({
-        pathname: `/channel/${chData.id}/${video.id}`,
-        query: {
-          chId: chData.id,
-          name: chData.name,
-          video: chData.video,
-          
-          id: video.id,
-          title: video.title,
-          time: video.time, 
-          view: video.view
-        }
+        pathname: `/channel/${chData.id}/${video.id}`
       })
   }
 
