@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -17,7 +17,7 @@ import CommentInfo from 'src/components/CommentInfo'
 import { CommentImgContainer, VideoInfoContainer, VideoInfoImgTextWrapper } from 'styles/videoDetail/CommentInfoStyle'
 import { useEffect, useState } from 'react'
 import apiIniVideoDetail from 'src/pages/api/apiVideoDetail'
-import { useQuery } from '@tanstack/react-query'
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
 import apiIniVideoComments from 'src/pages/api/apiVideoComments'
 import { ChannelTagWrapper } from 'styles/componentStyles/ChannelInfoStyle'
 import { Tag } from 'styles/componentStyles/TagStyle'
@@ -39,22 +39,21 @@ interface videoData {
   value: number;
 }
 
-const VideoDetailPage: NextPage = () => {
+const VideoDetailPage: NextPage = (props) => {
 
   const router = useRouter()
   const query = router.query
 
-  const videoId = query.id?.toString();
+  const videoId = query.video_id as string
   const videoTitle = query.title?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
   // const [videoList, setVideoList] = useState<Array<videoData>>([])
 
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
-  const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},
-    {
-      enabled: !!data // true가 되면 apiIniVideoComments를 실행한다
-    }
-  ) 
+  const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},{
+    enabled: !!data
+  
+  }) 
   
   
   useEffect(() => {
@@ -150,3 +149,26 @@ const VideoDetailPage: NextPage = () => {
 }
 
 export default VideoDetailPage
+
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const videoId = context.params?.video_id as string
+
+//   const queryClient = new QueryClient()
+
+//   await queryClient.prefetchQuery(["videoData", videoId], ()=>apiIniVideoDetail(videoId))
+//   await queryClient.prefetchQuery(["commentData", videoId], ()=>apiIniVideoComments(videoId),
+//   ) 
+
+//   queryClient.setQueryData(["videoData", videoId], apiIniVideoDetail(videoId))
+//   queryClient.setQueryData(["commentData", videoId], apiIniVideoComments(videoId))
+//   console.log(queryClient.getQueryData(["commentData", videoId]))
+
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//     revalidate: 86400
+//   }
+// }
