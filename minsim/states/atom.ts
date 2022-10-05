@@ -1,6 +1,10 @@
 import { atom } from "recoil";
-
-
+import { recoilPersist } from 'recoil-persist'
+const { persistAtom } = recoilPersist(
+	{
+		key: 'Data',
+	}
+)
 interface ISearchItem {
   id: string;
   banner: string;
@@ -26,7 +30,8 @@ interface IMinsim {
 // 검색 리스트 search/[id]/index
 export const aSerachList = atom<ISearchItem[]>({
 	key: "aSearchList",
-	default: []
+	default: [],
+	effects_UNSTABLE: [persistAtom],
 })
 
 

@@ -36,10 +36,6 @@ type ExtendedAppProps<P = {}> = {
 
 
 function MyApp({ Component, pageProps, err }: ExtendedAppProps<HydrateProps>) {
-  // if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
-  //   import("../mocks");
-  // }
-
   return (
     <RecoilRoot  >
       <QueryClientProvider client={queryClient}>

@@ -50,7 +50,6 @@ const VideoDetailPage: NextPage = (props) => {
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
   const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},{
     enabled: !!data
-  
   }) 
   
   

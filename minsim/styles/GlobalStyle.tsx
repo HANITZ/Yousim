@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
-
 import media from 'css-in-js-media'
 import { setBreakPoints } from 'css-in-js-media';
-// import reset from 'styled-reset'
 
 setBreakPoints({ desktop: 1440, tablet: 768, phone: 360});
 

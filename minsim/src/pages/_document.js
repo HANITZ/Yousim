@@ -3,12 +3,14 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang='ko-KR'>
         <Head>
+          <meta charSet='utf-8' />
           <link
-            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css"
-            rel="stylesheet"
-            type="text/css"
+            href='../../public/static/fonts/pretendard.css'
+            as='font'
+            type='font/woff'
+            crossOrigin=''
           />
         </Head>
         <body>
@@ -16,7 +18,7 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
