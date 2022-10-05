@@ -88,6 +88,20 @@ const Home: NextPage = (props) => {
           scrub: true,
         },
         });
+      gsap.set("#BackgroundImg", {
+        opacity: 0,
+        ease: "none",
+        });
+      gsap.to("#BackgroundImg", {
+        ease: "none",
+        opacity: 1,
+        scrollTrigger: {
+          trigger: '#ImgFrameStart',
+          start: "-=500",
+          end: "+=200",
+          scrub: true,
+        },
+        });
       }, [])
 
   return (
@@ -121,11 +135,12 @@ const Home: NextPage = (props) => {
           </IntroductionVideoContainer>
           <Spinner />
         </section>
-        <section id="ImgFrameStart" style={{'backgroundColor': '#1A191E'}}>
+        {/* style={{'backgroundColor': '#1A191E'}} */}
+        <section id="ImgFrameStart" style={{'backgroundColor': '#000000'}}>
           <ImgFrameContainer id="ChannelImg">
-            <Image src={BackgroundImg} alt="배경 이미지"/>
+            <Image id='BackgroundImg' src={BackgroundImg} alt="배경 이미지"/>
           </ImgFrameContainer>
-          <BlackDescribeText
+          <BlackDescribeText 
             mainText='민심 확인' 
             subText1='채널을 검색해보세요.'
             subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
