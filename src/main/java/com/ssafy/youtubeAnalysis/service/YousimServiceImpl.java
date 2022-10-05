@@ -44,11 +44,9 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     TrendRepository trendRepository;
 
-<<<<<<< HEAD
     public static final String KEY = "AIzaSyApWxzJlO3StEluRVaqtiCA5D0Q502j-g4";
-=======
-    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
->>>>>>> e90cdd7b1863c1ee3e7fdd4c2a0c0a58aea7c6b8
+
+
 
     static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
             .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
