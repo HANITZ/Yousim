@@ -1,11 +1,9 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import TitleImg from '/public/images/titleImg.jpg'
 import NavBar from 'src/components/NavBar'
-import Tags from 'src/components/Tags'
 import VideoInfo from 'src/components/VideoInfo'
 
 import VideoFrame from 'styles/videoDetail/VideoFrameStyle'
