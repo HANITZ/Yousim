@@ -16,7 +16,7 @@ import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
 import { LightSection } from 'styles/mainStyles/LightSectionStyle'
 import { IntroductionVideoContainer, IntroductionDivAnimation1, IntroductionDivAnimation2 } from 'styles/mainStyles/IntroductionVideoStyle'
 import { Spinner } from 'styles/componentStyles/SpinnerStyle'
-import { ImgFrameContainer, SvgImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
+import { ImgFrameContainer, SvgImgFrameContainer, SvgImgFrameContainer2 } from 'styles/mainStyles/ImgFrameStyle'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -66,7 +66,7 @@ const Home: NextPage = (props) => {
         });
       gsap.to("#ChartImg", {
         ease: "none",
-        opacity: 1,
+        opacity: 0.5,
         scrollTrigger: {
           trigger: '#ImgFrameStart',
           start: "+=200",
@@ -142,17 +142,17 @@ const Home: NextPage = (props) => {
           </ImgFrameContainer>
           <BlackDescribeText 
             mainText='민심 확인' 
-            subText1='채널을 검색해보세요.'
-            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <SvgImgFrameContainer id="ChartImg">
-            <Image src={Rise} alt="배경 차트"/>
-          </SvgImgFrameContainer>
+            subText1='민심을 확인해보세요.'
+            subText2='채널과 영상의 민심을 확인 할 수 있습니다.'/>
+          <SvgImgFrameContainer2 id="ChartImg">
+            <Image src={Rise} alt="배경 차트" layout='responsive'/>
+          </SvgImgFrameContainer2>
         </section>
         <section id="TrendImgStart">
           <DescribeText 
-            mainText='트렌드 서칭' 
-            subText1='채널을 검색해보세요.'
-            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
+            mainText='트렌드 확인' 
+            subText1='트렌드를 확인해보세요.'
+            subText2='인기 동영상의 키워드와 태그가 당신을 기다리고 있습니다.'/>
           <ImgFrameContainer id="TrendImg">
             <Image src={WordCloud} alt="워드클라우드 예시"/>
           </ImgFrameContainer>

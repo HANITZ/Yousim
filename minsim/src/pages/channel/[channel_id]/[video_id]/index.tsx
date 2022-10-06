@@ -1,37 +1,8 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
-<<<<<<< HEAD
-import SearchBar from "src/components/SearchBar";
-import NavBar from "src/components/NavBar";
-import Banner from "styles/channelDetail/BannerStyle";
-
-import ChannelInfo from "src/components/ChannelInfo";
-import {
-  ChannelInfoContainer,
-  ChannelInfoContainerInnerWrapper,
-  ChannelInfoImgTextWrapper,
-  ImgDiv,
-} from "styles/channelDetail/ChannelInfoContainerStyle";
-import TitleImg from "/public/images/titleImg.jpg";
-import Tags from "src/components/Tags";
-import ChannelMinsimText from "src/components/ChannelMinsimText";
-import VideoListTitle from "styles/channelDetail/VideoListSectionTitleStyle";
-import {
-  VideoListContainer,
-  VideoListContainerInnerWrapper,
-} from "styles/channelDetail/VideoListContainerStyle";
-import VideoTags from "src/components/VideoTags";
-import { useEffect, useState } from "react";
-import VideoList from "src/components/VideoList";
-import apiIniVideoList from "src/pages/api/apiIniVideoList";
-import { useQuery } from "@tanstack/react-query";
-import SearchList from "src/components/SearchList";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { aChData } from "states/atom";
-=======
 import NavBar from 'src/components/NavBar'
 import VideoInfo from 'src/components/VideoInfo'
 
@@ -53,47 +24,21 @@ import FetchButton from 'src/components/FetchButton'
 import VideoFetchButton from 'src/components/VideoFetchButton'
 import { useRecoilState } from 'recoil'
 import { aVideo } from 'states/atom'
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5
 
-interface IVideo {
-  categoryId: number;
-  channelTitle: string;
-  comment: number;
-  description: string;
-  id: string;
+
+interface commentData {
+  content: string;
   like: number;
-  nextToken: string;
-  tag: string[];
-  thumbnail: string;
-  time: string;
-  title: string;
-  view: number;
-}
-
-<<<<<<< HEAD
-interface ISearchItem {
-  id: string;
-  banner: string;
+  minsim: string;
   name: string;
-  description: string;
-  subscriber: number;
-  video: number;
   thumbnail: string;
   time: string;
-  view: number;
+}
+interface videoData {
+  text: string;
+  value: number;
 }
 
-const ChannelDetailPage: NextPage = () => {
-  const router = useRouter();
-  const query = router.query;
-  const [chData, setChData] = useRecoilState<ISearchItem>(aChData);
-  const { data: videos, status } = useQuery<IVideo[]>(
-    ["video", query.channel_id],
-    () => {
-      return apiIniVideoList(query.channel_id);
-    }
-  );
-=======
 const VideoDetailPage: NextPage = (props) => {
 
   const router = useRouter()
@@ -121,7 +66,6 @@ const VideoDetailPage: NextPage = (props) => {
   if (status === "loading" || commentStatus === "loading") {
     return <VideoLoadingPage />
   }  
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5
 
   return (
     <div>
@@ -133,30 +77,6 @@ const VideoDetailPage: NextPage = (props) => {
 
       <main>
         <NavBar />
-<<<<<<< HEAD
-        <section>
-          <Banner src={chData.banner} alt="배너" />
-          <ChannelInfoContainer>
-            <ChannelInfoContainerInnerWrapper>
-              <ChannelInfoImgTextWrapper>
-                <ImgDiv>
-                  <Image
-                    src={chData.thumbnail}
-                    alt="채널 대표 이미지"
-                    layout="fill"
-                    objectFit="cover"
-                    style={{ borderRadius: "50%" }}
-                  />
-                </ImgDiv>
-                <ChannelInfo
-                  title={chData.name}
-                  subscriber={chData.subscriber}
-                  video={chData.video}
-                  description={chData.description}
-                ></ChannelInfo>
-              </ChannelInfoImgTextWrapper>
-              <Tags />
-=======
         <VideoFrame src={`https://www.youtube.com/embed/${videoData.videoId}`}  title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
@@ -176,23 +96,9 @@ const VideoDetailPage: NextPage = (props) => {
                 </Tag>
               </ChannelTagWrapper> : <>갱신 중</>} */}
 
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5
             </ChannelInfoContainerInnerWrapper>
-          </ChannelInfoContainer>
+          </VideoInfoContainer>
 
-<<<<<<< HEAD
-          <ChannelMinsimText
-            title="채널 민심"
-            mainText="95%  떡상"
-          ></ChannelMinsimText>
-          <ChannelMinsimText
-            title="가장 많이 언급된 키워드"
-            mainText="특화는 이게 맞아"
-          ></ChannelMinsimText>
-        </section>
-        <section>
-          <VideoListTitle>채널 영상</VideoListTitle>
-=======
           <VideoMinsimContainer>
           {typeof data === 'object' ? 
           <>
@@ -204,30 +110,8 @@ const VideoDetailPage: NextPage = (props) => {
           </>
           : <>갱신 중</> }
           </VideoMinsimContainer>
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5
 
-          <VideoList videos={videos} />
           <VideoListContainer>
-<<<<<<< HEAD
-            {/* <VideoListContainerInnerWrapper>
-              <ChannelInfoImgTextWrapper>
-                <Image
-                  src={TitleImg}
-                  alt="채널 대표 이미지"
-                  width={"256px"}
-                  height={"128px"}
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-                <ChannelInfo
-                  title="아이유"
-                  sub1="구독자 127만명  |  동영상 6267개"
-                  sub2="반갑습니다. 오늘도 즐거운 날입니다."
-                ></ChannelInfo>
-              </ChannelInfoImgTextWrapper>
-              <VideoTags />
-            </VideoListContainerInnerWrapper> */}
-=======
             <h4>Best 댓글</h4>
             {commentList ? <>
               <VideoDetailContainerInnerWrapper>
@@ -259,17 +143,12 @@ const VideoDetailPage: NextPage = (props) => {
               </VideoDetailContainerInnerWrapper>
             </> : <></>
             }
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5
           </VideoListContainer>
-        </section>
       </main>
     </div>
-  );
-};
+  )
+}
 
-<<<<<<< HEAD
-export default ChannelDetailPage;
-=======
 export default VideoDetailPage
 
 
@@ -294,4 +173,3 @@ export default VideoDetailPage
 //     revalidate: 86400
 //   }
 // }
->>>>>>> e31a72549600e2db175d7fde5771c950baa663e5

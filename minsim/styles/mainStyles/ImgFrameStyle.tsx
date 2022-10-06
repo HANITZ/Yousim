@@ -13,3 +13,10 @@ export const ImgFrameContainer = styled.div`
   text-align: center;
   margin-bottom: 64px;
 `
+
+export const SvgImgFrameContainer2 = styled.div`
+  width: 100vw;
+  height: 100%;
+  transform: translateY(-360px);
+  opacity: 0.25;
+`
