@@ -120,22 +120,22 @@
 #### Frontend 디렉토리 구조
 
 ```
-───src
-    ├─api  		# 백엔드 통신과 필요한 api들을 모아놓은 폴더
-    ├─db   		# 백엔드와 통신전에 미리 가상DB를 만들어 테스트를 하는 폴더
-    ├─Pages 	# 랜더링되는 페이지가 모아져있는 폴더 
-    │  ├─Admin 	# 관리자 페이지가 들어 있는 폴더
-    │  │  ├─AdminComplain 	# 불만사항 관련한 관리자 폴더
-    │  │  ├─AdminNotice  	# 공지사항 관련한 관리자 폴더
-    │  │  └─components 		# 관리자 페이지에서 랜더링되는데 필수적으로 필요한 요소들이 있는 폴더
-    │  ├─Auth 		# 회원가입, 로그인 등 인증, 권한과 관련된 페이지가 있는 폴더
-    │  ├─Loading 	# 로딩페이지 폴더
-    │  ├─Main 		# Client단의 모든 페이지가 있는 폴더
-    │  ├─Nav 		# Client단의 Nav바가 있는 폴더
-    │  └─Sub 		# Client단에서 부수적으로 필요한 페이지가 있는 폴더
-    ├─picture 		# 화면의 사진이 저장돼있는 폴더
-    ├─styles 		# 여러가지 style component들이 있는 폴더
-    └─ui 			# 간단한 modal이 있는 폴더
+─yousim
+   ├─src
+   │  ├─components # 페이지에 들어가는 컴포넌트들을 모아놓은 폴더
+   │  └─pages 	   # 랜더링되는 페이지를 모아놓은 폴더 
+   │  ├─api 	   # 백엔드 통신과 필요한 api를 모아놓은 폴더
+   │  ├─channel/[channel_id] # 검색 후 채널 클릭 시 사용하는 폴더
+   │  │   └─[video_id] 	     # 채널의 영상을 클릭 시 사용하는 폴더
+   │  ├─search     # 검색페이지 폴더
+   │  └─trend      # 트렌드페이지 폴더 
+   └─styles 
+      ├─channelDetail    # 채널 페이지와 관련된 스타일을 모아놓은 폴더
+      ├─componentStyles  # 컴포넌트와 관련된 스타일을 모아놓은 폴더
+      ├─mainStyles       # 메인 페이지와 관련된 스타일을 모아놓은 폴더
+      ├─searchStyles     # 검색 페이지와 관련된 스타일을 모아놓은 폴더
+      ├─trend            # 트렌드 페이지와 관련된 스타일을 모아놓은 폴더
+      └─videoDetail      # 채널 영상과 관련된 스타일을 모아놓은 폴더
 ```
 
 </br>
@@ -269,7 +269,7 @@
     <tr>
         <td height="140px" align="center"> <a href="https://github.com/dm0114">
             <img src="https://user-images.githubusercontent.com/97595340/184632030-caf381aa-97d8-4324-b171-fd256356fc14.jpg" width="140px" /> <br><br> 👑 권덕민 <br>(Front-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 😆 장우주 <br>(Front-End) </a> <br></td>
+        <td height="140px" align="center"> <a href="" width="140px" /> ![Uju](/uploads/3b5283ef1826fb55dcdf80a28b35ca59/Uju.png) <br><br> 😆 장우주 <br>(Front-End) </a> <br></td>
         <td height="140px" align="center"> <a href="https://github.com/swyou1123">
             <img src="https://user-images.githubusercontent.com/97595340/184631762-20bf666d-aa58-4238-9e93-370f45919628.PNG" width="140px" /> <br><br> 🙂 유승우 <br>(Back-End) </a> <br></td>
         <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 😁 장한울 <br>(Back-End) </a> <br></td>
