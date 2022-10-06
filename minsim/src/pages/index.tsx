@@ -1,19 +1,14 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Chart from '/public/images/chart.png'
-import WordCloud from '/public/images/wordCloud.jpg'
 import Rise from '/public/images/rise.svg'
 import BackgroundImg from '/public/images/backgroundImg.png'
 
-import type { NextApiRequest, NextApiResponse } from 'next'
 import NavBar from 'src/components/NavBar'
-import SearchBar from 'src/components/SearchBar'
 import { DescribeText,  BlackDescribeText } from 'src/components/DescribeText'
 
 import { SloganContainer } from 'styles/mainStyles/IndexStyle'
 import IntroductionSearchBar from 'src/components/IntroductionSearchBar'
-import { LightSection } from 'styles/mainStyles/LightSectionStyle'
 import { IntroductionVideoContainer, IntroductionDivAnimation1, IntroductionDivAnimation2 } from 'styles/mainStyles/IntroductionVideoStyle'
 import { Spinner } from 'styles/componentStyles/SpinnerStyle'
 import { ImgFrameContainer, SvgImgFrameContainer } from 'styles/mainStyles/ImgFrameStyle'
@@ -22,6 +17,11 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import { useRef, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+const MainSection = dynamic(() => import('../components/main/main_components'), {
+  suspense: true,
+})
 
 export const HOME_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -148,15 +148,9 @@ const Home: NextPage = (props) => {
             <Image src={Rise} alt="배경 차트"/>
           </SvgImgFrameContainer>
         </section>
-        <section id="TrendImgStart">
-          <DescribeText 
-            mainText='트렌드 서칭' 
-            subText1='채널을 검색해보세요.'
-            subText2='다양한 정보가 당신을 기다리고 있습니다.'/>
-          <ImgFrameContainer id="TrendImg">
-            <Image src={WordCloud} alt="워드클라우드 예시"/>
-          </ImgFrameContainer>
-        </section>
+        <Suspense fallback={`Loading...`}>
+          <MainSection />
+        </Suspense>
       </main>
     </>
   )
@@ -167,17 +161,7 @@ export default Home
 
 
 
-export const getStaticProps: GetStaticProps = async () => {
-  
-
-  return {
-    props: {
-
-    }
-  }
-}
-
-// export const getServerSideProps: GetServerSideProps = async () => {
+// export const getStaticProps: GetStaticProps = async () => {
   
 
 //   return {
@@ -186,6 +170,16 @@ export const getStaticProps: GetStaticProps = async () => {
 //     }
 //   }
 // }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  
+
+  return {
+    props: {
+
+    }
+  }
+}
 
 
 
