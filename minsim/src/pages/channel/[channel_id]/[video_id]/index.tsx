@@ -65,8 +65,7 @@ const VideoDetailPage: NextPage = (props) => {
   
   if (status === "loading" || commentStatus === "loading") {
     return <VideoLoadingPage />
-  }
-   
+  }  
 
   return (
     <div>
@@ -78,7 +77,7 @@ const VideoDetailPage: NextPage = (props) => {
 
       <main>
         <NavBar />
-        <VideoFrame src={`https://www.youtube.com/embed/${query.id}`} title='YouTube video player' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
+        <VideoFrame src={`https://www.youtube.com/embed/${videoData.videoId}`}  title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
           <VideoInfoContainer>
             <ChannelInfoContainerInnerWrapper>
               <ChannelInfoImgTextWrapper>

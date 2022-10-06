@@ -34,6 +34,7 @@ const ChannelVideo = (video: IVideo) => {
       name: chData.name,
       time: video.time,
       view: video.view,
+      videoId: video.id,
     })
   }, [])
   const onClick = () => {

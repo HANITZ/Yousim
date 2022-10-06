@@ -41,6 +41,8 @@ import Drop from 'public/images/drop.svg'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { WordCloudContainer } from "styles/trend/WordcloudStyle";
+import SimpleWordCloud from 'src/components/TrendList'
 
 interface IVideo {
   categoryId: number;
@@ -95,6 +97,7 @@ const ChannelDetailPage: NextPage = () => {
       }).join('  '))
     }
   }, [chData, channelMinsimData, channelMinsim])
+    
   
   if (status === "loading") {
     return <ChannelLoadingPage />
@@ -111,8 +114,8 @@ const ChannelDetailPage: NextPage = () => {
   //     opacity: 1,
   //     scrollTrigger: {
   //       trigger: '#keyword',
-  //       start: "+=200",
-  //       end: "+=600",
+  //       start: "+=600",
+  //       end: "+=200",
   //       scrub: true,
   //       // markers: true,
   //     },
@@ -164,8 +167,13 @@ const ChannelDetailPage: NextPage = () => {
           ></ChannelMinsimText>
           
           <SvgImgFrameContainer id="ChartStart">
-            {channelMinsimData ? channelMinsimData.ms >=50 ? <Image src={Rise} alt="떡상" layout='responsive'/> : <Image src={Drop} alt='떡락'/> : ''}
+            {channelMinsimData ? channelMinsimData.ms >=50 ? <Image src={Rise} alt="떡상" layout='responsive'/> : <Image src={Drop} alt='떡락' layout='responsive'/> : ''}
           </SvgImgFrameContainer>
+        </section>
+        <section>
+          <WordCloudContainer>
+            <SimpleWordCloud props={channelMinsimData?.keywords}/>
+          </WordCloudContainer>
         </section>
         <section>
           <VideoListTitle>채널 영상</VideoListTitle>

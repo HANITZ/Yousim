@@ -14,6 +14,7 @@ export const ChannelMinsimTitle = styled.h3`
   ${media("<=tablet", ">phone")} {
     margin-left: 16px;
   };
+  z-index: 10;
 `
 
 export const ChannelMinsimMainText = styled.h2`
@@ -34,5 +35,6 @@ export const ChannelMinsimMainText = styled.h2`
     font-size: 37.5px;
     margin-left: 16px;
   };
+  z-index: 10;
 `
 

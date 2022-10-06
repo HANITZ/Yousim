@@ -12,13 +12,12 @@ const FetchButton = () => {
   const [chData, setChData] = useRecoilState(aChData);
   const {data, status} = useQuery(["videoData", chData.id], ()=>{return apiChannelFetchStatus(chData.id)})
   const [channelMinsim, setChannelMinsim] = useRecoilState(chMinsim)
-
+  
   const reqRefetch = async () => {
     setButtonStatus(false)
     const resRefetch = await apiRequestMinsimReFetch(chData.id)
     resRefetch.json().then((res) => {
       setChannelMinsim(res)
-      console.log(channelMinsim);
     })
   }
 

@@ -3,10 +3,9 @@ import styled from '@emotion/styled';
 export const SvgImgFrameContainer = styled.div`
   width: 100%;
   height: 100%;
-  text-align: right;
-  transform: translateY(-384px);
-  margin-left: 32px;
-  opacity: 0.5;
+  transform: translateY(-256px);
+  opacity: 0.25;
+  z-index: 0;
 `
 export const ImgFrameContainer = styled.div`
   width: 100%;

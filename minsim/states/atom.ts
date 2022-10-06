@@ -19,6 +19,7 @@ interface IVideo {
   name: string;
   view: number;
   time: string;
+	id: string;
 }
 
 interface Ikeywords {
@@ -64,6 +65,7 @@ export const aVideo = atom<IVideo>({
 		name: '',
 		time: '',
 		view: 0,
+		videoId: ''
 	},
 	effects_UNSTABLE: [persistAtom],
 })

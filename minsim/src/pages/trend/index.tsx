@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TrendSectionStyle } from 'styles/trend/SectionStyle'
 import { WordCloudContainer } from 'styles/trend/WordcloudStyle'
 import apitrendList from '../api/apitrendList'
-import { GetServerSideProps } from 'next'
+import { TrendLoadingPage } from 'src/components/Loading'
 interface ITrendTag {
   text: string;
   value: number;
@@ -41,8 +41,10 @@ const TrendPage: NextPage<Iprops> = () => {
       return apitrendList();
     },
   );
+  console.log(trendList);
+  
   if (status === "loading") {
-    return <span>Loading...</span>;
+    return <TrendLoadingPage />;
   }
 
   if (status === "error") {

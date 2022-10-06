@@ -62,3 +62,24 @@ export const VideoLoadingPage = () => {
   )
 }
 
+
+export const TrendLoadingPage = () => {
+  return (
+    <SkeletonTheme baseColor="#31313C" highlightColor="#1c1c1f">
+      <SearchMarginDiv />
+      <ChannelMainTextLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </ChannelMainTextLoadingDiv>
+      <ChannelSubTextLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </ChannelSubTextLoadingDiv>
+      <ChannelSubTextLoadingDiv>
+        <Skeleton height={'100%'}/> 
+      </ChannelSubTextLoadingDiv>
+      <SearchLoadingDiv>
+        <Skeleton height={348}/> 
+      </SearchLoadingDiv>
+    </SkeletonTheme>
+  )
+}
+
