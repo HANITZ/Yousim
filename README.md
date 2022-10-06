@@ -150,7 +150,7 @@
 
 ## 💻 웹 주요기능 및 데모영상
 
-### 1. 회원가입시 외부 API을 이용한 성인인증 및 계좌인증 기능
+### 1. 메인 화면에 애니메이션 추가를 통해 시각적 효과 부각
 
 <div style="display : flex; justify-content : center;">
     <img src="https://user-images.githubusercontent.com/97595340/184943007-1cbefd81-6d47-415d-bf0b-d544d8ac0e82.gif">
@@ -163,7 +163,7 @@
 - 담배와 관련된 서비스이기 때문에 보다 확실한 성인인증 절차를 위해 외부인증 API(iamport)를 이용하여 휴대전화에 등록된 정보에 기반한 성인인증 서비스를 구현하였습니다. 
 - 포인트 환전시 현금을 지급해 주어야하기에 본인인증 정보에 기반한 계좌인증 절차를 만들어 확실한 본인의 계좌로 회원가입이 되게 만들었습니다. 
 
-###  2. 디바이스 찾기
+###  2. 원하는 유튜버의 민심과 키워드 확인
 
 <div style="display : flex; justify-content : center;">
     <img src="https://user-images.githubusercontent.com/97595340/184943188-70a987e1-bdef-4b46-8fbb-50e7e5f1e984.gif">
@@ -173,7 +173,7 @@
 - 저희 서비스를 이용하기 위해선 주변에 있는 디바이스를 찾아야합니다. 주변에 있는 디바이스를 탐색하기 위해 지도 API를 이용하여 가장 가까운 디바이스의 위치를 파악하게 하였습니다.
 - 지도에 띄워진 사용하기 버튼을 누르면 바로 사용할 수 있게 QR체크 화면으로 넘어갑니다.
 
-###  3. QR접근
+###  3. 영상의 민심과 댓글 확인
 
 <div style="display : flex; justify-content : center;">
     <img src="https://user-images.githubusercontent.com/97595340/184943264-ecce2e05-2359-4f69-bf98-068ea8ad558a.gif">
@@ -186,7 +186,7 @@
 - 홈화면으로 이동시 다음 이용 가능시간(마지막으로 피고 40분 후)까지 체크를 위해 타이머기능이 있습니다.
 - 40분이 지났다면 이용가능, 40분이 지나지 않았다면 타이머가 시작됩니다.
 
-### 4. 포인트적립 및 환전기능
+### 4. 인기 동영상의 태그 및 키워드 워드클라우드로 표현
 
 <div style="display : flex; justify-content : center;">
     <img src="https://user-images.githubusercontent.com/97595340/184943528-03328b43-847f-43fd-8d15-d150562f9ef7.gif">
