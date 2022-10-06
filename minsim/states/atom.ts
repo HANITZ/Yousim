@@ -14,12 +14,12 @@ interface ISearchItem {
   view: number;
 }
 
-interface IVideo {
+interface IVideos {
   title: string;
   name: string;
   view: number;
   time: string;
-	id: string;
+	videoId: string;
 }
 
 interface Ikeywords {
@@ -58,14 +58,14 @@ export const aChData = atom<ISearchItem>({
 })
 
 // 채널 정보 channel/[channel_id]/index
-export const aVideo = atom<IVideo>({
+export const aVideo = atom<IVideos>({
 	key: "aVideo",
 	default: {
 		title: '',
 		name: '',
 		time: '',
 		view: 0,
-		videoId: ''
+		videoId: '',
 	},
 	effects_UNSTABLE: [persistAtom],
 })
