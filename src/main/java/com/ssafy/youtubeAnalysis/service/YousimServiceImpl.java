@@ -202,6 +202,7 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
 
                 if(((String)snippet2.get("textDisplay")).contains("<")){
+                    data++;
                     continue;
                 }
 
@@ -237,9 +238,9 @@ public class YousimServiceImpl implements YousimService {
 
                 String str = (String) snippet2.get("textDisplay");
 
-                System.out.println("최신순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+//                System.out.println("최신순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
 
-                System.out.println(comments);
+//                System.out.println(comments);
 
                 if (Float.compare(temp2, erase) == 0) {
 
@@ -298,7 +299,8 @@ public class YousimServiceImpl implements YousimService {
 
 
                 if(((String)snippet2.get("textDisplay")).contains("<")){
-                    System.out.println("check : " +(String)snippet2.get("textDisplay"));
+                    data++;
+//                    System.out.println("check : " +(String)snippet2.get("textDisplay"));
                     continue;
                 }
 
@@ -323,8 +325,8 @@ public class YousimServiceImpl implements YousimService {
                 float erase = 36.05f;
                 float temp2 = Float.parseFloat(temp);
                 String str = (String) snippet2.get("textDisplay");
-                System.out.println("인기순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
-                System.out.println(comments);
+//                System.out.println("인기순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+//                System.out.println(comments);
 
                 if (Float.compare(temp2, erase) == 0) {
 
