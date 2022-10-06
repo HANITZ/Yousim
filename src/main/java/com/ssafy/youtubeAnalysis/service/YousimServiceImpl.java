@@ -374,7 +374,7 @@ public class YousimServiceImpl implements YousimService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/videos";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=5&chart=mostPopular&regionCode=KR";
+        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=30&chart=mostPopular&regionCode=KR";
 
         URL url = new URL(apiurl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
