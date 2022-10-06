@@ -90,7 +90,6 @@
 
 ![yousim_erd](/uploads/13bb13d7ccb1e7e38f6d0dd93850e4ce/yousim_erd.jpg)
 
-![Untitled](/uploads/264efcdd23d1e464c8926349deab1092/Untitled.jpeg)
 
 #### Backend 디렉토리 구조
 
