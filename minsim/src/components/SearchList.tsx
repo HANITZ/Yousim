@@ -19,6 +19,7 @@ interface Iprops {
 
 
 function SearchList({ datas }: Iprops) {  
+
   return (
     <SearchListUl>
       {datas.map((data, index) => {

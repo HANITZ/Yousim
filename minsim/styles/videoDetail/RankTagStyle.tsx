@@ -3,9 +3,11 @@ import { Tag } from 'styles/componentStyles/TagStyle';
 
 export const Rank1Tag = () => {
   return (
+    <ChannelTagWrapper>
       <Tag>
         <p>Best1</p>
       </Tag>
+    </ChannelTagWrapper>
   );
 };
 

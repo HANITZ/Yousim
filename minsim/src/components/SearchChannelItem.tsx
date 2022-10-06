@@ -19,11 +19,10 @@ interface ISearchItem {
     view: number;
 }
 
-const SearchChannelItem = ( data: ISearchItem) => {
+const SearchChannelItem = (data: ISearchItem) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState<ISearchItem>(aChData)
   
-
   
   const onClick = () => {
     setChData({
@@ -39,7 +38,6 @@ const SearchChannelItem = ( data: ISearchItem) => {
     })
     router.push({
       pathname: `/channel/${data.id}`,
-
     })
   }
 

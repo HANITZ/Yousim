@@ -1,5 +1,6 @@
 import { atom } from "recoil";
-
+import { recoilPersist } from 'recoil-persist'
+const { persistAtom } = recoilPersist()
 
 interface ISearchItem {
   id: string;
@@ -13,15 +14,30 @@ interface ISearchItem {
   view: number;
 }
 
+interface IVideos {
+  title: string;
+  name: string;
+  view: number;
+  time: string;
+	videoId: string;
+}
+
+interface Ikeywords {
+	text: string;
+	value: number
+}
+interface IMinsim {
+	id: string;
+	keywords: Ikeywords[];
+	ms: number;
+}
 
 // 검색 리스트 search/[id]/index
 export const aSerachList = atom<ISearchItem[]>({
 	key: "aSearchList",
-	default: []
+	default: [],
+	effects_UNSTABLE: [persistAtom],
 })
-
-
-
 
 
 // 채널 정보 channel/[channel_id]/index
@@ -37,5 +53,32 @@ export const aChData = atom<ISearchItem>({
 		thumbnail: "",
 		time: "",
 		view: 0,
+	},
+	effects_UNSTABLE: [persistAtom],
+})
+
+// 채널 정보 channel/[channel_id]/index
+export const aVideo = atom<IVideos>({
+	key: "aVideo",
+	default: {
+		title: '',
+		name: '',
+		time: '',
+		view: 0,
+		videoId: '',
+	},
+	effects_UNSTABLE: [persistAtom],
+})
+
+export const all_atoms = {
+	aChData: aChData
+}
+
+export const chMinsim = atom<IMinsim>({
+	key: "",
+	default: {
+		id: '',
+		keywords: [],
+		ms: 0,
 	}
 })
