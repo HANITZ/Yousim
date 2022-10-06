@@ -44,10 +44,7 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     TrendRepository trendRepository;
 
-
-    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
-
-
+    public static final String KEY = "AIzaSyBk4-MbPaB_PLYPKgx6i1lhckgGFTR0xwU";
 
     static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
             .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
@@ -83,7 +80,7 @@ public class YousimServiceImpl implements YousimService {
 
         con.setDoOutput(true);
 
-        BufferedReader br=null;
+        BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
         } catch (Exception e) {
@@ -165,7 +162,7 @@ public class YousimServiceImpl implements YousimService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=10";
+        apiurl += "&part=snippet&maxResults=20";
         apiurl += "&videoId=" + id;
 
 
@@ -173,7 +170,7 @@ public class YousimServiceImpl implements YousimService {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
-        BufferedReader br=null;
+        BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
         } catch (Exception e) {
@@ -203,7 +200,17 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
-                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
+
+                if(((String)snippet2.get("textDisplay")).contains("<")){
+                    continue;
+                }
+
+
+
+
+
+                comments.addAll(wordAnalysisService.doWordAnalysis(((String) snippet2.get("textDisplay")).toLowerCase()));
+
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
@@ -228,14 +235,16 @@ public class YousimServiceImpl implements YousimService {
                 float erase = 36.05f;
 
 
-                String str =(String) snippet2.get("textDisplay");
+                String str = (String) snippet2.get("textDisplay");
 
-                System.out.println(" erase 값 : "+erase + "  민심%값 : "   + temp2 + " 댓글 뭐냐 : "+str);
-               
-                if (Float.compare(temp2, erase)==0) {
+                System.out.println("최신순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+
+                System.out.println(comments);
+
+                if (Float.compare(temp2, erase) == 0) {
 
                     data++;
-                    System.out.println("data값 : "+data);
+//                    System.out.println("data값 : "+data);
                     continue;
                 }
 //                if (Float.parseFloat(temp) >= 50)
@@ -243,7 +252,7 @@ public class YousimServiceImpl implements YousimService {
 //                else
 //                    sum += 0;
 //                sum+=Float.parseFloat(temp);
-                sum+=Float.parseFloat(temp);
+                sum += Float.parseFloat(temp);
 
             }
 
@@ -252,7 +261,7 @@ public class YousimServiceImpl implements YousimService {
 
         apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=10&order=relevance";
+        apiurl += "&part=snippet&maxResults=20&order=relevance";
         apiurl += "&videoId=" + id;
 
 
@@ -260,11 +269,7 @@ public class YousimServiceImpl implements YousimService {
         con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
-        try {
-            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-        } catch (Exception e) {
-            statusRepository.deleteById(id);
-        }
+        br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 
         response = new StringBuffer();
         while ((inputLine = br.readLine()) != null) {
@@ -289,7 +294,17 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
-                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
+
+
+
+                if(((String)snippet2.get("textDisplay")).contains("<")){
+                    System.out.println("check : " +(String)snippet2.get("textDisplay"));
+                    continue;
+                }
+
+                comments.addAll(wordAnalysisService.doWordAnalysis(((String) snippet2.get("textDisplay")).toLowerCase()));
+
+//                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
@@ -298,11 +313,7 @@ public class YousimServiceImpl implements YousimService {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
 
-                try {
-                    br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-                } catch (Exception e) {
-                    statusRepository.deleteById(id);
-                }
+                br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
                 response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
@@ -311,16 +322,18 @@ public class YousimServiceImpl implements YousimService {
                 String temp = response.toString().replace("%", "");
                 float erase = 36.05f;
                 float temp2 = Float.parseFloat(temp);
-                String str =(String) snippet2.get("textDisplay");
-                System.out.println(" erase 값 : "+erase + "  민심%값 : "   + temp2 + " 댓글 뭐냐 : "+str);
-                if (Float.compare(temp2, erase)==0) {
+                String str = (String) snippet2.get("textDisplay");
+                System.out.println("인기순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+                System.out.println(comments);
+
+                if (Float.compare(temp2, erase) == 0) {
 
                     data++;
-                    System.out.println("data값은?????? : " + data);
+//                    System.out.println("data값은?????? : " + data);
                     continue;
                 }
 
-                System.out.println(data + "   : data값은");
+//                System.out.println(data + "   : data값은");
 
 
                 sum += Float.parseFloat(temp);
@@ -332,7 +345,6 @@ public class YousimServiceImpl implements YousimService {
         JavaPairRDD<String, Integer> keyword = sparkContext.parallelize(comments)
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((amount, value) -> amount + value);
-
         JSONArray keywords = new JSONArray();
 
         keyword.take(1000).forEach(tuple -> {
@@ -343,10 +355,9 @@ public class YousimServiceImpl implements YousimService {
         });
 
 
-
         VideoMinsim VM = VideoMinsim.builder()
                 ._id(id)
-                .MS(sum / ((jsonArr1.size() + jsonArr2.size()) - data ))
+                .MS(sum / ((jsonArr1.size() + jsonArr2.size()) - data))
                 .keywords(keywords).build();
 
         ST = Status.builder()
@@ -374,7 +385,7 @@ public class YousimServiceImpl implements YousimService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/videos";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=30&chart=mostPopular&regionCode=KR";
+        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=5&chart=mostPopular&regionCode=KR";
 
         URL url = new URL(apiurl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
