@@ -1,26 +1,28 @@
 package com.ssafy.youtubeAnalysis.service;
 
-import com.ssafy.youtubeAnalysis.entity.ChannelMinsim;
-import com.ssafy.youtubeAnalysis.entity.Status;
-import com.ssafy.youtubeAnalysis.entity.VideoMinsim;
-import com.ssafy.youtubeAnalysis.repository.ChannelMSRepository;
-import com.ssafy.youtubeAnalysis.repository.StatusRepository;
-import com.ssafy.youtubeAnalysis.repository.VideoMSRepository;
+import com.google.gson.JsonObject;
+import com.ssafy.youtubeAnalysis.entity.*;
+import com.ssafy.youtubeAnalysis.repository.*;
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import scala.Tuple2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+
 
 @Service("yousimService")
 public class YousimServiceImpl implements YousimService {
@@ -33,9 +35,24 @@ public class YousimServiceImpl implements YousimService {
     @Autowired
     StatusRepository statusRepository;
 
-    public static final String KEY = "AIzaSyCwZLiaryLMYl3kQtUd6aTN6nPVAMIvwfY";
+    @Autowired
+    ChannelListRepository channelListRepository;
+
+    @Autowired
+    WordAnalysisService wordAnalysisService;
+
+    @Autowired
+    TrendRepository trendRepository;
+
+    public static final String KEY = "AIzaSyAU4mBYrU0O5IaKLKKBUuDxPxLLVotxTcg";
+
+    static SparkConf sparkConf = new SparkConf().setAppName("simpleTest01")
+            .setMaster("local").set("spark.driver.allowMultipleContexts", "true");
+
+    static JavaSparkContext sparkContext = new JavaSparkContext(sparkConf);
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
     public void saveChannelMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
@@ -63,7 +80,13 @@ public class YousimServiceImpl implements YousimService {
 
         con.setDoOutput(true);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } catch (Exception e) {
+            statusRepository.deleteById(id);
+        }
+
         String inputLine;
         StringBuffer response = new StringBuffer();
         while ((inputLine = br.readLine()) != null) {
@@ -77,33 +100,39 @@ public class YousimServiceImpl implements YousimService {
         JSONObject jsonMain = (JSONObject) obj;
         JSONArray jsonArr = (JSONArray) jsonMain.get("items");
 
-
-        String result;
+        VideoToChannel result;
         float sum = 0;
         int cnt = 0;
+        JavaPairRDD<String, Integer> keyword = null;
+
         if (jsonArr.size() > 0) {
             for (int i = 0; i < jsonArr.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr.get(i);
 
                 JSONObject VideoId = (JSONObject) jsonObj.get("id");
                 result = saveVideoMS((String) VideoId.get("videoId"));
-                String temp[] = result.split("#");
-                sum += Float.parseFloat(temp[0]);
-                cnt += Integer.parseInt(temp[1]);
+                sum += result.getSum();
+                cnt += result.getCnt();
+                if (i == 0)
+                    keyword = result.getKeywords();
+                else
+                    keyword = keyword.union(result.getKeywords()).reduceByKey((amount, value) -> amount + value);
             }
         }
 
-
-        JSONObject temp = new JSONObject();
-
-        temp.put("침착맨", 8);
-        temp.put("주호민", 6);
-
+        JSONArray keywords = new JSONArray();
+        keyword.take(5000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            keywords.add(temp);
+        });
 
         ChannelMinsim CM = ChannelMinsim.builder()
                 ._id(id)
                 .MS(sum / cnt)
-                .keywords(temp).build();
+                .keywords(keywords)
+                .build();
 
         ST = Status.builder()
                 ._id(id)
@@ -116,11 +145,12 @@ public class YousimServiceImpl implements YousimService {
     }
 
     @Override
-    public String saveVideoMS(String id) throws Exception {
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
+    public VideoToChannel saveVideoMS(String id) throws Exception {
         Optional<Status> check = statusRepository.findById(id);
 
         if (check.isPresent() && Objects.equals(check.get().getStatus(), "갱신 중")) {
-            return "";
+            return null;
         }
 
         Status ST = Status.builder()
@@ -132,7 +162,7 @@ public class YousimServiceImpl implements YousimService {
 
         String apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=10";
+        apiurl += "&part=snippet&maxResults=20";
         apiurl += "&videoId=" + id;
 
 
@@ -140,7 +170,12 @@ public class YousimServiceImpl implements YousimService {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        } catch (Exception e) {
+            statusRepository.deleteById(id);
+        }
         String inputLine;
         StringBuffer response = new StringBuffer();
         while ((inputLine = br.readLine()) != null) {
@@ -156,7 +191,8 @@ public class YousimServiceImpl implements YousimService {
 
         JSONArray jsonArr1 = (JSONArray) jsonMain.get("items");
         float sum = 0;
-
+        List<String> comments = new ArrayList<>();
+        int data = 0;
         if (jsonArr1.size() > 0) {
             for (int i = 0; i < jsonArr1.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr1.get(i);
@@ -164,6 +200,17 @@ public class YousimServiceImpl implements YousimService {
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
+
+                if(((String)snippet2.get("textDisplay")).contains("<")){
+                    data++;
+                    continue;
+                }
+
+
+
+
+
+                comments.addAll(wordAnalysisService.doWordAnalysis(((String) snippet2.get("textDisplay")).toLowerCase()));
 
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
@@ -173,21 +220,49 @@ public class YousimServiceImpl implements YousimService {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
 
-                br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+
+                try {
+                    br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+                } catch (Exception e) {
+                    statusRepository.deleteById(id);
+                }
                 response = new StringBuffer();
                 while ((inputLine = br.readLine()) != null) {
                     response.append(inputLine);
                 }
                 br.close();
                 String temp = response.toString().replace("%", "");
-                System.out.println(temp + "||" + snippet2.get("textDisplay"));
+                float temp2 = Float.parseFloat(temp);
+                float erase = 36.05f;
+
+
+                String str = (String) snippet2.get("textDisplay");
+
+//                System.out.println("최신순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+
+//                System.out.println(comments);
+
+                if (Float.compare(temp2, erase) == 0) {
+
+                    data++;
+//                    System.out.println("data값 : "+data);
+                    continue;
+                }
+//                if (Float.parseFloat(temp) >= 50)
+//                    sum += 100;
+//                else
+//                    sum += 0;
+//                sum+=Float.parseFloat(temp);
                 sum += Float.parseFloat(temp);
+
             }
+
+
         }
 
         apiurl = "https://www.googleapis.com/youtube/v3/commentThreads";
         apiurl += "?key=" + KEY;
-        apiurl += "&part=snippet&maxResults=10&order=relevance";
+        apiurl += "&part=snippet&maxResults=20&order=relevance";
         apiurl += "&videoId=" + id;
 
 
@@ -213,12 +288,25 @@ public class YousimServiceImpl implements YousimService {
 
 
         if (jsonArr2.size() > 0) {
+
             for (int i = 0; i < jsonArr2.size(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArr2.get(i);
 
                 JSONObject snippet = (JSONObject) jsonObj.get("snippet");
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
+
+
+
+                if(((String)snippet2.get("textDisplay")).contains("<")){
+                    data++;
+//                    System.out.println("check : " +(String)snippet2.get("textDisplay"));
+                    continue;
+                }
+
+                comments.addAll(wordAnalysisService.doWordAnalysis(((String) snippet2.get("textDisplay")).toLowerCase()));
+
+//                comments.addAll(wordAnalysisService.doWordAnalysis((String) snippet2.get("textDisplay")));
 
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
@@ -234,22 +322,45 @@ public class YousimServiceImpl implements YousimService {
                 }
                 br.close();
                 String temp = response.toString().replace("%", "");
-                System.out.println(temp + "||" + snippet2.get("textDisplay"));
+                float erase = 36.05f;
+                float temp2 = Float.parseFloat(temp);
+                String str = (String) snippet2.get("textDisplay");
+//                System.out.println("인기순 댓글 | 제외문장 %값 : " + erase + "  민심 %값 : " + temp2 + " 댓글 : " + str);
+//                System.out.println(comments);
+
+                if (Float.compare(temp2, erase) == 0) {
+
+                    data++;
+//                    System.out.println("data값은?????? : " + data);
+                    continue;
+                }
+
+//                System.out.println(data + "   : data값은");
+
+
                 sum += Float.parseFloat(temp);
 
 
             }
         }
 
-        JSONObject temp = new JSONObject();
+        JavaPairRDD<String, Integer> keyword = sparkContext.parallelize(comments)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+        JSONArray keywords = new JSONArray();
 
-        temp.put("침착맨", 8);
-        temp.put("주호민", 6);
+        keyword.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            keywords.add(temp);
+        });
+
 
         VideoMinsim VM = VideoMinsim.builder()
                 ._id(id)
-                .MS(sum / (jsonArr1.size() + jsonArr2.size()))
-                .keywords(temp).build();
+                .MS(sum / ((jsonArr1.size() + jsonArr2.size()) - data))
+                .keywords(keywords).build();
 
         ST = Status.builder()
                 ._id(id)
@@ -260,7 +371,91 @@ public class YousimServiceImpl implements YousimService {
         videoMSRepository.save(VM);
         statusRepository.save(ST);
 
-        return sum + "#" + (jsonArr1.size() + jsonArr1.size());
+
+        VideoToChannel VTC = VideoToChannel.builder()
+                .cnt(jsonArr1.size() + jsonArr2.size() - data)
+                .sum(sum)
+                .keywords(keyword)
+                .build();
+
+        return VTC;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = {RuntimeException.class, Exception.class})
+    public Trend saveTrend() throws Exception {
+
+        String apiurl = "https://www.googleapis.com/youtube/v3/videos";
+        apiurl += "?key=" + KEY;
+        apiurl += "&part=snippet&part=statistics&part=contentDetails&maxResults=25&chart=mostPopular&regionCode=KR";
+
+        URL url = new URL(apiurl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = br.readLine()) != null) {
+            response.append(inputLine);
+        }
+        br.close();
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(response.toString());
+
+        JSONObject jsonMain = (JSONObject) obj;
+        JSONArray jsonArr = (JSONArray) jsonMain.get("items");
+
+        List<Video> result = new ArrayList<>();
+
+        List<String> keyword = new ArrayList<>();
+        List<String> tag = new ArrayList<>();
+
+        if (jsonArr.size() > 0) {
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+
+                JSONObject snippet = (JSONObject) jsonObj.get("snippet");
+                JSONObject localized = (JSONObject) snippet.get("localized");
+
+                keyword.addAll(wordAnalysisService.doWordAnalysis((String) localized.get("title")));
+                if (snippet.get("tags") != null)
+                    tag.addAll(wordAnalysisService.doWordAnalysis(snippet.get("tags").toString()));
+            }
+        }
+
+        JavaPairRDD<String, Integer> keywords = sparkContext.parallelize(keyword)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+        JavaPairRDD<String, Integer> tags = sparkContext.parallelize(tag)
+                .mapToPair(word -> new Tuple2<>(word, 1))
+                .reduceByKey((amount, value) -> amount + value);
+
+        JSONArray kw = new JSONArray();
+        keywords.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            kw.add(temp);
+        });
+        JSONArray tg = new JSONArray();
+        tags.take(1000).forEach(tuple -> {
+            JSONObject temp = new JSONObject();
+            temp.put("text", tuple._1());
+            temp.put("value", tuple._2());
+            tg.add(temp);
+        });
+
+        Trend trend = Trend.builder()
+                ._id("0")
+                .keywords(kw)
+                .tags(tg)
+                .build();
+
+        trendRepository.save(trend);
+
+        return trend;
     }
 
     @Override
@@ -315,7 +510,6 @@ public class YousimServiceImpl implements YousimService {
 
     @Override
     public String checkStatusV(String id) throws Exception {
-        System.out.println(id);
         Optional<Status> result = statusRepository.findById(id);
 
         if (!result.isPresent()) {
@@ -348,5 +542,11 @@ public class YousimServiceImpl implements YousimService {
                 return "갱신 가능";
             }
         }
+    }
+
+    @Override
+    public List<ChannelList> getChannelList() throws Exception {
+        List<ChannelList> channelLists = channelListRepository.findAll();
+        return channelLists;
     }
 }

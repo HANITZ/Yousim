@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Trend {
     @Id
     private String _id;
-    private JSONObject tags;
-    private JSONObject keywords;
+    private JSONArray tags;
+    private JSONArray keywords;
 
 }
