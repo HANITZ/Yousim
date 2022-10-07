@@ -1,0 +1,1 @@
+export const BASE_URL = "https://j7c203.p.ssafy.io/"
