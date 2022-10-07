@@ -241,6 +241,11 @@ public class YoutubeServiceImpl implements YoutubeService {
                 JSONObject topLevelComment = (JSONObject) snippet.get("topLevelComment");
                 JSONObject snippet2 = (JSONObject) topLevelComment.get("snippet");
 
+                if(((String)snippet2.get("textDisplay")).contains("<")){
+                    continue;
+                }
+
+
                 apiurl = "http://43.200.1.125:5000/?data=" + URLEncoder.encode((String) snippet2.get("textDisplay"), "UTF-8");
 
 
