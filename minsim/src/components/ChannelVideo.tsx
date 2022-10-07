@@ -27,7 +27,7 @@ interface IVideo {
 const ChannelVideo = (video: IVideo) => {
   const router = useRouter()
   const [chData, setChData] = useRecoilState(aChData)
-  const [videoData, setVideoData] = useRecoilState(aVideo)
+  const [videoData, setVideoData] = useRecoilState(aVideo(video.id))
   useEffect(() => {
     setVideoData({
       title: video.title,

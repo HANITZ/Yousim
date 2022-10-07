@@ -58,8 +58,8 @@ export const aChData = atom<ISearchItem>({
 })
 
 // 채널 정보 channel/[channel_id]/index
-export const aVideo = atom<IVideos>({
-	key: "aVideo",
+export const aVideo = (id: string) => atom<IVideos>({
+	key: `aVideo-${id}`,
 	default: {
 		title: '',
 		name: '',

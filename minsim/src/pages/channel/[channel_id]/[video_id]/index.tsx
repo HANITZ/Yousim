@@ -47,13 +47,12 @@ const VideoDetailPage: NextPage = (props) => {
   const videoId = query.video_id as string
   const videoTitle = query.title?.toString();
   const [commentList, setCommentList] = useState<Array<commentData>>([])
-  const [videoData, setVideoData] = useRecoilState(aVideo)
+  const [videoData, setVideoData] = useRecoilState(aVideo(videoId))
 
   const {data, status} = useQuery(["videoData", videoId], ()=>{return apiIniVideoDetail(videoId)})
   const {data: commentData, status: commentStatus} = useQuery(["commentData", videoId], ()=>{return apiIniVideoComments(videoId)},{
     enabled: !!data
-  }) 
-  
+  })   
   
   useEffect(() => {
     if (commentData !== 'undefined') {setCommentList(commentData?.sort(((a: commentData, b: commentData) => {return b.like - a.like;})))};   
@@ -103,27 +102,27 @@ const VideoDetailPage: NextPage = (props) => {
                 <Rank1Tag />
                 <VideoInfoImgTextWrapper>
                   <CommentImgContainer>
-                    <Image src={commentList[0].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                    <Image src={commentList[0]?.thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
                   </CommentImgContainer>
-                  <CommentInfo name={commentList[0].name} publishedTime={commentList[0].time.slice(0, 10)} comment={commentList[0].content} liked={commentList[0].like.toString()} />
+                  <CommentInfo name={commentList[0]?.name} publishedTime={commentList[0]?.time.slice(0, 10)} comment={commentList[0]?.content} liked={commentList[0]?.like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>
               <VideoDetailContainerInnerWrapper>
                 <Rank2Tag />
                 <VideoInfoImgTextWrapper>
                   <CommentImgContainer>
-                    <Image src={commentList[1].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                    <Image src={commentList[1]?.thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
                   </CommentImgContainer>
-                  <CommentInfo name={commentList[1].name} publishedTime={commentList[1].time.slice(0, 10)} comment={commentList[1].content} liked={commentList[1].like.toString()} />
+                  <CommentInfo name={commentList[1]?.name} publishedTime={commentList[1]?.time.slice(0, 10)} comment={commentList[1]?.content} liked={commentList[1]?.like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>
               <VideoDetailContainerInnerWrapper>
                 <Rank3Tag />
                 <VideoInfoImgTextWrapper>
                   <CommentImgContainer>
-                    <Image src={commentList[2].thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
+                    <Image src={commentList[2]?.thumbnail}  alt='댓글 작성자의 프로필 대표 이미지' width={'80px'} height={'80px'} objectFit='cover' style={{borderRadius: '50%'}} />
                   </CommentImgContainer>
-                  <CommentInfo name={commentList[2].name} publishedTime={commentList[2].time.slice(0, 10)} comment={commentList[2].content} liked={commentList[2].like.toString()} />
+                  <CommentInfo name={commentList[2]?.name} publishedTime={commentList[2]?.time.slice(0, 10)} comment={commentList[2]?.content} liked={commentList[2]?.like.toString()} />
                 </VideoInfoImgTextWrapper>
               </VideoDetailContainerInnerWrapper>
             </> : <></>
