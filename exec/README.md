@@ -7,10 +7,12 @@
     `sudo apt install scala git`
     
     Spark 다운로드
+
     
     `wget http://downloads.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz`
     
     Spark 파일 압축풀고 /opt/spark로 이동
+
     `sudo mkdir /opt/spark`
 
     `sudo tar xvf spark-3.3.0-bin-hadoop3.tgz`
@@ -18,6 +20,7 @@
     `sudo mv spark-3.3.0-bin-hadoop3.tgz /opt/spark
     
     환경변수 설정
+    
     `echo "export SPARK_HOME=/opt/spark" >> ~/.bashrc`
 
     `echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.bashrc`
