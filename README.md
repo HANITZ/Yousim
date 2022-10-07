@@ -194,7 +194,7 @@
         <td height="140px" align="center"> <a href="https://github.com/swyou1123">
             <img src="https://user-images.githubusercontent.com/97595340/184631762-20bf666d-aa58-4238-9e93-370f45919628.PNG" width="140px" /> <br><br> 🙂 유승우 <br>(Back-End) </a> <br></td>
         <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 😁 장한울 <br>(Back-End) </a> <br></td>
-        <td height="140px" align="center"> <a href="" width="140px" /> <br><br> 🙄 정관철 <br>(Back-End) </a> <br></td>
+        <td height="140px" align="center"> <img src="https://user-images.githubusercontent.com/107858646/194451336-ded061b2-ff3e-4082-8c10-6b4931a2e470.jpg" width="140px" /> <br><br> 🙄 정관철 <br>(Back-End) </a> <br></td>
         <td height="140px" align="center"> <img src="https://avatars.githubusercontent.com/u/43947420?s=400&u=b4a235963c1215a485c04fdfa6902b4d8485a647&v=4" width="140px" /> <br><br> 🙄 최영현 <br>(Back-End) </a> <br></td>
     </tr>
 </table>
