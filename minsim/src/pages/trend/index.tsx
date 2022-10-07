@@ -41,7 +41,6 @@ const TrendPage: NextPage<Iprops> = () => {
       return apitrendList();
     },
   );
-  console.log(trendList);
   
   if (status === "loading") {
     return <TrendLoadingPage />;
@@ -50,7 +49,6 @@ const TrendPage: NextPage<Iprops> = () => {
   if (status === "error") {
     return <span>Error </span>;
   }
-  console.log(trendList);
   
 
   return (

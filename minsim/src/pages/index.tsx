@@ -135,7 +135,6 @@ const Home: NextPage = (props) => {
           </IntroductionVideoContainer>
           <Spinner />
         </section>
-        {/* style={{'backgroundColor': '#1A191E'}} */}
         <section id="ImgFrameStart" style={{'backgroundColor': '#000000'}}>
           <ImgFrameContainer id="ChannelImg">
             <Image id='BackgroundImg' src={BackgroundImg} alt="배경 이미지"/>
